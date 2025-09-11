@@ -92,14 +92,33 @@ def save_selenium_note(driver, message, screenshot=False):
     with open(note_file, 'a', encoding='utf-8') as f:
         f.write(f"[{timestamp}] {message}\n")
 
+def login_funct(driver):
+    wait = WebDriverWait(driver, 5)
+    driver.get("https://lk.rosreestr.ru/my-applications")
+    try:
+        if wait.until(EC.visibility_of_element_located(("xpath", "//button[text()=' Восстановить ']"))):
+            wait.until(EC.visibility_of_element_located(("xpath", "//button[text()=' Эл. подпись ']"))).click()
+            print("\n", "\t", "нажата кнопка электронной подписи")
+            time.sleep(5)
+            wait.until(EC.visibility_of_element_located(("xpath", "//button[text()=' Продолжить ']"))).click()
+            print("\n", "\t", "нажата кнопка продолжить")
+            time.sleep(5)
+            wait.until(EC.visibility_of_element_located(("xpath", "//button[contains(., 'МИНИСТЕРСТВО ЖИЛИЩНО-КОММУНАЛЬНОГО ХОЗЯЙСТВА')]"))).click()
+            print("\n", "\t", "МИНИСТЕРСТВО ЖКХ")
+            time.sleep(10)
+            wait.until(EC.visibility_of_element_located(("xpath", "//span[text()='МИНИСТЕРСТВО ЖИЛИЩНО-КОММУНАЛЬНОГО ХОЗЯЙСТВА, ТОПЛИВА И ЭНЕРГЕТИКИ РЕСПУБЛИКИ СЕВЕРНАЯ ОСЕТИЯ-АЛАНИЯ']"))).click()
+            print("\n", "\t", "выбран пользователь")
+            time.sleep(5)
+    except:
+        driver.get("https://lk.rosreestr.ru/my-applications")
+        print("\n", "\t", "переход на страницу росреестра")
+        wait.until(EC.visibility_of_element_located(("xpath", "//span[text()='МИНИСТЕРСТВО ЖИЛИЩНО-КОММУНАЛЬНОГО ХОЗЯЙСТВА, ТОПЛИВА И ЭНЕРГЕТИКИ РЕСПУБЛИКИ СЕВЕРНАЯ ОСЕТИЯ-АЛАНИЯ']"))).click()
+        print("\n", "\t", "выбран пользователь")
+        time.sleep(5)
 
-driver.get("https://lk.rosreestr.ru/my-applications")
-print("\n", "\t", "переход на страницу росреестра")
-wait.until(EC.visibility_of_element_located(("xpath", "//span[text()='МИНИСТЕРСТВО ЖИЛИЩНО-КОММУНАЛЬНОГО ХОЗЯЙСТВА, ТОПЛИВА И ЭНЕРГЕТИКИ РЕСПУБЛИКИ СЕВЕРНАЯ ОСЕТИЯ-АЛАНИЯ']"))).click()
-print("\n", "\t", "выбран пользователь")
-time.sleep(10)
+login_funct(driver)
 
-driver.set_window_size(300, 300)
+#driver.set_window_size(300, 300)
 
 # Основной цикл обработки CSV файлов
 for upload_file in uploads_file_dir.iterdir():
@@ -108,16 +127,16 @@ for upload_file in uploads_file_dir.iterdir():
         
         driver.get("https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder")
         print("\n", "\t", "переход на страницу поиска по ЕГРН")
-        time.sleep(5)
-
-        SCROLL_CATEGORY = ("xpath", "//input[@id='applicantCategory']")
-        driver.find_element(*SCROLL_CATEGORY).send_keys("Иные определенные федеральным законом")
+        time.sleep(10)
+        #SCROLL_CATEGORY = ("xpath", "//input[@id='applicantCategory']")
+        scroll_category = driver.find_element("xpath", "//input[@id='applicantCategory']")
+        scroll_category.send_keys("Иные определенные федеральным законом")
         time.sleep(1)
         print("ввел иные...")
-        driver.find_element(*SCROLL_CATEGORY).send_keys(Keys.ARROW_DOWN)
+        scroll_category.send_keys(Keys.ARROW_DOWN)
         time.sleep(1)
         print("отправил стрелку")
-        driver.find_element(*SCROLL_CATEGORY).send_keys(Keys.ENTER)
+        scroll_category.send_keys(Keys.ENTER)
         time.sleep(1)
         print("отправил энтер")
 
@@ -146,20 +165,17 @@ for upload_file in uploads_file_dir.iterdir():
         time.sleep(5)
 
         element = WebDriverWait(driver, 10).until(
-        EC.visibility_of_element_located(("xpath", "//input[@id='react-select-3-input']"))
-        )
+        EC.visibility_of_element_located(("xpath", "//input[@id='react-select-3-input']")))
         element.send_keys("Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1")
-        #driver.find_element("xpath", "//input[@id='react-select-3-input']").send_keys("Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1")
         time.sleep(3)
-        #driver.find_element("xpath", "//input[@id='react-select-3-input']").send_keys(Keys.ARROW_DOWN)
         element.send_keys(Keys.ARROW_DOWN)
-        time.sleep(1)
+        time.sleep(2)
         driver.find_element("xpath", "//input[@id='react-select-3-input']").send_keys(Keys.ENTER)
         print("нашел необходимый адресс")
-        time.sleep(1)
+        time.sleep(2)
         driver.find_element("xpath", "(//button[text()='Сохранить'])[1]").click()
         print("сохранен адресс") 
-        time.sleep(1)
+        time.sleep(2)
 
         driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentType']").send_keys("Иной документ")
         time.sleep(1)

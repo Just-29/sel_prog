@@ -1,6 +1,8 @@
 import os
 import time
 import json
+import sys
+
 from datetime import datetime
 from pathlib import Path
 from selenium.webdriver.support import expected_conditions as EC
@@ -9,14 +11,45 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.by import By
 from selenium.common.exceptions import (TimeoutException, NoSuchElementException, 
                                       InvalidSessionIdException, WebDriverException)
 
 # Отключаем логи только webdriver-manager
 os.environ['WDM_LOG_LEVEL'] = '0'
 
+
+
+def login_funct(driver): # функция входа в ЕГРН
+    wait = WebDriverWait(driver, 10)
+    try:
+        if wait.until(EC.visibility_of_element_located(("xpath", "//button[text()=' Восстановить ']"))):
+            wait.until(EC.visibility_of_element_located(("xpath", "//button[text()=' Эл. подпись ']"))).click()
+            print("\n", "\t", "нажата кнопка электронной подписи")
+            time.sleep(5)
+            wait.until(EC.visibility_of_element_located(("xpath", "//button[text()=' Продолжить ']"))).click()
+            print("\n", "\t", "нажата кнопка продолжить")
+            time.sleep(5)
+            wait.until(EC.visibility_of_element_located(("xpath", "//button[contains(., 'МИНИСТЕРСТВО ЖИЛИЩНО-КОММУНАЛЬНОГО ХОЗЯЙСТВА')]"))).click()
+            print("\n", "\t", "МИНИСТЕРСТВО ЖКХ")
+            time.sleep(10)
+            wait.until(EC.visibility_of_element_located(("xpath", "//span[text()='МИНИСТЕРСТВО ЖИЛИЩНО-КОММУНАЛЬНОГО ХОЗЯЙСТВА, ТОПЛИВА И ЭНЕРГЕТИКИ РЕСПУБЛИКИ СЕВЕРНАЯ ОСЕТИЯ-АЛАНИЯ']"))).click()
+            print("\n", "\t", "выбран пользователь")
+            time.sleep(5)
+            driver.get("https://lk.rosreestr.ru/eservices/real-estate-objects-online")
+    except:
+        pass
+
+    try:
+        if wait.until(EC.visibility_of_element_located(("xpath", "//span[text()='МИНИСТЕРСТВО ЖИЛИЩНО-КОММУНАЛЬНОГО ХОЗЯЙСТВА, ТОПЛИВА И ЭНЕРГЕТИКИ РЕСПУБЛИКИ СЕВЕРНАЯ ОСЕТИЯ-АЛАНИЯ']"))):
+            wait.until(EC.visibility_of_element_located(("xpath", "//span[text()='МИНИСТЕРСТВО ЖИЛИЩНО-КОММУНАЛЬНОГО ХОЗЯЙСТВА, ТОПЛИВА И ЭНЕРГЕТИКИ РЕСПУБЛИКИ СЕВЕРНАЯ ОСЕТИЯ-АЛАНИЯ']"))).click()
+            print("\n", "\t", "выбран пользователь")
+            time.sleep(5)
+            driver.get("https://lk.rosreestr.ru/eservices/real-estate-objects-online")
+    except:
+        pass
+
 def initialize_driver():
+
     """Инициализация драйвера с обработкой ошибок"""
     chrome_options = Options()
     chrome_options.binary_location = r"C:\Users\David\AppData\Local\Chromium\Application\chrome.exe"
@@ -39,7 +72,7 @@ def initialize_driver():
         )
         
         driver = webdriver.Chrome(service=service, options=chrome_options)
-        wait = WebDriverWait(driver, 10, poll_frequency=1)
+        wait = WebDriverWait(driver, 20, poll_frequency=1)
         return driver, wait
         
     except Exception as e:
@@ -65,12 +98,12 @@ def safe_send_keys(driver_ref, wait_ref, upload_address, max_retries=3):
             
             # Ждем элемент и вводим текст
             input_element = wait_ref.until(
-                EC.visibility_of_element_located((By.XPATH, "//input[@id='query']"))
+                EC.visibility_of_element_located(("xpath", "//input[@id='query']"))
             )
             input_element.clear()
             input_element.send_keys(upload_address.strip())
             return True, driver_ref, wait_ref
-            
+        
         except (TimeoutException, NoSuchElementException) as e:
             print(f"Попытка {attempt + 1}: Элемент не найден, обновляем страницу: {e}")
             time.sleep(2)
@@ -124,9 +157,7 @@ try:
     # Заходим на сайт
     driver.get("https://lk.rosreestr.ru/my-applications")
     print("\n", "\t", "переход на страницу росреестра")
-    wait.until(EC.visibility_of_element_located((By.XPATH, "//span[text()='МИНИСТЕРСТВО ЖИЛИЩНО-КОММУНАЛЬНОГО ХОЗЯЙСТВА, ТОПЛИВА И ЭНЕРГЕТИКИ РЕСПУБЛИКИ СЕВЕРНАЯ ОСЕТИЯ-АЛАНИЯ']"))).click()
-    print("\n", "\t", "выбран пользователь")
-    time.sleep(5)
+    login_funct(driver)
 
     # Счетчик адресов
     address_count = 0
@@ -161,15 +192,44 @@ try:
                 # Ввод адреса с обработкой ошибок
                 success, driver, wait = safe_send_keys(driver, wait, upload_address)
                 if not success:
-                    # Если не удалось ввести адрес, сохраняем ошибку и продолжаем
-                    all_results[upload_address] = {"error": "Не удалось ввести адрес, ошибка драйвера"}
-                    continue
+                    login_funct(driver)
+                    success, driver, wait = safe_send_keys(driver, wait, upload_address)
+                    if not success:
+                        # Если не удалось ввести адрес, сохраняем ошибку и продолжаем
+                        all_results[upload_address] = {"error": "Не удалось ввести адрес, ошибка драйвера"}
+                        continue
                 
-                time.sleep(1)
+                time.sleep(5)
                 
                 # Клик по кнопке поиска с обработкой ошибок
                 try:
-                    driver.find_element(By.XPATH, "//button[@id='realestateobjects-search']").click()
+                    # Кликаем по кнопке поиска
+                    driver.find_element("xpath", "//button[@id='realestateobjects-search']").click()
+                    time.sleep(3)
+
+                    # Проверяем наличие ошибки БЕЗ выброса исключения
+                    error_elements = driver.find_elements("xpath", "//*[contains(text(), 'Не удалось получить список объектов недвижимости')]")
+
+                    if error_elements:  # Если найдены элементы с ошибкой
+                        print("Обнаружена ошибка на сайте, обновляем страницу...")
+                        driver.refresh()
+                        time.sleep(10)
+
+                        # Пытаемся ввести адрес заново
+                        success, driver, wait = safe_send_keys(driver, wait, upload_address)
+
+                        if not success:
+                            # Записываем ошибку и продолжаем со СЛЕДУЮЩИМ адресом
+                            all_results[upload_address] = {"error": "Не удалось ввести адрес после ошибки на сайте"}
+                            continue  # Переходим к следующему адресу в цикле
+
+                        # Если success=True, просто продолжаем выполнение
+
+                except NoSuchElementException:
+                    print("Кнопка поиска не найдена")
+                    all_results[upload_address] = {"error": "Кнопка поиска не найдена"}
+                    continue
+
                 except Exception as e:
                     print(f"Ошибка при клике на кнопку поиска: {e}")
                     all_results[upload_address] = {"error": f"Ошибка поиска: {str(e)}"}
@@ -177,7 +237,7 @@ try:
 
                 # Получаем количество кадастровых номеров по адресу
                 try:
-                    cad_numbers = wait.until(EC.visibility_of_all_elements_located((By.XPATH, "//div[@class='realestateobjects-wrapper__results__cadNumber']")))
+                    cad_numbers = wait.until(EC.visibility_of_all_elements_located(("xpath", "//div[@class='realestateobjects-wrapper__results__cadNumber']")))
                     numb_of_results = len(cad_numbers)
                     if numb_of_results == 0:
                         print(f"Не найдено результатов для адреса: {upload_address}")
@@ -194,14 +254,14 @@ try:
                     data_dict = {}
                     try:
                         # Получение кадастрового номера и переход
-                        cadastral_numb = wait.until(EC.visibility_of_element_located((By.XPATH, f"(//div[@class='realestateobjects-wrapper__results__cadNumber'])[{numb}]"))).text
-                        wait.until(EC.visibility_of_element_located((By.XPATH, f"(//div[@class='realestateobjects-wrapper__results__cadNumber'])[{numb}]"))).click()
-                        time.sleep(3)
+                        cadastral_numb = wait.until(EC.visibility_of_element_located(("xpath", f"(//div[@class='realestateobjects-wrapper__results__cadNumber'])[{numb}]"))).text
+                        wait.until(EC.visibility_of_element_located(("xpath", f"(//div[@class='realestateobjects-wrapper__results__cadNumber'])[{numb}]"))).click()
+                        time.sleep(5)
                         
                         # Получение данных из модального окна
                         try:
-                            name_elements = wait.until(EC.visibility_of_all_elements_located((By.XPATH, "//span[@class='build-card-wrapper__info__ul__subinfo__name']")))
-                            info_elements = wait.until(EC.visibility_of_all_elements_located((By.XPATH, "//div[@class='build-card-wrapper__info__ul__subinfo__options__item__line']")))
+                            name_elements = wait.until(EC.visibility_of_all_elements_located(("xpath", "//span[@class='build-card-wrapper__info__ul__subinfo__name']")))
+                            info_elements = wait.until(EC.visibility_of_all_elements_located(("xpath", "//div[@class='build-card-wrapper__info__ul__subinfo__options__item__line']")))
                             
                             numb_answer = min(len(name_elements), len(info_elements))
                             for a in range(numb_answer):
@@ -217,14 +277,14 @@ try:
 
                         # Закрытие справки
                         try:
-                            close_btn = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@class='rros-ui-lib-modal__close-btn']")))
+                            close_btn = wait.until(EC.element_to_be_clickable(("xpath", "//button[@class='rros-ui-lib-modal__close-btn']")))
                             driver.execute_script("arguments[0].click();", close_btn)
                         except Exception as e:
                             print(f"Ошибка при закрытии модального окна: {e}")
                             # Пытаемся обновить страницу если не удалось закрыть
                             driver.get("https://lk.rosreestr.ru/eservices/real-estate-objects-online")
 
-                        time.sleep(2)
+                        time.sleep(5)
 
                         address_data.append(data_dict)
                     
@@ -232,7 +292,7 @@ try:
                         print(f"Ошибка при обработке кадастрового номера {numb} для адреса {upload_address}: {e}")
                         # Пытаемся закрыть модальное окно если открыто
                         try:
-                            close_buttons = driver.find_elements(By.XPATH, "//button[@class='rros-ui-lib-modal__close-btn']")
+                            close_buttons = driver.find_elements("xpath", "//button[@class='rros-ui-lib-modal__close-btn']")
                             if close_buttons:
                                 driver.execute_script("arguments[0].click();", close_buttons[0])
                         except:
@@ -270,5 +330,6 @@ finally:
     print("end code")
     try:
         driver.quit()
+        sys.exit(1)
     except:
         pass
