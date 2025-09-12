@@ -20,7 +20,7 @@ os.environ['WDM_LOG_LEVEL'] = '0'
 
 
 def login_funct(driver): # функция входа в ЕГРН
-    wait = WebDriverWait(driver, 10)
+    wait = WebDriverWait(driver, 15, poll_frequency=1)
     try:
         if wait.until(EC.visibility_of_element_located(("xpath", "//button[text()=' Восстановить ']"))):
             wait.until(EC.visibility_of_element_located(("xpath", "//button[text()=' Эл. подпись ']"))).click()
@@ -207,23 +207,6 @@ try:
                     driver.find_element("xpath", "//button[@id='realestateobjects-search']").click()
                     time.sleep(3)
 
-                    # Проверяем наличие ошибки БЕЗ выброса исключения
-                    error_elements = driver.find_elements("xpath", "//*[contains(text(), 'Не удалось получить список объектов недвижимости')]")
-
-                    if error_elements:  # Если найдены элементы с ошибкой
-                        print("Обнаружена ошибка на сайте, обновляем страницу...")
-                        driver.refresh()
-                        time.sleep(10)
-
-                        # Пытаемся ввести адрес заново
-                        success, driver, wait = safe_send_keys(driver, wait, upload_address)
-
-                        if not success:
-                            # Записываем ошибку и продолжаем со СЛЕДУЮЩИМ адресом
-                            all_results[upload_address] = {"error": "Не удалось ввести адрес после ошибки на сайте"}
-                            continue  # Переходим к следующему адресу в цикле
-
-                        # Если success=True, просто продолжаем выполнение
 
                 except NoSuchElementException:
                     print("Кнопка поиска не найдена")
@@ -258,6 +241,18 @@ try:
                         wait.until(EC.visibility_of_element_located(("xpath", f"(//div[@class='realestateobjects-wrapper__results__cadNumber'])[{numb}]"))).click()
                         time.sleep(5)
                         
+                        # Проверяем наличие ошибки
+                        error_elements = driver.find_elements("xpath", "//*[contains(text(), 'Не удалось получить список объектов недвижимости')]")
+
+                        if error_elements:
+                            print("Обнаружена ошибка на сайте, закрываем все")
+                            address_data.append(data_dict)
+                            all_results[upload_address] = address_data
+
+                            driver.quit()
+                            sys.exit(1)
+
+
                         # Получение данных из модального окна
                         try:
                             name_elements = wait.until(EC.visibility_of_all_elements_located(("xpath", "//span[@class='build-card-wrapper__info__ul__subinfo__name']")))
