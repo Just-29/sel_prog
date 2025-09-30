@@ -26,7 +26,9 @@ os.environ['WDM_LOG_LEVEL'] = '0'
 chrome_options = Options()
 chrome_options.binary_location = CHROME_PATH
 
-
+# Путь к профилю с установленными расширениями
+chrome_options.add_argument(r"")
+chrome_options.add_argument("")
 
 # Отключение логов
 chrome_options.add_argument("--log-level=0")
@@ -43,8 +45,8 @@ driver = webdriver.Chrome(service=service, options=chrome_options)
 wait = WebDriverWait(driver, 300, poll_frequency=1)
 
 script_dir = Path(__file__).parent
-file_path = os.path.join(script_dir, "uploads", "Хадиков.pdf")
-file_signature = os.path.join(script_dir, "uploads", "Хадиков.pdf.sig")
+file_path = os.path.join(script_dir, "uploads", ".pdf")
+file_signature = os.path.join(script_dir, "uploads", ".pdf.sig")
 uploads_file_dir = script_dir / "uploads" / "qwartal_files.txt"
 
 def save_selenium_note(driver, message, screenshot=False):
