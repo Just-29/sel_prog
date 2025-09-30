@@ -12,12 +12,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver import Keys
 
+from config import *
 
-
-
-# Пути
-DRIVER_PATH = r""
-CHROME_PATH = r""
 
 # Закрываем все процессы Chrome перед запуском
 os.system('taskkill /f /im chrome.exe 2>nul')
@@ -31,8 +27,8 @@ chrome_options = Options()
 chrome_options.binary_location = CHROME_PATH
 
 # Путь к профию, с установленными расширениями
-chrome_options.add_argument(r"")
-chrome_options.add_argument("")
+chrome_options.add_argument(F"--user-data-dir={CHROME_PROFILE_PATH}")
+chrome_options.add_argument("--profile-directory=Default")
 
 # Отключение логов
 chrome_options.add_argument("--log-level=0")
@@ -51,8 +47,8 @@ wait = WebDriverWait(driver, 300, poll_frequency=1)
 
 
 script_dir = Path(__file__).parent
-file_path = os.path.join(script_dir, "uploads", ".pdf")
-file_signature = os.path.join(script_dir, "uploads", ".pdf.sig")
+file_path = os.path.join(script_dir, "uploads", PDF_FILE_NAME)
+file_signature = os.path.join(script_dir, "uploads", SIGNATURE_FILE_NAME)
 uploads_file_dir = script_dir / "uploads" / "uploads_files"
 
 def wait_for_file_upload_by_title(driver, file_path, timeout=350):
@@ -156,16 +152,15 @@ for upload_file in uploads_file_dir.iterdir():
 
         print("dropdown 1")
         time.sleep(0.3)
-        driver.find_element("xpath", "//input[@id='rorganizationOrGovernmentArray[0].regDate']").send_keys("23.12.2024")
+        driver.find_element("xpath", "//input[@id='rorganizationOrGovernmentArray[0].regDate']").send_keys(DOCUMENT_DATE)
         print("\n", "\t", "ввод даты")
 
-        email = "eirc_trashbox@inbox.ru"
         driver.find_element("xpath", "//input[@id='rorganizationOrGovernmentArray[0].email']").clear()
-        driver.find_element("xpath", "//input[@id='rorganizationOrGovernmentArray[0].email']").send_keys(email)
+        driver.find_element("xpath", "//input[@id='rorganizationOrGovernmentArray[0].email']").send_keys(EMAIL)
         driver.find_element("xpath", "//input[@id='fullNameDocumentAndAdditionalInformationArray[0].email']").clear()
-        driver.find_element("xpath", "//input[@id='fullNameDocumentAndAdditionalInformationArray[0].email']").send_keys(email)
+        driver.find_element("xpath", "//input[@id='fullNameDocumentAndAdditionalInformationArray[0].email']").send_keys(EMAIL)
         driver.find_element("xpath", "//input[@id='requestAboutObject.deliveryActionEmail']").clear()
-        driver.find_element("xpath", "//input[@id='requestAboutObject.deliveryActionEmail']").send_keys(email)
+        driver.find_element("xpath", "//input[@id='requestAboutObject.deliveryActionEmail']").send_keys(EMAIL)
         print("ввод email")
         time.sleep(1)
         print("выбор типа документа")
@@ -180,7 +175,7 @@ for upload_file in uploads_file_dir.iterdir():
 
         element = WebDriverWait(driver, 10).until(
         EC.visibility_of_element_located(("xpath", "//input[@id='react-select-3-input']")))
-        element.send_keys("Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1")
+        element.send_keys(MIN_ADDRESS)
         time.sleep(3)
         element.send_keys(Keys.ARROW_DOWN)
         time.sleep(2)
@@ -201,13 +196,13 @@ for upload_file in uploads_file_dir.iterdir():
         print("энтер")
         time.sleep(1)
 
-        driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentNumber']").send_keys("583-p")
+        driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentNumber']").send_keys(DOCUMENT_NUMBER)
         time.sleep(1)
         print("ввел номер документа")
-        driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentIssueDate']").send_keys("23.12.2024")
+        driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentIssueDate']").send_keys(DOCUMENT_DATE)
         time.sleep(1)
         print("ввел дату выдачи документа")
-        driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.issuingAuthority']").send_keys("Правительство Республики Северная Осетия - Алания")
+        driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.issuingAuthority']").send_keys(ISSUING_AUTHORITY)
         time.sleep(1)
         print("\t ввел кем выдан")
 
@@ -297,7 +292,7 @@ for upload_file in uploads_file_dir.iterdir():
         print("энтер")
         time.sleep(1)
         driver.find_element("xpath", "//input[@id='requestAboutObject.deliveryActionEmail']").clear()
-        driver.find_element("xpath", "//input[@id='requestAboutObject.deliveryActionEmail']").send_keys(email)
+        driver.find_element("xpath", "//input[@id='requestAboutObject.deliveryActionEmail']").send_keys(EMAIL)
         print("email")
         time.sleep(1)
 
