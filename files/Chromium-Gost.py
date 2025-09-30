@@ -30,9 +30,7 @@ os.environ['WDM_LOG_LEVEL'] = '0'
 chrome_options = Options()
 chrome_options.binary_location = CHROME_PATH
 
-# Путь к профию, с установленными расширениями
-chrome_options.add_argument(r"--user-data-dir=C:\Users\David\AppData\Local\Chromium\User Data")
-chrome_options.add_argument("--profile-directory=Default")
+
 
 # Отключение логов
 chrome_options.add_argument("--log-level=0")
