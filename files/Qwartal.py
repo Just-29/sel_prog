@@ -10,10 +10,8 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver import Keys
 
+from config import *
 
-# Пути
-DRIVER_PATH = r""
-CHROME_PATH = r""
 
 # Закрываем все процессы Chrome перед запуском
 os.system('taskkill /f /im chrome.exe 2>nul')
@@ -27,8 +25,8 @@ chrome_options = Options()
 chrome_options.binary_location = CHROME_PATH
 
 # Путь к профилю с установленными расширениями
-chrome_options.add_argument(r"")
-chrome_options.add_argument("")
+chrome_options.add_argument(f"--user-data-dir={CHROME_PROFILE_PATH}")
+chrome_options.add_argument("--profile-directory=Default")
 
 # Отключение логов
 chrome_options.add_argument("--log-level=0")
@@ -45,8 +43,8 @@ driver = webdriver.Chrome(service=service, options=chrome_options)
 wait = WebDriverWait(driver, 300, poll_frequency=1)
 
 script_dir = Path(__file__).parent
-file_path = os.path.join(script_dir, "uploads", ".pdf")
-file_signature = os.path.join(script_dir, "uploads", ".pdf.sig")
+file_path = os.path.join(script_dir, "uploads", PDF_FILE_NAME)
+file_signature = os.path.join(script_dir, "uploads", SIGNATURE_FILE_NAME)
 uploads_file_dir = script_dir / "uploads" / "qwartal_files.txt"
 
 def save_selenium_note(driver, message, screenshot=False):
@@ -109,15 +107,15 @@ if txt_file.is_file():
             time.sleep(1)
 
             # Ввод даты
-            driver.find_element("xpath", "//input[@id='rorganizationOrGovernmentArray[0].regDate']").send_keys("23.12.2024")
+            driver.find_element("xpath", "//input[@id='rorganizationOrGovernmentArray[0].regDate']").send_keys(DOCUMENT_DATE)
             print("\n", "\t", "ввод даты")
 
             # Ввод email (фиксирован)
-            email = "eirc2022@inbox.ru"
+            
             driver.find_element("xpath", "//input[@id='rorganizationOrGovernmentArray[0].email']").clear()
-            driver.find_element("xpath", "//input[@id='rorganizationOrGovernmentArray[0].email']").send_keys(email)
+            driver.find_element("xpath", "//input[@id='rorganizationOrGovernmentArray[0].email']").send_keys(QWART_EMAIL)
             driver.find_element("xpath", "//input[@id='fullNameDocumentAndAdditionalInformationArray[0].email']").clear()
-            driver.find_element("xpath", "//input[@id='fullNameDocumentAndAdditionalInformationArray[0].email']").send_keys(email)
+            driver.find_element("xpath", "//input[@id='fullNameDocumentAndAdditionalInformationArray[0].email']").send_keys(QWART_EMAIL)
             print("ввод email")
             time.sleep(1)
 
@@ -130,7 +128,7 @@ if txt_file.is_file():
             react_input = WebDriverWait(driver, 10).until(
                 EC.visibility_of_element_located(("xpath", "//input[@id='react-select-3-input']"))
             )
-            react_input.send_keys("Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1") 
+            react_input.send_keys(MIN_ADDRESS) 
             time.sleep(3)
             react_input.send_keys(Keys.ARROW_DOWN)
             time.sleep(2)
@@ -158,7 +156,7 @@ if txt_file.is_file():
             driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentIssueDate']").send_keys("23.12.2024")
             time.sleep(1)
             print("ввел дату выдачи документа")
-            driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.issuingAuthority']").send_keys("Правительство Республики Северная Осетия - Алания")
+            driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.issuingAuthority']").send_keys(ISSUING_AUTHORITY)
             time.sleep(1)
             print("\t ввел кем выдан")
 
@@ -177,7 +175,7 @@ if txt_file.is_file():
 
             # Отправка email и другие действия
             driver.find_element("xpath", "//input[@id='deliveryActionEmail']").clear()
-            driver.find_element("xpath", "//input[@id='deliveryActionEmail']").send_keys(email)
+            driver.find_element("xpath", "//input[@id='deliveryActionEmail']").send_keys(QWART_EMAIL)
             print("email")
             time.sleep(1)
 
