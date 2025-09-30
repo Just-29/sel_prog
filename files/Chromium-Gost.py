@@ -16,8 +16,8 @@ from selenium.webdriver import Keys
 
 
 # Пути
-DRIVER_PATH = r"C:\Selenium\files\chromedriver-win64\chromedriver.exe"
-CHROME_PATH = r"C:\Users\David\AppData\Local\Chromium\Application\chrome.exe"
+DRIVER_PATH = r""
+CHROME_PATH = r""
 
 # Закрываем все процессы Chrome перед запуском
 os.system('taskkill /f /im chrome.exe 2>nul')
@@ -30,7 +30,9 @@ os.environ['WDM_LOG_LEVEL'] = '0'
 chrome_options = Options()
 chrome_options.binary_location = CHROME_PATH
 
-
+# Путь к профию, с установленными расширениями
+chrome_options.add_argument(r"")
+chrome_options.add_argument("")
 
 # Отключение логов
 chrome_options.add_argument("--log-level=0")
@@ -49,8 +51,8 @@ wait = WebDriverWait(driver, 300, poll_frequency=1)
 
 
 script_dir = Path(__file__).parent
-file_path = os.path.join(script_dir, "uploads", "Хадиков.pdf")
-file_signature = os.path.join(script_dir, "uploads", "Хадиков.pdf.sig")
+file_path = os.path.join(script_dir, "uploads", ".pdf")
+file_signature = os.path.join(script_dir, "uploads", ".pdf.sig")
 uploads_file_dir = script_dir / "uploads" / "uploads_files"
 
 def wait_for_file_upload_by_title(driver, file_path, timeout=350):
