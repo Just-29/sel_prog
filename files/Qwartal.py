@@ -12,8 +12,8 @@ from selenium.webdriver import Keys
 
 
 # Пути
-DRIVER_PATH = r"C:\Selenium\files\chromedriver-win64\chromedriver.exe"
-CHROME_PATH = r"C:\Users\David\AppData\Local\Chromium\Application\chrome.exe"
+DRIVER_PATH = r""
+CHROME_PATH = r""
 
 # Закрываем все процессы Chrome перед запуском
 os.system('taskkill /f /im chrome.exe 2>nul')
