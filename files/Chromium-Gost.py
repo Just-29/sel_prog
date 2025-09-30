@@ -12,11 +12,23 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver import Keys
 
+
+
+
+# Пути
+DRIVER_PATH = r"C:\Selenium\files\chromedriver-win64\chromedriver.exe"
+CHROME_PATH = r"C:\Users\David\AppData\Local\Chromium\Application\chrome.exe"
+
+# Закрываем все процессы Chrome перед запуском
+os.system('taskkill /f /im chrome.exe 2>nul')
+os.system('taskkill /f /im chromedriver.exe 2>nul')
+time.sleep(2)
+
 # Отключаем логи только webdriver-manager
 os.environ['WDM_LOG_LEVEL'] = '0'
 
 chrome_options = Options()
-chrome_options.binary_location = r"C:\Users\David\AppData\Local\Chromium\Application\chrome.exe"
+chrome_options.binary_location = CHROME_PATH
 
 # Путь к профию, с установленными расширениями
 chrome_options.add_argument(r"--user-data-dir=C:\Users\David\AppData\Local\Chromium\User Data")
@@ -29,13 +41,14 @@ chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
 
 
 service = Service(
-    ChromeDriverManager(driver_version="139.0.7211.0").install(),
+    executable_path=DRIVER_PATH,
     log_path='NUL'  # Перенаправляем логи ChromeDriver в никуда
 )
 
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
-wait = WebDriverWait(driver, 240, poll_frequency=1)
+wait = WebDriverWait(driver, 300, poll_frequency=1)
+
 
 script_dir = Path(__file__).parent
 file_path = os.path.join(script_dir, "uploads", "Хадиков.pdf")
@@ -115,6 +128,7 @@ def login_funct(driver):
         wait.until(EC.visibility_of_element_located(("xpath", "//span[text()='МИНИСТЕРСТВО ЖИЛИЩНО-КОММУНАЛЬНОГО ХОЗЯЙСТВА, ТОПЛИВА И ЭНЕРГЕТИКИ РЕСПУБЛИКИ СЕВЕРНАЯ ОСЕТИЯ-АЛАНИЯ']"))).click()
         print("\n", "\t", "выбран пользователь")
         time.sleep(5)
+
 
 login_funct(driver)
 
@@ -217,7 +231,6 @@ for upload_file in uploads_file_dir.iterdir():
         driver.find_element("xpath", "(//input[@type='file'])[2]").send_keys(file_signature)
         time.sleep(15)
         print("отправил 2")
-
         
         # файл csv
         loading_flag = True
@@ -232,17 +245,37 @@ for upload_file in uploads_file_dir.iterdir():
             loading_flag = wait_for_file_upload_by_title(driver, upload_file)
 
             # ПРОВЕРЯЕМ ошибку на каждой итерации
-            error_elements = driver.find_elements("xpath", "//div[text()='Объекты из CSV не добавлены в заявление']")
+            error_element1 = driver.find_elements("xpath", "//div[text()='Объекты из CSV не добавлены в заявление']")
+            error_element2 = driver.find_elements("xpath", "//*[contains(text(), 'Не удалось получить список объектов')]")
 
-            if error_elements:
+            if error_element1:
                 print("❌ Обнаружена ошибка: Объекты из CSV не добавлены в заявление")
                 # Если есть ошибка, продолжаем цикл
                 loading_flag = True
                 # Закрываем окно ошибки
                 try:
                     close_buttons = driver.find_elements("xpath", "//button[contains(@class, 'close')] | //button[contains(text(), 'Закрыть')] | //button[@aria-label='Close']")
+                    delete_button = driver.find_elements("xpath", "//span[@data-test-id='FileUpload.delete']")
                     if close_buttons:
                         close_buttons[0].click()
+                        if delete_button:
+                            delete_button[0].click()
+                    else:
+                        driver.find_element("xpath", "(//button[@class='rros-ui-lib-modal__close-btn'])[1]").click()
+                except:
+                    pass
+            if error_element2:
+                print("❌ Обнаружена ошибка: сайту не удалось получить список объектов из CSV")
+                # Если есть ошибка, продолжаем цикл
+                loading_flag = True
+                # Закрываем окно ошибки
+                try:
+                    close_buttons = driver.find_elements("xpath", "//button[contains(@class, 'close')] | //button[contains(text(), 'Закрыть')] | //button[@aria-label='Close']")
+                    delete_button = driver.find_elements("xpath", "//span[@data-test-id='FileUpload.delete']")
+                    if close_buttons:
+                        close_buttons[0].click()
+                        if delete_button:
+                            delete_button[0].click()
                     else:
                         driver.find_element("xpath", "(//button[@class='rros-ui-lib-modal__close-btn'])[1]").click()
                 except:
