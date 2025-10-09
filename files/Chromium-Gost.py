@@ -43,7 +43,7 @@ service = Service(
 
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
-wait = WebDriverWait(driver, 300, poll_frequency=1)
+wait = WebDriverWait(driver, 360, poll_frequency=1)
 
 
 script_dir = Path(__file__).parent
@@ -102,7 +102,7 @@ def save_selenium_note(driver, message, screenshot=False):
         f.write(f"[{timestamp}] {message}\n")
 
 def login_funct(driver):
-    wait = WebDriverWait(driver, 5)
+    wait = WebDriverWait(driver, 15)
     driver.get("https://lk.rosreestr.ru/my-applications")
     try:
         if wait.until(EC.visibility_of_element_located(("xpath", "//button[text()=' Восстановить ']"))):
@@ -137,8 +137,8 @@ for upload_file in uploads_file_dir.iterdir():
         
         driver.get("https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder")
         print("\n", "\t", "переход на страницу поиска по ЕГРН")
-        time.sleep(10)
-        #SCROLL_CATEGORY = ("xpath", "//input[@id='applicantCategory']")
+        #time.sleep(10)
+        wait.until(EC.presence_of_element_located(("xpath", "//input[@id='applicantCategory']")))
         scroll_category = driver.find_element("xpath", "//input[@id='applicantCategory']")
         scroll_category.send_keys("Иные определенные федеральным законом")
         time.sleep(1)
@@ -182,7 +182,7 @@ for upload_file in uploads_file_dir.iterdir():
         driver.find_element("xpath", "//input[@id='react-select-3-input']").send_keys(Keys.ENTER)
         print("нашел необходимый адресс")
         time.sleep(2)
-        driver.find_element("xpath", "(//button[text()='Сохранить'])[1]").click()
+        wait.until(EC.element_to_be_clickable(("xpath", "(//button[text()='Сохранить'])[1]"))).click()
         print("сохранен адресс") 
         time.sleep(2)
 
@@ -317,8 +317,9 @@ for upload_file in uploads_file_dir.iterdir():
         print("✅ CSV-файл найден, продолжаем работу")
     
     except:
-        print("❌ CSV-файл не появился в течение 120 секунд")
+        print("❌ CSV-файл не появился в течение 300 секунд")
     
+    time.sleep(2)
 
     BUTTON_FURTHER = ("xpath", "//button[text()='Далее']")
     wait.until(EC.element_to_be_clickable(BUTTON_FURTHER)).click()

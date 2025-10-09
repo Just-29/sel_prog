@@ -59,7 +59,7 @@ def save_selenium_note(driver, message, screenshot=False):
         f.write(f"[{timestamp}] {message}\n")
 
 def login_funct(driver):
-    wait = WebDriverWait(driver, 5)
+    wait = WebDriverWait(driver, 15)
     driver.get("https://lk.rosreestr.ru/my-applications")
     try:
         if wait.until(EC.visibility_of_element_located(("xpath", "//button[text()=' Восстановить ']"))):
@@ -95,9 +95,9 @@ if txt_file.is_file():
 
             driver.get("https://lk.rosreestr.ru/eservices/request-info-from-egrn/cpt")
             print("\n", "\t", "переход на страницу поиска по ЕГРН")
-            time.sleep(10)
 
             # Выбор категории
+            wait.until(EC.presence_of_element_located(("xpath", "//input[@id='applicantCategory']")))
             scroll_category = driver.find_element("xpath", "//input[@id='applicantCategory']")
             scroll_category.send_keys("Иные определенные федеральным законом")
             time.sleep(1)
@@ -136,7 +136,7 @@ if txt_file.is_file():
             print("нашел необходимый адрес")
             time.sleep(2)
 
-            driver.find_element("xpath", "(//button[text()='Сохранить'])[1]").click()
+            wait.until(EC.element_to_be_clickable(("xpath", "(//button[text()='Сохранить'])[1]"))).click()
             print("сохранен адресс")
             time.sleep(2)
 
