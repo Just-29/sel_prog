@@ -1,7 +1,7 @@
 import os
 import time
 
-
+from selenium.common.exceptions import ElementClickInterceptedException, TimeoutException
 from datetime import datetime
 from pathlib import Path
 from selenium.webdriver.support import expected_conditions as EC
@@ -43,7 +43,7 @@ service = Service(
 
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
-wait = WebDriverWait(driver, 360, poll_frequency=1)
+wait = WebDriverWait(driver, 1000, poll_frequency=1)
 
 
 script_dir = Path(__file__).parent
@@ -51,43 +51,100 @@ file_path = os.path.join(script_dir, "uploads", PDF_FILE_NAME)
 file_signature = os.path.join(script_dir, "uploads", SIGNATURE_FILE_NAME)
 uploads_file_dir = script_dir / "uploads" / "uploads_files"
 
-def wait_for_file_upload_by_title(driver, file_path, timeout=350):
+def wait_for_file_upload_by_title(driver, file_path):
     try:
+        # Загружаем файл
         driver.find_element("xpath", "(//input[@type='file'])[3]").send_keys(str(file_path))
         
-        WebDriverWait(driver, timeout).until(
+        # Ждем подтверждения загрузки файла
+        wait.until(
             EC.presence_of_element_located(("xpath", 
                 f"//span[contains(@title, '{file_path.name}') and contains(@class, 'rros-ui-lib-file-upload__item__name')]"))
         )
         print(f"✅ Файл {file_path.name} успешно загружен")
-        time.sleep(1)
+        time.sleep(2)
+
+        apply_button_xpath = "//button[contains(@class, 'my-objects-modal__selected-btn') and contains(@class, 'rros-ui-lib-button--primary') and text()='Применить']"
         
-        # JavaScript клик вместо обычного
+        print("⏳ Ожидаем появления кнопки 'Применить'...")
+        
+        try:
+            wait.until(EC.presence_of_element_located(("xpath", "//h3[text()='Поиск среди загруженных объектов недвижимости']")))
+            confirm_button = wait.until(
+                EC.element_to_be_clickable(("xpath", apply_button_xpath))
+            )
+            print("✅ Кнопка 'Применить' найдена и кликабельна")
+            
+            # Нажимаем кнопку через JavaScript
+            driver.execute_script("arguments[0].click();", confirm_button)
+            print("✅ Кнопка 'Применить' нажата через JavaScript")
+            
+            # Ждем ЗАКРЫТИЯ модального окна - это ключевой момент
+            print("⏳ Ожидаем закрытия модального окна...")
+            try:
+                # Ждем исчезновения модального окна
+                wait.until(EC.invisibility_of_element_located(("xpath", "//div[contains(@class, 'rros-ui-lib-modal__window')]")))
+                print("✅ Модальное окно успешно закрыто")
+                return False  # Успех
+                
+            except Exception as e:
+                print(f"⚠️ Модальное окно не закрылось автоматически: {e}")
+                
+                # Пробуем закрыть модальное окно вручную
+                print("🔄 Пробуем закрыть модальное окно вручную...")
+                if close_modal_window(driver):
+                    print("✅ Модальное окно закрыто вручную")
+                    return False  # Успех
+                else:
+                    print("❌ Не удалось закрыть модальное окно")
+                    return True  # Продолжаем цикл
+                
+        except Exception as e:
+            print(f"❌ Не удалось найти или нажать кнопку 'Применить': {e}")
+            return True
+
+    except Exception as e:
+        print(f"❌ Общая ошибка при загрузке файла: {e}")
+        return True
+
+def close_modal_window(driver):
+    """Закрывает мешающие модальные окна"""
+    try:
+        # Пробуем разные способы закрытия
+        
+        # Способ 1: Крестик закрытия
         close_buttons = driver.find_elements("xpath", "//button[contains(@class, 'rros-ui-lib-modal__close-btn')]")
         if close_buttons:
             driver.execute_script("arguments[0].click();", close_buttons[0])
-            print("✅ Модальное окно закрыто через JavaScript")
+            print("✅ Модальное окно закрыто через крестик")
+            time.sleep(2)
+            return True
+            
+        # Способ 2: Кнопка "Отмена" или "Закрыть"
+        cancel_buttons = driver.find_elements("xpath", "//button[contains(text(), 'Отмена') or contains(text(), 'Закрыть') or contains(text(), 'Cancel')]")
+        if cancel_buttons:
+            driver.execute_script("arguments[0].click();", cancel_buttons[0])
+            print("✅ Модальное окно закрыто через кнопку отмены")
+            time.sleep(2)
+            return True
+            
+        # Способ 3: ESC через JavaScript
+        driver.execute_script("document.dispatchEvent(new KeyboardEvent('keydown', {'key': 'Escape'}));")
+        print("✅ Отправлен ESC через JavaScript")
+        time.sleep(2)
+        
+        # Проверяем закрылось ли окно
+        if not driver.find_elements("xpath", "//div[contains(@class, 'rros-ui-lib-modal__window')]"):
+            return True
         else:
-            print("⚠️ Кнопка закрытия не найдена")
-        
-        return False
-        
+            print("⚠️ ESC не сработал")
+            return False
+            
     except Exception as e:
-        print(f"❌ Файл {file_path.name} не загрузился: {e}")
-        return True
-    
-def handle_apply_button(driver):
-    """Обработка кнопки Применить с обработкой ошибок"""
-    try:
-        apply_button = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable(("xpath", "//button[text()='Применить']"))
-        )
-        apply_button.click()
-        print("✅ Кнопка 'Применить' нажата")
-        return True
-    except Exception as e:
-        print(f"❌ Кнопка 'Применить' не найдена: {e}")
+        print(f"❌ Ошибка при закрытии модального окна: {e}")
         return False
+
+
 
 def save_selenium_note(driver, message, screenshot=False):
     """Сохраняет заметку для Selenium с возможностью скриншота"""
@@ -137,7 +194,7 @@ for upload_file in uploads_file_dir.iterdir():
         
         driver.get("https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder")
         print("\n", "\t", "переход на страницу поиска по ЕГРН")
-        #time.sleep(10)
+        time.sleep(10)
         wait.until(EC.presence_of_element_located(("xpath", "//input[@id='applicantCategory']")))
         scroll_category = driver.find_element("xpath", "//input[@id='applicantCategory']")
         scroll_category.send_keys("Иные определенные федеральным законом")
@@ -173,18 +230,23 @@ for upload_file in uploads_file_dir.iterdir():
         print("\n", "\t", "открытие меню адреса")
         time.sleep(5)
 
-        element = WebDriverWait(driver, 10).until(
-        EC.visibility_of_element_located(("xpath", "//input[@id='react-select-3-input']")))
-        element.send_keys(MIN_ADDRESS)
-        time.sleep(3)
-        element.send_keys(Keys.ARROW_DOWN)
-        time.sleep(2)
-        driver.find_element("xpath", "//input[@id='react-select-3-input']").send_keys(Keys.ENTER)
-        print("нашел необходимый адресс")
-        time.sleep(2)
-        wait.until(EC.element_to_be_clickable(("xpath", "(//button[text()='Сохранить'])[1]"))).click()
-        print("сохранен адресс") 
-        time.sleep(2)
+        try:
+            element = wait.until(
+            EC.visibility_of_element_located(("xpath", "//input[@id='react-select-3-input']")))
+            element.send_keys(MIN_ADDRESS)
+            time.sleep(3)
+            element.send_keys(Keys.ARROW_DOWN)
+            time.sleep(2)
+            driver.find_element("xpath", "//input[@id='react-select-3-input']").send_keys(Keys.ENTER)
+            print("нашел необходимый адресс")
+            time.sleep(2)
+            wait.until(EC.element_to_be_clickable(("xpath", "(//button[text()='Сохранить'])[1]"))).click()
+            print("сохранен адресс") 
+            time.sleep(2)
+        except Exception as e:
+            driver.save_screenshot('eror.png')
+            print(f'Ошибка{e}')
+            exit(1)
 
         driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentType']").send_keys("Иной документ")
         time.sleep(1)
@@ -239,46 +301,42 @@ for upload_file in uploads_file_dir.iterdir():
             # Загружаем файл
             loading_flag = wait_for_file_upload_by_title(driver, upload_file)
 
-            # ПРОВЕРЯЕМ ошибку на каждой итерации
-            error_element1 = driver.find_elements("xpath", "//div[text()='Объекты из CSV не добавлены в заявление']")
-            error_element2 = driver.find_elements("xpath", "//*[contains(text(), 'Не удалось получить список объектов')]")
+            # Если функция вернула True (неудача), обрабатываем очистку
+            if loading_flag:
+                print("🔄 Очищаем и пробуем снова...")
 
-            if error_element1:
-                print("❌ Обнаружена ошибка: Объекты из CSV не добавлены в заявление")
-                # Если есть ошибка, продолжаем цикл
-                loading_flag = True
-                # Закрываем окно ошибки
+                # ЖДЕМ появления кнопки удаления с использованием глобального wait
                 try:
-                    close_buttons = driver.find_elements("xpath", "//button[contains(@class, 'close')] | //button[contains(text(), 'Закрыть')] | //button[@aria-label='Close']")
-                    delete_button = driver.find_elements("xpath", "//span[@data-test-id='FileUpload.delete']")
-                    if close_buttons:
-                        close_buttons[0].click()
-                        if delete_button:
-                            delete_button[0].click()
-                    else:
-                        driver.find_element("xpath", "(//button[@class='rros-ui-lib-modal__close-btn'])[1]").click()
-                except:
-                    pass
-            if error_element2:
-                print("❌ Обнаружена ошибка: сайту не удалось получить список объектов из CSV")
-                # Если есть ошибка, продолжаем цикл
-                loading_flag = True
-                # Закрываем окно ошибки
-                try:
-                    close_buttons = driver.find_elements("xpath", "//button[contains(@class, 'close')] | //button[contains(text(), 'Закрыть')] | //button[@aria-label='Close']")
-                    delete_button = driver.find_elements("xpath", "//span[@data-test-id='FileUpload.delete']")
-                    if close_buttons:
-                        close_buttons[0].click()
-                        if delete_button:
-                            delete_button[0].click()
-                    else:
-                        driver.find_element("xpath", "(//button[@class='rros-ui-lib-modal__close-btn'])[1]").click()
-                except:
-                    pass
+                    print("⏳ Ожидаем появления кнопки 'Удалить'...")
+                    delete_button = wait.until(
+                        EC.element_to_be_clickable(("xpath", "//button[contains(@class, 'csv-control__btn-del') and contains(., 'Удалить')]"))
+                    )
+                    delete_button.click()
+                    print("✅ Кнопка 'Удалить' нажата")
 
-    if loading_flag and attempt < max_attempts:
-        print("🔄 Повторная попытка через 5 секунд...")
-        time.sleep(5)
+                    # Ждем пока файл удалится (исчезнет элемент с именем файла)
+                    try:
+                        wait.until(EC.invisibility_of_element_located(("xpath", 
+                            f"//span[contains(@title, '{upload_file.name}') and contains(@class, 'rros-ui-lib-file-upload__item__name')]")))
+                        print("✅ Файл успешно удален из интерфейса")
+                    except:
+                        print("⚠️ Файл не исчез из интерфейса, но продолжаем...")
+
+                except Exception as e:
+                    print(f"⚠️ Не удалось найти или нажать кнопку 'Удалить': {e}")
+
+                if loading_flag and attempt < max_attempts:
+                    print("🔄 Повторная попытка через 3 секунды...")
+                    time.sleep(3)
+
+
+            else:
+                # Пауза перед следующей попыткой
+                if loading_flag and attempt < max_attempts:
+                    print("🔄 Повторная попытка через 3 секунды...")
+                    time.sleep(3)
+
+    
 
 
         SCROL_VIPISKA = ("xpath", "//input[@id='react-select-6-input']")
@@ -291,33 +349,13 @@ for upload_file in uploads_file_dir.iterdir():
         driver.find_element(*SCROL_VIPISKA).send_keys(Keys.ENTER)
         print("энтер")
         time.sleep(1)
-        driver.find_element("xpath", "//input[@id='requestAboutObject.deliveryActionEmail']").clear()
-        driver.find_element("xpath", "//input[@id='requestAboutObject.deliveryActionEmail']").send_keys(EMAIL)
-        print("email")
-        time.sleep(1)
-
-        # Пытаемся нажать кнопку Применить
-        handle_apply_button(driver)
-        
-        time.sleep(1)
-        input("enter")
-        
+    
         try:
-            driver.find_element("xpath", "//button[text()='Далее']").click()
-            time.sleep(1)
-            driver.find_element("xpath", "//button[text()='Далее']").click()
-            print("✅ Оба шага 'Далее' выполнены")
-        except Exception as e:
-            print(f"❌ Ошибка при нажатии 'Далее': {e}")
+            wait.until(EC.presence_of_element_located(("xpath", "//div[text()='Добавлено объектов из CSV-файла:']")))
+            print("✅ CSV-файл найден, продолжаем работу")
         
-        time.sleep(180)
-    
-    try:
-        wait.until(EC.presence_of_element_located(("xpath", "//div[text()='Добавлено объектов из CSV-файла:']")))
-        print("✅ CSV-файл найден, продолжаем работу")
-    
-    except:
-        print("❌ CSV-файл не появился в течение 300 секунд")
+        except:
+            print("❌ CSV-файл не появился в течение 300 секунд")
     
     time.sleep(2)
 
@@ -327,7 +365,7 @@ for upload_file in uploads_file_dir.iterdir():
     print("первая Далее")
     wait.until(EC.visibility_of_element_located(BUTTON_FURTHER))
     time.sleep(5)
-    wait.until(EC.visibility_of_element_located(BUTTON_FURTHER)).click()
+    wait.until(EC.element_to_be_clickable(BUTTON_FURTHER)).click()
     time.sleep(2)
     print("вторая Далее")
     wait.until(EC.visibility_of_element_located(("xpath", "//span[@class='certificate-selector__list-option']"))).click()
@@ -335,10 +373,14 @@ for upload_file in uploads_file_dir.iterdir():
     time.sleep(1)
     wait.until(EC.visibility_of_element_located(("xpath", "//button[text()='Выбрать']"))).click()
     print("финальная далее")
-    wait.until(EC.visibility_of_element_located(("xpath", "//div[text()='Ваша заявка отправлена в ведомство']")))
-    save_selenium_note(driver, upload_file)
-    time.sleep(10)
-
+    try:
+        wait.until(EC.visibility_of_element_located(("xpath", "//div[text()='Ваша заявка отправлена в ведомство']")))
+        save_selenium_note(driver, f"УСПЕХ✌: Файл {upload_file} отправлен")
+        time.sleep(10)
+    except Exception as e:
+        save_selenium_note(driver, f"ОШИБКА💥: Файл {upload_file} не отправлен - {type(e).__name__}: {str(e)}")
+        time.sleep(10)
+    
 print("end code")
 driver.quit()
 
