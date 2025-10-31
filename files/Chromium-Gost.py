@@ -14,7 +14,8 @@ from selenium.webdriver import Keys
 
 from config import *
 
-
+# //div[@class='rros-ui-lib-errors'] див ошибок
+# //button[@class='rros-ui-lib-button rros-ui-lib-button--link'] крестик для закрытия сообщений об ошибке
 # Закрываем все процессы Chrome перед запуском
 os.system('taskkill /f /im chrome.exe 2>nul')
 os.system('taskkill /f /im chromedriver.exe 2>nul')
@@ -182,6 +183,40 @@ def login_funct(driver):
         print("\n", "\t", "выбран пользователь")
         time.sleep(5)
 
+def fill_address_with_retry(max_retries=3):
+    for attempt in range(max_retries):
+        try:
+            element = wait.until(EC.element_to_be_clickable(("xpath", "//input[@id='react-select-3-input']")))
+            
+            # Очищаем поле
+            element.clear()
+            time.sleep(0.5)
+            
+            # Явный клик и фокус
+            element.click()
+            driver.execute_script("arguments[0].focus();", element)
+            time.sleep(0.5)
+            
+            # Постепенный ввод
+            for char in MIN_ADDRESS:
+                element.send_keys(char)
+                time.sleep(0.1)
+            
+            # Проверяем, что текст действительно введен
+            actual_value = element.get_attribute('value')
+            if actual_value == MIN_ADDRESS:
+                print(f"Успешно введен адрес: {MIN_ADDRESS}")
+                return True
+            else:
+                print(f"Попытка {attempt + 1}: ожидалось '{MIN_ADDRESS}', получено '{actual_value}'")
+                continue
+                
+        except Exception as e:
+            print(f"Попытка {attempt + 1} не удалась: {e}")
+            time.sleep(1)
+    
+    return False
+
 
 login_funct(driver)
 
@@ -189,197 +224,200 @@ login_funct(driver)
 
 # Основной цикл обработки CSV файлов
 for upload_file in uploads_file_dir.iterdir():
-    if upload_file.is_file() and upload_file.suffix.lower() == '.csv':
-        print(f"\n📁 Обработка файла: {upload_file.name}")
-        
-        driver.get("https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder")
-        print("\n", "\t", "переход на страницу поиска по ЕГРН")
-        time.sleep(10)
-        wait.until(EC.presence_of_element_located(("xpath", "//input[@id='applicantCategory']")))
-        scroll_category = driver.find_element("xpath", "//input[@id='applicantCategory']")
-        scroll_category.send_keys("Иные определенные федеральным законом")
-        time.sleep(1)
-        print("ввел иные...")
-        scroll_category.send_keys(Keys.ARROW_DOWN)
-        time.sleep(1)
-        print("отправил стрелку")
-        scroll_category.send_keys(Keys.ENTER)
-        time.sleep(1)
-        print("отправил энтер")
+    flag_download_CSV_file = False
+    while flag_download_CSV_file == False:
 
-        print("dropdown 1")
-        time.sleep(0.3)
-        driver.find_element("xpath", "//input[@id='rorganizationOrGovernmentArray[0].regDate']").send_keys(DOCUMENT_DATE)
-        print("\n", "\t", "ввод даты")
+        if upload_file.is_file() and upload_file.suffix.lower() == '.csv':
+            print(f"\n📁 Обработка файла: {upload_file.name}")
 
-        driver.find_element("xpath", "//input[@id='rorganizationOrGovernmentArray[0].email']").clear()
-        driver.find_element("xpath", "//input[@id='rorganizationOrGovernmentArray[0].email']").send_keys(EMAIL)
-        driver.find_element("xpath", "//input[@id='fullNameDocumentAndAdditionalInformationArray[0].email']").clear()
-        driver.find_element("xpath", "//input[@id='fullNameDocumentAndAdditionalInformationArray[0].email']").send_keys(EMAIL)
-        driver.find_element("xpath", "//input[@id='requestAboutObject.deliveryActionEmail']").clear()
-        driver.find_element("xpath", "//input[@id='requestAboutObject.deliveryActionEmail']").send_keys(EMAIL)
-        print("ввод email")
-        time.sleep(1)
-        print("выбор типа документа")
+            driver.get("https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder")
+            print("\n", "\t", "переход на страницу поиска по ЕГРН")
+            time.sleep(10)
+            wait.until(EC.presence_of_element_located(("xpath", "//input[@id='applicantCategory']")))
+            scroll_category = driver.find_element("xpath", "//input[@id='applicantCategory']")
+            scroll_category.send_keys("Иные определенные федеральным законом")
+            time.sleep(1)
+            print("ввел иные...")
+            scroll_category.send_keys(Keys.ARROW_DOWN)
+            time.sleep(1)
+            print("отправил стрелку")
+            scroll_category.send_keys(Keys.ENTER)
+            time.sleep(1)
+            print("отправил энтер")
 
-        
-        
-        element = driver.find_element("xpath", "(//div[text()='Заполните адрес'])[1]")
-        driver.execute_script("arguments[0].click();", element)
+            print("dropdown 1")
+            time.sleep(0.3)
+            driver.find_element("xpath", "//input[@id='rorganizationOrGovernmentArray[0].regDate']").send_keys(DOCUMENT_DATE)
+            print("\n", "\t", "ввод даты")
 
-        print("\n", "\t", "открытие меню адреса")
-        time.sleep(5)
-
-        try:
-            element = wait.until(
-            EC.visibility_of_element_located(("xpath", "//input[@id='react-select-3-input']")))
-            element.send_keys(MIN_ADDRESS)
-            time.sleep(3)
-            element.send_keys(Keys.ARROW_DOWN)
-            time.sleep(2)
-            driver.find_element("xpath", "//input[@id='react-select-3-input']").send_keys(Keys.ENTER)
-            print("нашел необходимый адресс")
-            time.sleep(2)
-            wait.until(EC.element_to_be_clickable(("xpath", "(//button[text()='Сохранить'])[1]"))).click()
-            print("сохранен адресс") 
-            time.sleep(2)
-        except Exception as e:
-            driver.save_screenshot('eror.png')
-            print(f'Ошибка{e}')
-            exit(1)
-
-        driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentType']").send_keys("Иной документ")
-        time.sleep(1)
-        print("ввел текст")
-        driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentType']").send_keys(Keys.ARROW_DOWN)
-        print("стрелка вниз")
-        time.sleep(1)
-        driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentType']").send_keys(Keys.ENTER)
-        print("энтер")
-        time.sleep(1)
-
-        driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentNumber']").send_keys(DOCUMENT_NUMBER)
-        time.sleep(1)
-        print("ввел номер документа")
-        driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentIssueDate']").send_keys(DOCUMENT_DATE)
-        time.sleep(1)
-        print("ввел дату выдачи документа")
-        driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.issuingAuthority']").send_keys(ISSUING_AUTHORITY)
-        time.sleep(1)
-        print("\t ввел кем выдан")
-
-        SCROL_VIPISKA = ("xpath", "//input[@id='react-select-6-input']")
-        driver.find_element(*SCROL_VIPISKA).send_keys("Выписка из Единого государственного реестра недвижимости об объекте недвижимости")
-        print("отправил")
-        time.sleep(1)
-        driver.find_element(*SCROL_VIPISKA).send_keys(Keys.ARROW_DOWN)
-        print("СТРЕЛКА")
-        time.sleep(1)
-        driver.find_element(*SCROL_VIPISKA).send_keys(Keys.ENTER)
-        print("энтер")
-        time.sleep(1)
+            driver.find_element("xpath", "//input[@id='rorganizationOrGovernmentArray[0].email']").clear()
+            driver.find_element("xpath", "//input[@id='rorganizationOrGovernmentArray[0].email']").send_keys(EMAIL)
+            driver.find_element("xpath", "//input[@id='fullNameDocumentAndAdditionalInformationArray[0].email']").clear()
+            driver.find_element("xpath", "//input[@id='fullNameDocumentAndAdditionalInformationArray[0].email']").send_keys(EMAIL)
+            driver.find_element("xpath", "//input[@id='requestAboutObject.deliveryActionEmail']").clear()
+            driver.find_element("xpath", "//input[@id='requestAboutObject.deliveryActionEmail']").send_keys(EMAIL)
+            print("ввод email")
+            time.sleep(1)
+            print("выбор типа документа")
 
 
-        # файл
-        driver.find_element("xpath", "(//input[@type='file'])[1]").send_keys(file_path)
-        time.sleep(15)
-        print("отправил 1")
-        # файл
-        driver.find_element("xpath", "(//input[@type='file'])[2]").send_keys(file_signature)
-        time.sleep(15)
-        print("отправил 2")
-        
-        # файл csv
-        loading_flag = True
-        attempt = 0
-        max_attempts = 5
 
-        while loading_flag and attempt < max_attempts:
-            attempt += 1
-            print(f"🔄 Попытка загрузки CSV {attempt}/{max_attempts}")
+            element = driver.find_element("xpath", "(//div[text()='Заполните адрес'])[1]")
+            driver.execute_script("arguments[0].click();", element)
 
-            # Загружаем файл
-            loading_flag = wait_for_file_upload_by_title(driver, upload_file)
+            print("\n", "\t", "открытие меню адреса")
+            time.sleep(5)
 
-            # Если функция вернула True (неудача), обрабатываем очистку
-            if loading_flag:
-                print("🔄 Очищаем и пробуем снова...")
+            try:
+                # Ждем появления и кликабельности
+                wait.until(EC.visibility_of_element_located(("xpath", "//input[@id='react-select-3-input']")))
+                if fill_address_with_retry():
+                    for _ in range(3):
+                        element.send_keys(Keys.ARROW_DOWN)
+                        time.sleep(1)
+                    element.send_keys(Keys.ENTER)
+                    print("нашел необходимый адрес")
+                else:
+                    raise Exception("Не удалось заполнить поле адреса после всех попыток")        
 
-                # ЖДЕМ появления кнопки удаления с использованием глобального wait
-                try:
-                    print("⏳ Ожидаем появления кнопки 'Удалить'...")
-                    delete_button = wait.until(
-                        EC.element_to_be_clickable(("xpath", "//button[contains(@class, 'csv-control__btn-del') and contains(., 'Удалить')]"))
-                    )
-                    delete_button.click()
-                    print("✅ Кнопка 'Удалить' нажата")
+            except Exception as e:
+                driver.save_screenshot(f'{upload_file.name}error.png') 
+                print(f'Ошибка: {e}') 
+                exit(1)
 
-                    # Ждем пока файл удалится (исчезнет элемент с именем файла)
+            driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentType']").send_keys("Иной документ")
+            time.sleep(1)
+            print("ввел текст")
+            driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentType']").send_keys(Keys.ARROW_DOWN)
+            print("стрелка вниз")
+            time.sleep(1)
+            driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentType']").send_keys(Keys.ENTER)
+            print("энтер")
+            time.sleep(1)
+
+            driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentNumber']").send_keys(DOCUMENT_NUMBER)
+            time.sleep(1)
+            print("ввел номер документа")
+            driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentIssueDate']").send_keys(DOCUMENT_DATE)
+            time.sleep(1)
+            print("ввел дату выдачи документа")
+            driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.issuingAuthority']").send_keys(ISSUING_AUTHORITY)
+            time.sleep(1)
+            print("\t ввел кем выдан")
+
+            SCROL_VIPISKA = ("xpath", "//input[@id='react-select-6-input']")
+            driver.find_element(*SCROL_VIPISKA).send_keys("Выписка из Единого государственного реестра недвижимости об объекте недвижимости")
+            print("отправил")
+            time.sleep(1)
+            driver.find_element(*SCROL_VIPISKA).send_keys(Keys.ARROW_DOWN)
+            print("СТРЕЛКА")
+            time.sleep(1)
+            driver.find_element(*SCROL_VIPISKA).send_keys(Keys.ENTER)
+            print("энтер")
+            time.sleep(1)
+
+
+            # файл
+            driver.find_element("xpath", "(//input[@type='file'])[1]").send_keys(file_path)
+            time.sleep(15)
+            print("отправил 1")
+            # файл
+            driver.find_element("xpath", "(//input[@type='file'])[2]").send_keys(file_signature)
+            time.sleep(15)
+            print("отправил 2")
+
+            # файл csv
+            loading_flag = True
+            attempt = 0
+            max_attempts = 5
+
+            while loading_flag and attempt < max_attempts:
+                attempt += 1
+                print(f"🔄 Попытка загрузки CSV {attempt}/{max_attempts}")
+
+                # Загружаем файл
+                loading_flag = wait_for_file_upload_by_title(driver, upload_file)
+
+                # Если функция вернула True (неудача), обрабатываем очистку
+                if loading_flag:
+                    print("🔄 Очищаем и пробуем снова...")
+
+                    # ЖДЕМ появления кнопки удаления с использованием глобального wait
                     try:
-                        wait.until(EC.invisibility_of_element_located(("xpath", 
-                            f"//span[contains(@title, '{upload_file.name}') and contains(@class, 'rros-ui-lib-file-upload__item__name')]")))
-                        print("✅ Файл успешно удален из интерфейса")
-                    except:
-                        print("⚠️ Файл не исчез из интерфейса, но продолжаем...")
+                        print("⏳ Ожидаем появления кнопки 'Удалить'...")
+                        delete_button = wait.until(
+                            EC.element_to_be_clickable(("xpath", "//button[contains(@class, 'csv-control__btn-del') and contains(., 'Удалить')]"))
+                        )
+                        delete_button.click()
+                        print("✅ Кнопка 'Удалить' нажата")
 
-                except Exception as e:
-                    print(f"⚠️ Не удалось найти или нажать кнопку 'Удалить': {e}")
+                        # Ждем пока файл удалится (исчезнет элемент с именем файла)
+                        try:
+                            wait.until(EC.invisibility_of_element_located(("xpath", 
+                                f"//span[contains(@title, '{upload_file.name}') and contains(@class, 'rros-ui-lib-file-upload__item__name')]")))
+                            print("✅ Файл успешно удален из интерфейса")
+                        except:
+                            print("⚠️ Файл не исчез из интерфейса, но продолжаем...")
 
-                if loading_flag and attempt < max_attempts:
-                    print("🔄 Повторная попытка через 3 секунды...")
-                    time.sleep(3)
+                    except Exception as e:
+                        print(f"⚠️ Не удалось найти или нажать кнопку 'Удалить': {e}")
+
+                    if loading_flag and attempt < max_attempts:
+                        print("🔄 Повторная попытка через 3 секунды...")
+                        time.sleep(3)
 
 
-            else:
-                # Пауза перед следующей попыткой
-                if loading_flag and attempt < max_attempts:
-                    print("🔄 Повторная попытка через 3 секунды...")
-                    time.sleep(3)
-
-    
+                else:
+                    # Пауза перед следующей попыткой
+                    if loading_flag and attempt < max_attempts:
+                        print("🔄 Повторная попытка через 3 секунды...")
+                        time.sleep(3)
 
 
-        SCROL_VIPISKA = ("xpath", "//input[@id='react-select-6-input']")
-        driver.find_element(*SCROL_VIPISKA).send_keys("Выписка из Единого государственного реестра недвижимости об объекте недвижимости")
-        print("отправил")
+
+
+            SCROL_VIPISKA = ("xpath", "//input[@id='react-select-6-input']")
+            driver.find_element(*SCROL_VIPISKA).send_keys("Выписка из Единого государственного реестра недвижимости об объекте недвижимости")
+            print("отправил")
+            time.sleep(1)
+            driver.find_element(*SCROL_VIPISKA).send_keys(Keys.ARROW_DOWN)
+            print("СТРЕЛКА")
+            time.sleep(1)
+            driver.find_element(*SCROL_VIPISKA).send_keys(Keys.ENTER)
+            print("энтер")
+            time.sleep(1)
+
+            try:
+                wait.until(EC.presence_of_element_located(("xpath", "//div[text()='Добавлено объектов из CSV-файла:']")))
+                print("✅ CSV-файл найден, продолжаем работу")
+
+            except:
+                print("❌ CSV-файл не появился в течение 300 секунд")
+
+        time.sleep(2)
+
+        BUTTON_FURTHER = ("xpath", "//button[text()='Далее']")
+        wait.until(EC.element_to_be_clickable(BUTTON_FURTHER)).click()
+        time.sleep(5)
+        print("первая Далее")
+        wait.until(EC.visibility_of_element_located(BUTTON_FURTHER))
+        time.sleep(5)
+        wait.until(EC.element_to_be_clickable(BUTTON_FURTHER)).click()
+        time.sleep(2)
+        print("вторая Далее")
+        wait.until(EC.visibility_of_element_located(("xpath", "//span[@class='certificate-selector__list-option']"))).click()
+        print("выбрал")
         time.sleep(1)
-        driver.find_element(*SCROL_VIPISKA).send_keys(Keys.ARROW_DOWN)
-        print("СТРЕЛКА")
-        time.sleep(1)
-        driver.find_element(*SCROL_VIPISKA).send_keys(Keys.ENTER)
-        print("энтер")
-        time.sleep(1)
-    
+        wait.until(EC.visibility_of_element_located(("xpath", "//button[text()='Выбрать']"))).click()
+        print("финальная далее")
         try:
-            wait.until(EC.presence_of_element_located(("xpath", "//div[text()='Добавлено объектов из CSV-файла:']")))
-            print("✅ CSV-файл найден, продолжаем работу")
-        
-        except:
-            print("❌ CSV-файл не появился в течение 300 секунд")
-    
-    time.sleep(2)
-
-    BUTTON_FURTHER = ("xpath", "//button[text()='Далее']")
-    wait.until(EC.element_to_be_clickable(BUTTON_FURTHER)).click()
-    time.sleep(5)
-    print("первая Далее")
-    wait.until(EC.visibility_of_element_located(BUTTON_FURTHER))
-    time.sleep(5)
-    wait.until(EC.element_to_be_clickable(BUTTON_FURTHER)).click()
-    time.sleep(2)
-    print("вторая Далее")
-    wait.until(EC.visibility_of_element_located(("xpath", "//span[@class='certificate-selector__list-option']"))).click()
-    print("выбрал")
-    time.sleep(1)
-    wait.until(EC.visibility_of_element_located(("xpath", "//button[text()='Выбрать']"))).click()
-    print("финальная далее")
-    try:
-        wait.until(EC.visibility_of_element_located(("xpath", "//div[text()='Ваша заявка отправлена в ведомство']")))
-        save_selenium_note(driver, f"УСПЕХ✌: Файл {upload_file} отправлен")
-        time.sleep(10)
-    except Exception as e:
-        save_selenium_note(driver, f"ОШИБКА💥: Файл {upload_file} не отправлен - {type(e).__name__}: {str(e)}")
-        time.sleep(10)
+            wait.until(EC.visibility_of_element_located(("xpath", "//div[text()='Ваша заявка отправлена в ведомство']")))
+            save_selenium_note(driver, f"УСПЕХ✌: Файл {upload_file} отправлен")
+            flag_download_CSV_file = True
+            time.sleep(10)
+        except Exception as e:
+            save_selenium_note(driver, f"ОШИБКА💥: Файл {upload_file} не отправлен - {type(e).__name__}: {str(e)}")
+            time.sleep(10)
     
 print("end code")
 driver.quit()
