@@ -183,39 +183,39 @@ def login_funct(driver):
         print("\n", "\t", "выбран пользователь")
         time.sleep(5)
 
-def fill_address_with_retry(max_retries=3):
-    for attempt in range(max_retries):
-        try:
-            element = wait.until(EC.element_to_be_clickable(("xpath", "//input[@id='react-select-3-input']")))
-            
-            # Очищаем поле
-            element.clear()
-            time.sleep(0.5)
-            
-            # Явный клик и фокус
-            element.click()
-            driver.execute_script("arguments[0].focus();", element)
-            time.sleep(0.5)
-            
-            # Постепенный ввод
-            for char in MIN_ADDRESS:
-                element.send_keys(char)
-                time.sleep(0.1)
-            
-            # Проверяем, что текст действительно введен
-            actual_value = element.get_attribute('value')
-            if actual_value == MIN_ADDRESS:
-                print(f"Успешно введен адрес: {MIN_ADDRESS}")
-                return True
-            else:
-                print(f"Попытка {attempt + 1}: ожидалось '{MIN_ADDRESS}', получено '{actual_value}'")
-                continue
-                
-        except Exception as e:
-            print(f"Попытка {attempt + 1} не удалась: {e}")
-            time.sleep(1)
+def fill_address_with_retry(driver):
+    wait = WebDriverWait(driver, 30)
+    # Ждем появления и кликабельности элемента
+    element = wait.until(EC.element_to_be_clickable(("xpath", "//input[@id='react-select-3-input']")))
     
-    return False
+    # Очищаем поле
+    element.clear()
+    time.sleep(0.5)
+    
+    # Явный клик и фокус
+    element.click()
+    driver.execute_script("arguments[0].focus();", element)
+    time.sleep(0.5)
+    
+    # Постепенный ввод
+    for char in MIN_ADDRESS:
+        element.send_keys(char)
+        time.sleep(0.1)
+    
+    # Проверяем, что текст действительно введен
+    actual_value = element.get_attribute('value')
+    if actual_value == MIN_ADDRESS:
+        print(f"Успешно введен адрес: {MIN_ADDRESS}")
+        element.send_keys(Keys.ARROW_DOWN)
+        time.sleep(1)
+        element.send_keys(Keys.ENTER)
+        print("Нашел необходимый адрес и выбрал его")
+        wait.until(EC.element_to_be_clickable(("xpath", "(//button[text()='Сохранить'])[1]"))).click()
+        print('Адрес министерства сохранен') 
+        return True
+    else:
+        print(f"Ожидалось '{MIN_ADDRESS}', получено '{actual_value}'")
+        return False
 
 
 login_funct(driver)
@@ -235,6 +235,7 @@ for upload_file in uploads_file_dir.iterdir():
             time.sleep(10)
             wait.until(EC.presence_of_element_located(("xpath", "//input[@id='applicantCategory']")))
             scroll_category = driver.find_element("xpath", "//input[@id='applicantCategory']")
+            driver.execute_script("arguments[0].click();", scroll_category)
             scroll_category.send_keys("Иные определенные федеральным законом")
             time.sleep(1)
             print("ввел иные...")
@@ -271,19 +272,17 @@ for upload_file in uploads_file_dir.iterdir():
             try:
                 # Ждем появления и кликабельности
                 wait.until(EC.visibility_of_element_located(("xpath", "//input[@id='react-select-3-input']")))
-                if fill_address_with_retry():
-                    for _ in range(3):
-                        element.send_keys(Keys.ARROW_DOWN)
-                        time.sleep(1)
-                    element.send_keys(Keys.ENTER)
-                    print("нашел необходимый адрес")
-                else:
-                    raise Exception("Не удалось заполнить поле адреса после всех попыток")        
+
+                # Получаем элемент после успешного заполнения
+                flag_fill_address = fill_address_with_retry(driver)
+                while flag_fill_address == False:
+                    flag_fill_address = fill_address_with_retry(driver)
 
             except Exception as e:
                 driver.save_screenshot(f'{upload_file.name}error.png') 
                 print(f'Ошибка: {e}') 
                 exit(1)
+
 
             driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentType']").send_keys("Иной документ")
             time.sleep(1)
@@ -306,7 +305,7 @@ for upload_file in uploads_file_dir.iterdir():
             print("\t ввел кем выдан")
 
             SCROL_VIPISKA = ("xpath", "//input[@id='react-select-6-input']")
-            driver.find_element(*SCROL_VIPISKA).send_keys("Выписка из Единого государственного реестра недвижимости об объекте недвижимости")
+            driver.find_element(*SCROL_VIPISKA).send_keys("Выписка из Единого государственного реестра недвижимости о переходе прав на объект недвижимости")
             print("отправил")
             time.sleep(1)
             driver.find_element(*SCROL_VIPISKA).send_keys(Keys.ARROW_DOWN)
