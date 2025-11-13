@@ -11,6 +11,7 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 
 from config import *
 
@@ -51,6 +52,8 @@ script_dir = Path(__file__).parent
 file_path = os.path.join(script_dir, "uploads", PDF_FILE_NAME)
 file_signature = os.path.join(script_dir, "uploads", SIGNATURE_FILE_NAME)
 uploads_file_dir = script_dir / "uploads" / "uploads_files"
+
+actions = ActionChains(driver)
 
 def wait_for_file_upload_by_title(driver, file_path):
     try:
@@ -183,44 +186,49 @@ def login_funct(driver):
         print("\n", "\t", "выбран пользователь")
         time.sleep(5)
 
-def fill_address_with_retry(driver):
-    wait = WebDriverWait(driver, 30)
-    # Ждем появления и кликабельности элемента
-    element = wait.until(EC.element_to_be_clickable(("xpath", "//input[@id='react-select-3-input']")))
-    
-    # Очищаем поле
-    element.clear()
-    time.sleep(0.5)
-    
-    # Явный клик и фокус
-    element.click()
-    driver.execute_script("arguments[0].focus();", element)
-    time.sleep(0.5)
-    
-    # Постепенный ввод
-    for char in MIN_ADDRESS:
-        element.send_keys(char)
-        time.sleep(0.1)
-    
-    # Проверяем, что текст действительно введен
-    actual_value = element.get_attribute('value')
-    if actual_value == MIN_ADDRESS:
-        print(f"Успешно введен адрес: {MIN_ADDRESS}")
-        element.send_keys(Keys.ARROW_DOWN)
+def select_address_ultimate():
+    try:
+        print("Запуск надежного выбора адреса...")
+        
+        # Через ActionChains
+        container = wait.until(EC.element_to_be_clickable(
+            ("xpath", "//input[@id='react-select-3-input']")
+        ))
+        container.click()
         time.sleep(1)
-        element.send_keys(Keys.ENTER)
-        print("Нашел необходимый адрес и выбрал его")
+        
+        hidden_input = driver.find_element("id", "react-select-3-input")
+        
+        # Очистка и ввод
+        hidden_input.send_keys(Keys.CONTROL + "a")
+        time.sleep(1)
+        hidden_input.send_keys(Keys.DELETE)
+        time.sleep(1)
+        hidden_input.send_keys(MIN_ADDRESS)
+        time.sleep(2)
+        
+        # Надежная последовательность стрелок и Enter
+        actions = ActionChains(driver)
+        actions.send_keys(Keys.ARROW_DOWN)
+        actions.pause(1)
+        actions.send_keys(Keys.ENTER)
+        actions.perform()
+        
+        print("✓ Действия выполнены: СтрелкаВниз + Enter")
+        time.sleep(1)
         wait.until(EC.element_to_be_clickable(("xpath", "(//button[text()='Сохранить'])[1]"))).click()
-        print('Адрес министерства сохранен') 
+        print('Адрес министерства сохранен')        
+        time.sleep(2)
         return True
-    else:
-        print(f"Ожидалось '{MIN_ADDRESS}', получено '{actual_value}'")
+        
+    except Exception as e:
+        print(f"✗ Ошибка в основном методе: {e}")
         return False
 
 
 login_funct(driver)
 
-#driver.set_window_size(300, 300)
+#driver.set_window_size(300, 300) 
 
 # Основной цикл обработки CSV файлов
 for upload_file in uploads_file_dir.iterdir():
@@ -236,7 +244,7 @@ for upload_file in uploads_file_dir.iterdir():
             wait.until(EC.presence_of_element_located(("xpath", "//input[@id='applicantCategory']")))
             scroll_category = driver.find_element("xpath", "//input[@id='applicantCategory']")
             driver.execute_script("arguments[0].click();", scroll_category)
-            scroll_category.send_keys("Иные определенные федеральным законом")
+            scroll_category.send_keys("Органы государственной власти субъектов Российской Федерации")
             time.sleep(1)
             print("ввел иные...")
             scroll_category.send_keys(Keys.ARROW_DOWN)
@@ -262,57 +270,63 @@ for upload_file in uploads_file_dir.iterdir():
             print("выбор типа документа")
 
 
-
-            element = driver.find_element("xpath", "(//div[text()='Заполните адрес'])[1]")
-            driver.execute_script("arguments[0].click();", element)
-
-            print("\n", "\t", "открытие меню адреса")
-            time.sleep(5)
-
             try:
-                # Ждем появления и кликабельности
-                wait.until(EC.visibility_of_element_located(("xpath", "//input[@id='react-select-3-input']")))
-
-                # Получаем элемент после успешного заполнения
-                flag_fill_address = fill_address_with_retry(driver)
-                while flag_fill_address == False:
-                    flag_fill_address = fill_address_with_retry(driver)
+                address_menu = wait.until(EC.element_to_be_clickable(("xpath", "(//div[text()='Заполните адрес'])[1]")))
+                driver.execute_script("arguments[0].click();", address_menu)
+                time.sleep(1)
+                if select_address_ultimate():
+                    print("✓ Адрес успешно выбран!")
+                else:
+                    print("✗ Не удалось выбрать адрес")
+                    driver.save_screenshot('address_error.png')
+                    exit(1)
 
             except Exception as e:
-                driver.save_screenshot(f'{upload_file.name}error.png') 
-                print(f'Ошибка: {e}') 
+                print(f"✗ Критическая ошибка: {e}")
+                driver.save_screenshot('critical_error.png')
                 exit(1)
 
+            time.sleep(2)
 
-            driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentType']").send_keys("Иной документ")
-            time.sleep(1)
-            print("ввел текст")
-            driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentType']").send_keys(Keys.ARROW_DOWN)
-            print("стрелка вниз")
-            time.sleep(1)
-            driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentType']").send_keys(Keys.ENTER)
-            print("энтер")
+            
+            # Первое поле: ввод текста и выбор из выпадающего списка
+            element1 = driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentType']")
+            actions.click(element1).send_keys("Иной документ").pause(1)
+            actions.send_keys(Keys.ARROW_DOWN).pause(1)
+            actions.send_keys(Keys.ENTER).pause(1)
+
+            # Второе поле: номер документа
+            element2 = driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentNumber']")
+            actions.click(element2).send_keys(DOCUMENT_NUMBER).pause(1)
+
+            # Третье поле: дата выдачи документа
+            element3 = driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentIssueDate']")
+            actions.click(element3).send_keys(DOCUMENT_DATE).pause(1)
+
+            # Четвертое поле: кем выдан
+            element4 = driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.issuingAuthority']")
+            actions.click(element4).send_keys(ISSUING_AUTHORITY).pause(1)
+
+            # Textarea: добавляем клик и ввод текста
+            textarea = driver.find_element("xpath", "//textarea[@name='groundsForDataFurnishing']")
+            actions.click(textarea).send_keys(CORRECTION).pause(1)
+            actions.perform()
+            print("Все поля заполнены через ActionChains")
             time.sleep(1)
 
-            driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentNumber']").send_keys(DOCUMENT_NUMBER)
-            time.sleep(1)
-            print("ввел номер документа")
-            driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentIssueDate']").send_keys(DOCUMENT_DATE)
-            time.sleep(1)
-            print("ввел дату выдачи документа")
-            driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.issuingAuthority']").send_keys(ISSUING_AUTHORITY)
-            time.sleep(1)
-            print("\t ввел кем выдан")
+            vipiska_container = driver.find_element("xpath", "//input[@id='react-select-6-input']")
 
-            SCROL_VIPISKA = ("xpath", "//input[@id='react-select-6-input']")
-            driver.find_element(*SCROL_VIPISKA).send_keys("Выписка из Единого государственного реестра недвижимости о переходе прав на объект недвижимости")
-            print("отправил")
-            time.sleep(1)
-            driver.find_element(*SCROL_VIPISKA).send_keys(Keys.ARROW_DOWN)
-            print("СТРЕЛКА")
-            time.sleep(1)
-            driver.find_element(*SCROL_VIPISKA).send_keys(Keys.ENTER)
-            print("энтер")
+            vipiska_container.send_keys("Выписка из Единого государственного реестра недвижимости о переходе прав на объект недвижимости")
+            print('прописал тип выписки')
+            time.sleep(2)
+
+            # Надежная последовательность стрелок и Enter
+            actions.send_keys(Keys.ARROW_DOWN)
+            print('прожал стрелку вниз на типе выписки')
+            actions.pause(1)
+            actions.send_keys(Keys.ENTER)
+            print('прожал enter на тип выписки')
+            actions.perform()
             time.sleep(1)
 
 
@@ -372,19 +386,6 @@ for upload_file in uploads_file_dir.iterdir():
                         print("🔄 Повторная попытка через 3 секунды...")
                         time.sleep(3)
 
-
-
-
-            SCROL_VIPISKA = ("xpath", "//input[@id='react-select-6-input']")
-            driver.find_element(*SCROL_VIPISKA).send_keys("Выписка из Единого государственного реестра недвижимости об объекте недвижимости")
-            print("отправил")
-            time.sleep(1)
-            driver.find_element(*SCROL_VIPISKA).send_keys(Keys.ARROW_DOWN)
-            print("СТРЕЛКА")
-            time.sleep(1)
-            driver.find_element(*SCROL_VIPISKA).send_keys(Keys.ENTER)
-            print("энтер")
-            time.sleep(1)
 
             try:
                 wait.until(EC.presence_of_element_located(("xpath", "//div[text()='Добавлено объектов из CSV-файла:']")))
