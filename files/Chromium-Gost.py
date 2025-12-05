@@ -13,6 +13,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
+from selenium.common.exceptions import TimeoutException, NoSuchElementException, ElementClickInterceptedException, ElementNotInteractableException
+import traceback
+
 from config import *
 
 # //div[@class='rros-ui-lib-errors'] див ошибок
@@ -45,7 +48,7 @@ service = Service(
 
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
-wait = WebDriverWait(driver, 1000, poll_frequency=1)
+wait = WebDriverWait(driver, 1500, poll_frequency=1)
 
 
 script_dir = Path(__file__).parent
@@ -149,7 +152,6 @@ def close_modal_window(driver):
         return False
 
 
-
 def save_selenium_note(driver, message, screenshot=False):
     """Сохраняет заметку для Selenium с возможностью скриншота"""
     notes_dir = Path(__file__).parent / "selenium_notes"
@@ -164,8 +166,10 @@ def save_selenium_note(driver, message, screenshot=False):
 
 def login_funct(driver):
     wait = WebDriverWait(driver, 15)
-    driver.get("https://lk.rosreestr.ru/my-applications")
+    driver.get("https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder")
     try:
+        if wait.until(EC.presence_of_element_located(("xpath", "//h1[contains(.,'Не удается получить доступ к сайту')]"))):
+            driver.get("https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder")
         if wait.until(EC.visibility_of_element_located(("xpath", "//button[text()=' Восстановить ']"))):
             wait.until(EC.visibility_of_element_located(("xpath", "//button[text()=' Эл. подпись ']"))).click()
             print("\n", "\t", "нажата кнопка электронной подписи")
@@ -180,50 +184,197 @@ def login_funct(driver):
             print("\n", "\t", "выбран пользователь")
             time.sleep(5)
     except:
-        driver.get("https://lk.rosreestr.ru/my-applications")
+        driver.get("https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder")
         print("\n", "\t", "переход на страницу росреестра")
         wait.until(EC.visibility_of_element_located(("xpath", "//span[text()='МИНИСТЕРСТВО ЖИЛИЩНО-КОММУНАЛЬНОГО ХОЗЯЙСТВА, ТОПЛИВА И ЭНЕРГЕТИКИ РЕСПУБЛИКИ СЕВЕРНАЯ ОСЕТИЯ-АЛАНИЯ']"))).click()
         print("\n", "\t", "выбран пользователь")
         time.sleep(5)
 
-def select_address_ultimate():
+def close_modal_windows():
+    """Функция для закрытия мешающих модальных окон"""
     try:
-        print("Запуск надежного выбора адреса...")
-        
-        # Через ActionChains
-        container = wait.until(EC.element_to_be_clickable(
-            ("xpath", "//input[@id='react-select-3-input']")
-        ))
-        container.click()
-        time.sleep(1)
-        
-        hidden_input = driver.find_element("id", "react-select-3-input")
-        
-        # Очистка и ввод
-        hidden_input.send_keys(Keys.CONTROL + "a")
-        time.sleep(1)
-        hidden_input.send_keys(Keys.DELETE)
-        time.sleep(1)
-        hidden_input.send_keys(MIN_ADDRESS)
-        time.sleep(2)
-        
-        # Надежная последовательность стрелок и Enter
+        # Пробуем ESC
         actions = ActionChains(driver)
-        actions.send_keys(Keys.ARROW_DOWN)
-        actions.pause(1)
-        actions.send_keys(Keys.ENTER)
-        actions.perform()
-        
-        print("✓ Действия выполнены: СтрелкаВниз + Enter")
+        actions.send_keys(Keys.ESCAPE).perform()
         time.sleep(1)
-        wait.until(EC.element_to_be_clickable(("xpath", "(//button[text()='Сохранить'])[1]"))).click()
-        print('Адрес министерства сохранен')        
-        time.sleep(2)
-        return True
         
+        # Ищем кнопки закрытия модальных окон
+        close_selectors = [
+            "//button[contains(@class, 'close')]",
+            "//button[contains(@class, 'modal-close')]",
+            "//div[contains(@class, 'overlay')]",
+            "//button[text()='Закрыть']",
+            "//button[text()='Отмена']"
+        ]
+        
+        for selector in close_selectors:
+            try:
+                close_btn = driver.find_elements("xpath", selector)
+                if close_btn:
+                    driver.execute_script("arguments[0].click();", close_btn[0])
+                    print(f"✓ Закрыто модальное окно через {selector}")
+                    time.sleep(1)
+            except:
+                continue
+                
     except Exception as e:
-        print(f"✗ Ошибка в основном методе: {e}")
+        print(f"⚠️ Не удалось закрыть модальные окна: {e}")
+
+
+def select_address_ultimate():
+    max_attempts = 2
+    for attempt in range(max_attempts):
+        try:
+            print(f"Попытка {attempt + 1} заполнения адреса...")
+            
+            # Даем больше времени на анимацию открытия модального окна
+            print("Ожидание полного открытия модального окна...")
+            time.sleep(5)
+            
+            # Пробуем найти активное поле ввода
+            container = None
+            selectors = [
+                "//input[@id='react-select-3-input']",
+                "//input[contains(@id, 'react-select')]",
+                "//input[contains(@placeholder, 'адрес')]",
+                "//div[contains(@class, 'select')]//input"
+            ]
+            
+            for selector in selectors:
+                try:
+                    # Ждем пока элемент станет кликабельным
+                    container = WebDriverWait(driver, 10).until(
+                        EC.element_to_be_clickable(("xpath", selector))
+                    )
+                    print(f"✓ Найден и доступен элемент через: {selector}")
+                    break
+                except:
+                    continue
+            
+            if not container:
+                print("✗ Не удалось найти доступное поле ввода адреса")
+                # Пробуем обновить модальное окно
+                try:
+                    print("Пробуем переоткрыть модальное окно...")
+                    actions = ActionChains(driver)
+                    actions.send_keys(Keys.ESCAPE).perform()
+                    time.sleep(2)
+                    
+                    # Снова открываем модальное окно
+                    address_menu = wait.until(EC.element_to_be_clickable(("xpath", "(//div[text()='Заполните адрес'])[1]")))
+                    driver.execute_script("arguments[0].click();", address_menu)
+                    time.sleep(3)
+                    continue
+                except:
+                    continue
+            
+            # Пробуем разные способы активации поля
+            try:
+                # Способ 1: JavaScript клик (самый надежный)
+                driver.execute_script("arguments[0].click();", container)
+                print("✓ JavaScript клик выполнен")
+            except:
+                try:
+                    # Способ 2: ActionChains с перемещением
+                    actions = ActionChains(driver)
+                    actions.move_to_element(container).click().perform()
+                    print("✓ ActionChains клик выполнен")
+                except:
+                    try:
+                        # Способ 3: Простой клик
+                        container.click()
+                        print("✓ Обычный клик выполнен")
+                    except Exception as click_error:
+                        print(f"✗ Все способы клика не сработали: {click_error}")
+                        continue
+            
+            time.sleep(2)
+            
+            # Проверяем что поле стало активным
+            if not container.is_enabled():
+                print("⚠️ Поле осталось неактивным после клика")
+                continue
+            
+            # Очистка и ввод адреса
+            print(f"Ввод адреса: {MIN_ADDRESS}")
+            
+            # Очищаем поле
+            container.send_keys(Keys.CONTROL + "a")
+            time.sleep(0.5)
+            container.send_keys(Keys.DELETE)
+            time.sleep(0.5)
+            
+            # Вводим адрес
+            container.send_keys(MIN_ADDRESS)
+            time.sleep(3)  # Ждем появления вариантов
+            
+            # Выбор из списка
+            container.send_keys(Keys.ARROW_DOWN)
+            time.sleep(1)
+            container.send_keys(Keys.ENTER)
+            time.sleep(2)
+            
+            # Сохранение
+            save_button = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable(("xpath", "(//button[text()='Сохранить'])[1]"))
+            )
+            driver.execute_script("arguments[0].click();", save_button)
+            time.sleep(4)
+            
+            print("✓ Адрес сохранен")
+            return True
+                    
+        except Exception as e:
+            print(f"✗ Ошибка на попытке {attempt + 1}: {e}")
+            if attempt < max_attempts - 1:
+                print("Пробуем снова...")
+                time.sleep(3)
+            else:
+                print("❌ Все попытки исчерпаны")
+                driver.save_screenshot(f'address_final_error_{int(time.time())}.png')
+    
+    return False
+
+
+def is_page_loaded(driver):
+    try:
+        return driver.execute_script("return document.readyState") == "complete"
+    except:
         return False
+
+def is_modal_loaded():
+    """Проверка что модальное окно полностью загружено"""
+    try:
+        # Проверяем что модальное окно видимо
+        modal_visible = EC.visibility_of_element_located((
+            "xpath", "//div[contains(@class, 'modal')] | //div[contains(@class, 'rros-ui-lib-modal')]"
+        ))
+        # Проверяем что поле ввода доступно
+        input_ready = EC.element_to_be_clickable(("xpath", "//input[@id='react-select-3-input']"))
+        
+        return modal_visible(driver) and input_ready(driver)
+    except:
+        return False
+
+
+def wait_for_all_loadings():
+    """Ожидание исчезновения всех loading-индикаторов"""
+    load_selectors = [
+        "//div[contains(@class, 'loading')]",
+        "//div[contains(@class, 'spinner')]",
+        "//div[contains(@class, 'rros-ui-lib-loading')]",
+        "//*[contains(text(), 'Загрузка')]",
+        "//*[contains(text(), 'Loading')]"
+    ]
+    
+    for selector in load_selectors:
+        try:
+            WebDriverWait(driver, 10).until(EC.invisibility_of_element_located(("xpath", selector)))
+            print(f"✓ Loading исчез: {selector}")
+        except:
+            print(f"⚠️ Loading не найден или не исчез: {selector}")
+    
+    time.sleep(1)
 
 
 login_funct(driver)
@@ -238,21 +389,137 @@ for upload_file in uploads_file_dir.iterdir():
         if upload_file.is_file() and upload_file.suffix.lower() == '.csv':
             print(f"\n📁 Обработка файла: {upload_file.name}")
 
-            driver.get("https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder")
-            print("\n", "\t", "переход на страницу поиска по ЕГРН")
-            time.sleep(10)
-            wait.until(EC.presence_of_element_located(("xpath", "//input[@id='applicantCategory']")))
-            scroll_category = driver.find_element("xpath", "//input[@id='applicantCategory']")
-            driver.execute_script("arguments[0].click();", scroll_category)
-            scroll_category.send_keys("Органы государственной власти субъектов Российской Федерации")
-            time.sleep(1)
-            print("ввел иные...")
-            scroll_category.send_keys(Keys.ARROW_DOWN)
-            time.sleep(1)
-            print("отправил стрелку")
-            scroll_category.send_keys(Keys.ENTER)
-            time.sleep(1)
-            print("отправил энтер")
+            # Проверка загрузки страницы
+            if not is_page_loaded(driver):
+                print("⚠️ Страница не загружена полностью, ждем...")
+                wait.until(lambda driver: driver.execute_script("return document.readyState") == "complete")
+
+            try:
+                driver.get("https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder")
+                print("\n", "\t", "переход на страницу поиска по ЕГРН")
+                time.sleep(10)
+
+                # Ждем появления элемента с детальной обработкой ошибок
+                try:
+                    wait.until(EC.presence_of_element_located(("xpath", "//input[@id='applicantCategory']")))
+                    print("✓ Элемент applicantCategory найден")
+                except TimeoutException:
+                    print("✗ Таймаут: элемент applicantCategory не появился за отведенное время")
+                    # Проверим что вообще загрузилось на странице
+                    page_source = driver.page_source
+                    if "applicantCategory" in page_source:
+                        print("⚠️ Элемент есть в DOM, но не видим")
+                    else:
+                        print("⚠️ Элемента нет в DOM")
+                    continue
+                
+                # Находим элемент
+                try:
+                    scroll_category = driver.find_element("xpath", "//input[@id='applicantCategory']")
+                    print("✓ Элемент успешно найден через find_element")
+                except NoSuchElementException:
+                    print("✗ Элемент не найден через find_element")
+                    # Попробуем альтернативные локаторы
+                    alternative_locators = [
+                        "//input[contains(@id, 'applicant')]",
+                        "//input[contains(@class, 'applicant')]",
+                        "//*[contains(text(), 'Органы государственной')]",
+                        "//select[@id='applicantCategory']"
+                    ]
+                    for locator in alternative_locators:
+                        try:
+                            scroll_category = driver.find_element("xpath", locator)
+                            print(f"✓ Найден через альтернативный локатор: {locator}")
+                            break
+                        except NoSuchElementException:
+                            continue
+                    else:
+                        print("Не удалось найти элемент ни одним из способов")
+                        continue
+
+                # Клик через JavaScript с обработкой ошибок
+                try:
+                    driver.execute_script("arguments[0].click();", scroll_category)
+                    print("✓ JavaScript клик выполнен")
+                except Exception as e:
+                    print(f"✗ Ошибка JavaScript клика: {e}")
+                    # Пробуем обычный клик
+                    try:
+                        scroll_category.click()
+                        print("✓ Обычный клик выполнен")
+                    except Exception as e2:
+                        print(f"✗ Ошибка обычного клика: {e2}")
+                        continue
+                    
+                # Ввод текста
+                try:
+                    scroll_category.send_keys("Органы государственной власти субъектов Российской Федерации")
+                    print("✓ Текст введен успешно")
+                except ElementNotInteractableException:
+                    print("✗ Элемент не доступен для ввода")
+                    # Проверим видимость и доступность
+                    is_displayed = scroll_category.is_displayed()
+                    is_enabled = scroll_category.is_enabled()
+                    print(f"Элемент displayed: {is_displayed}, enabled: {is_enabled}")
+                    continue
+                
+                time.sleep(1)
+                print("ввел иные...")
+
+                # Стрелка вниз
+                try:
+                    scroll_category.send_keys(Keys.ARROW_DOWN)
+                    print("✓ Стрелка вниз отправлена")
+                except Exception as e:
+                    print(f"✗ Ошибка отправки стрелки: {e}")
+
+                time.sleep(1)
+                print("отправил стрелку")
+
+                # Enter
+                try:
+                    scroll_category.send_keys(Keys.ENTER)
+                    print("✓ Enter отправлен")
+                except Exception as e:
+                    print(f"✗ Ошибка отправки Enter: {e}")
+
+                time.sleep(1)
+                print("отправил энтер")
+
+            except TimeoutException as e:
+                print(f"✗ Таймаут операции: {e}")
+                print(f"Текущий URL: {driver.current_url}")
+                print(f"Заголовок страницы: {driver.title}")
+                driver.save_screenshot('error_timeout_ОрганыГосВласти.png')
+
+            except NoSuchElementException as e:
+                print(f"✗ Элемент не найден: {e}")
+                print(f"Страница загружена: {driver.current_url}")
+                driver.save_screenshot('error_no_element_ОрганыГосВласти.png')
+
+            except ElementClickInterceptedException as e:
+                print(f"✗ Клик перехвачен другим элементом: {e}")
+                driver.save_screenshot('error_click_intercepted_ОрганыГосВласти.png')
+
+            except ElementNotInteractableException as e:
+                print(f"✗ Элемент не доступен для взаимодействия: {e}")
+                driver.save_screenshot('error_not_interactable_ОрганыГосВласти.png')
+
+            except Exception as e:
+                print(f"✗ Критическая ошибка: {e}")
+                print("Полная трассировка ошибки:")
+                traceback.print_exc()
+                print(f"Текущий URL: {driver.current_url}")
+                print(f"Размер окна: {driver.get_window_size()}")
+                driver.save_screenshot('error_critical_ОрганыГосВласти.png')
+
+                # Дополнительная диагностика
+                try:
+                    page_title = driver.title
+                    page_source_length = len(driver.page_source)
+                    print(f"Диагностика - Title: {page_title}, Source length: {page_source_length}")
+                except:
+                    print("Не удалось получить диагностическую информацию")
 
             print("dropdown 1")
             time.sleep(0.3)
@@ -274,44 +541,101 @@ for upload_file in uploads_file_dir.iterdir():
                 address_menu = wait.until(EC.element_to_be_clickable(("xpath", "(//div[text()='Заполните адрес'])[1]")))
                 driver.execute_script("arguments[0].click();", address_menu)
                 time.sleep(1)
-                if select_address_ultimate():
+
+                if select_address_ultimate(): 
                     print("✓ Адрес успешно выбран!")
+
+                    # Улучшенная проверка доступности формы
+                    try:
+                        # Ждем когда форма станет полностью доступной
+                        WebDriverWait(driver, 10).until(
+                            EC.element_to_be_clickable(("xpath", "//body"))
+                        )
+                        # Кликаем на body чтобы убедиться что нет перекрывающих элементов
+                        driver.execute_script("arguments[0].click();", driver.find_element("xpath", "//body"))
+                        print("✓ Форма доступна для взаимодействия")
+                    except Exception as e:
+                        print(f"⚠️ Форма все еще заблокирована: {e}")
+                        # Не прерываем выполнение, просто предупреждаем
+
                 else:
                     print("✗ Не удалось выбрать адрес")
-                    driver.save_screenshot('address_error.png')
-                    exit(1)
+                    print("⚠️ Пробуем повторить...")
+                    time.sleep(3)
+
+                    # Повторная попытка
+                    try:
+                        address_menu = wait.until(EC.element_to_be_clickable(("xpath", "(//div[text()='Заполните адрес'])[1]")))
+                        driver.execute_script("arguments[0].click();", address_menu)
+                        time.sleep(1)
+
+                        if select_address_ultimate():
+                            print("✓ Адрес успешно выбран после повторной попытки!")
+                        else:
+                            print("✗ Критическая ошибка с адресом после двух попыток")
+                            driver.save_screenshot('address_final_error.png')
+                            continue
+
+                    except Exception as retry_error:
+                        print(f"✗ Ошибка при повторной попытке: {retry_error}")
+                        driver.save_screenshot('address_retry_error.png')
+                        continue
 
             except Exception as e:
-                print(f"✗ Критическая ошибка: {e}")
+                print(f"✗ Критическая ошибка при открытии модального окна: {e}")
                 driver.save_screenshot('critical_error.png')
-                exit(1)
+                continue
 
             time.sleep(2)
 
+
             
-            # Первое поле: ввод текста и выбор из выпадающего списка
-            element1 = driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentType']")
-            actions.click(element1).send_keys("Иной документ").pause(1)
-            actions.send_keys(Keys.ARROW_DOWN).pause(1)
-            actions.send_keys(Keys.ENTER).pause(1)
-
-            # Второе поле: номер документа
-            element2 = driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentNumber']")
-            actions.click(element2).send_keys(DOCUMENT_NUMBER).pause(1)
-
-            # Третье поле: дата выдачи документа
-            element3 = driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentIssueDate']")
-            actions.click(element3).send_keys(DOCUMENT_DATE).pause(1)
-
-            # Четвертое поле: кем выдан
-            element4 = driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.issuingAuthority']")
-            actions.click(element4).send_keys(ISSUING_AUTHORITY).pause(1)
-
-            # Textarea: добавляем клик и ввод текста
-            textarea = driver.find_element("xpath", "//textarea[@name='groundsForDataFurnishing']")
-            actions.click(textarea).send_keys(CORRECTION).pause(1)
-            actions.perform()
-            print("Все поля заполнены через ActionChains")
+            # Документ, подтверждающий полномочия уполномоченного лица
+            try:
+                # Поле типа документа - клик через JavaScript
+                element1 = driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentType']")
+                
+                # Вместо обычного клика используем JavaScript
+                driver.execute_script("arguments[0].click();", element1)
+                time.sleep(2)
+                
+                # После клика появляется выпадающий список, выбираем вариант
+                driver.execute_script("arguments[0].value = 'Иной документ';", element1)
+                time.sleep(1)
+                
+                # Или альтернативный способ - отправляем клавиши
+                element1.send_keys("Иной документ")
+                time.sleep(1)
+                element1.send_keys(Keys.ARROW_DOWN)
+                time.sleep(1)
+                element1.send_keys(Keys.ENTER)
+                time.sleep(2)
+                print("✓ Тип документа заполнен")
+            
+                # Остальные поля
+                element2 = driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentNumber']")
+                element2.send_keys(DOCUMENT_NUMBER)
+                time.sleep(1)
+            
+                element3 = driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.documentIssueDate']")
+                element3.send_keys(DOCUMENT_DATE)
+                time.sleep(1)
+            
+                element4 = driver.find_element("xpath", "//input[@id='userAuthorityConfirmationDocument.issuingAuthority']")
+                element4.send_keys(ISSUING_AUTHORITY)
+                time.sleep(1)
+            
+                textarea = driver.find_element("xpath", "//textarea[@name='groundsForDataFurnishing']")
+                textarea.send_keys(CORRECTION)
+                time.sleep(1)
+                
+                print("✓ Все поля документа заполнены")
+                
+            except Exception as e:
+                print(f"✗ Ошибка при заполнении документов: {e}")
+                driver.save_screenshot('document_error.png')
+                continue
+            
             time.sleep(1)
 
             vipiska_container = driver.find_element("xpath", "//input[@id='react-select-6-input']")
@@ -331,13 +655,18 @@ for upload_file in uploads_file_dir.iterdir():
 
 
             # файл
-            driver.find_element("xpath", "(//input[@type='file'])[1]").send_keys(file_path)
-            time.sleep(15)
-            print("отправил 1")
-            # файл
-            driver.find_element("xpath", "(//input[@type='file'])[2]").send_keys(file_signature)
-            time.sleep(15)
-            print("отправил 2")
+            try:
+                driver.find_element("xpath", "(//input[@type='file'])[1]").send_keys(file_path)
+                time.sleep(15)
+                print("отправил 1")
+                # файл
+                driver.find_element("xpath", "(//input[@type='file'])[2]").send_keys(file_signature)
+                time.sleep(15)
+                print("отправил 2")
+            except Exception as e:
+                print(f"✗ Ошибка при отправке файлов: {e}")
+                driver.save_screenshot("no_name_error.png")
+                continue
 
             # файл csv
             loading_flag = True
@@ -396,20 +725,42 @@ for upload_file in uploads_file_dir.iterdir():
 
         time.sleep(2)
 
+        button_further = wait.until(EC.presence_of_element_located(("xpath", "//button[text()='Далее']")))
         BUTTON_FURTHER = ("xpath", "//button[text()='Далее']")
-        wait.until(EC.element_to_be_clickable(BUTTON_FURTHER)).click()
-        time.sleep(5)
-        print("первая Далее")
-        wait.until(EC.visibility_of_element_located(BUTTON_FURTHER))
-        time.sleep(5)
-        wait.until(EC.element_to_be_clickable(BUTTON_FURTHER)).click()
-        time.sleep(2)
-        print("вторая Далее")
-        wait.until(EC.visibility_of_element_located(("xpath", "//span[@class='certificate-selector__list-option']"))).click()
-        print("выбрал")
-        time.sleep(1)
-        wait.until(EC.visibility_of_element_located(("xpath", "//button[text()='Выбрать']"))).click()
-        print("финальная далее")
+        try:
+            driver.execute_script("arguments[0].click();", button_further)
+            print("✓ Первая кнопка 'Далее' нажата через JavaScript")
+            time.sleep(5)
+            wait.until(EC.visibility_of_element_located(BUTTON_FURTHER))
+            time.sleep(5)
+            wait.until(EC.element_to_be_clickable(BUTTON_FURTHER)).click()
+            time.sleep(2)
+            print("вторая Далее")
+            wait.until(EC.visibility_of_element_located(("xpath", "//span[@class='certificate-selector__list-option']"))).click()
+            print("выбрал")
+            time.sleep(1)
+            wait.until(EC.visibility_of_element_located(("xpath", "//button[text()='Выбрать']"))).click()
+            print("финальная далее")
+        except Exception as e:
+            print(f'✗ Критическая ошибка на этапе заполнения документов: {e}')
+            print(f'Тип ошибки: {type(e).__name__}')
+
+            # Делаем скриншот с временной меткой
+            timestamp = int(time.time())
+            driver.save_screenshot('button_further_error.png')
+            print(f'Скриншот сохранен: button_further_error_{timestamp}.png')
+
+            # Дополнительная диагностика
+            try:
+                current_url = driver.current_url
+                page_title = driver.title
+                print(f'Текущий URL: {current_url}')
+                print(f'Заголовок страницы: {page_title}')
+                continue
+            except Exception as diag_error:
+                print(f'Ошибка диагностики: {diag_error}')
+                continue
+            
         try:
             wait.until(EC.visibility_of_element_located(("xpath", "//div[text()='Ваша заявка отправлена в ведомство']")))
             save_selenium_note(driver, f"УСПЕХ✌: Файл {upload_file} отправлен")
