@@ -1,0 +1,125 @@
+[2026-06-24 14:12:37] WARNING  | login | Сайт недоступен, повторный переход
+[2026-06-24 14:14:05] ERROR    | result | ОШИБКА: Файл C:\Selenium\Order_statements\uploads_CSV\2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv не отправлен — ошибка при заполнении полей документа (попытка 1/5) — NameError: name '_react_select_display_text' is not defined
+[2026-06-24 14:14:06] ERROR    | documents | ошибка при заполнении полей документа (попытка 1/5)
+Тип: NameError
+Сообщение: name '_react_select_display_text' is not defined
+Traceback:
+Traceback (most recent call last):
+  File "C:\Selenium\Order_statements\script\processor.py", line 194, in run_processing_loop
+    fill_authority_document_fields(driver, stage="documents")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Selenium\Order_statements\script\documents.py", line 134, in fill_authority_document_fields
+    select_authority_document_type(drv, stage=stage)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Selenium\Order_statements\script\documents.py", line 76, in select_authority_document_type
+    if is_authority_document_type_filled(drv):
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Selenium\Order_statements\script\documents.py", line 52, in is_authority_document_type_filled
+    display = _react_select_display_text(drv, "userAuthorityConfirmationDocument.documentType")
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+NameError: name '_react_select_display_text' is not defined
+Ошибки на сайте:
+  • Внимание!
+За исключением новых субъектов Российской Федерации
+  • Внимание!
+За исключением новых субъектов Российской Федерации
+  • Внимание!
+  • Внимание! За предоставление сведений из ЕГРН взимается плата.
+  • Внимание! За предоставление сведений из ЕГРН взимается плата.
+Активных индикаторов загрузки: 6
+Контекст: | url=https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder, title=Личный кабинет, ready_state=complete, window=1936x1056, scroll={'h': 5912, 'x': 0, 'y': 4235}, file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv, will_retry=True
+[2026-06-24 14:14:07] ERROR    | documents | Диагностический пакет: C:\Selenium\Order_statements\logs\diagnostics\20260624_141230_documents_20260624_141406_766598.json
+[2026-06-24 14:15:13] ERROR    | result | ОШИБКА: Файл C:\Selenium\Order_statements\uploads_CSV\2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv не отправлен — ошибка при заполнении полей документа (попытка 2/5) — NameError: name '_react_select_display_text' is not defined
+[2026-06-24 14:15:15] ERROR    | documents | ошибка при заполнении полей документа (попытка 2/5)
+Тип: NameError
+Сообщение: name '_react_select_display_text' is not defined
+Traceback:
+Traceback (most recent call last):
+  File "C:\Selenium\Order_statements\script\processor.py", line 194, in run_processing_loop
+    fill_authority_document_fields(driver, stage="documents")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Selenium\Order_statements\script\documents.py", line 134, in fill_authority_document_fields
+    select_authority_document_type(drv, stage=stage)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Selenium\Order_statements\script\documents.py", line 76, in select_authority_document_type
+    if is_authority_document_type_filled(drv):
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Selenium\Order_statements\script\documents.py", line 52, in is_authority_document_type_filled
+    display = _react_select_display_text(drv, "userAuthorityConfirmationDocument.documentType")
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+NameError: name '_react_select_display_text' is not defined
+Ошибки на сайте:
+  • Внимание!
+За исключением новых субъектов Российской Федерации
+  • Внимание!
+За исключением новых субъектов Российской Федерации
+  • Внимание!
+  • Внимание! За предоставление сведений из ЕГРН взимается плата.
+  • Внимание! За предоставление сведений из ЕГРН взимается плата.
+Активных индикаторов загрузки: 6
+Контекст: | url=https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder, title=Личный кабинет, ready_state=complete, window=1936x1056, scroll={'h': 5912, 'x': 0, 'y': 4235}, file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv, will_retry=True
+[2026-06-24 14:15:16] ERROR    | documents | Диагностический пакет: C:\Selenium\Order_statements\logs\diagnostics\20260624_141230_documents_20260624_141515_017551.json
+[2026-06-24 14:16:21] ERROR    | result | ОШИБКА: Файл C:\Selenium\Order_statements\uploads_CSV\2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv не отправлен — ошибка при заполнении полей документа (попытка 3/5) — NameError: name '_react_select_display_text' is not defined
+[2026-06-24 14:16:22] ERROR    | documents | ошибка при заполнении полей документа (попытка 3/5)
+Тип: NameError
+Сообщение: name '_react_select_display_text' is not defined
+Traceback:
+Traceback (most recent call last):
+  File "C:\Selenium\Order_statements\script\processor.py", line 194, in run_processing_loop
+    fill_authority_document_fields(driver, stage="documents")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Selenium\Order_statements\script\documents.py", line 134, in fill_authority_document_fields
+    select_authority_document_type(drv, stage=stage)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Selenium\Order_statements\script\documents.py", line 76, in select_authority_document_type
+    if is_authority_document_type_filled(drv):
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Selenium\Order_statements\script\documents.py", line 52, in is_authority_document_type_filled
+    display = _react_select_display_text(drv, "userAuthorityConfirmationDocument.documentType")
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+NameError: name '_react_select_display_text' is not defined
+Ошибки на сайте:
+  • Внимание!
+За исключением новых субъектов Российской Федерации
+  • Внимание!
+За исключением новых субъектов Российской Федерации
+  • Внимание!
+  • Внимание! За предоставление сведений из ЕГРН взимается плата.
+  • Внимание! За предоставление сведений из ЕГРН взимается плата.
+Активных индикаторов загрузки: 6
+Контекст: | url=https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder, title=Личный кабинет, ready_state=complete, window=1936x1056, scroll={'h': 5912, 'x': 0, 'y': 4235}, file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv, will_retry=True
+[2026-06-24 14:16:23] ERROR    | documents | Диагностический пакет: C:\Selenium\Order_statements\logs\diagnostics\20260624_141230_documents_20260624_141622_651783.json
+[2026-06-24 14:17:29] ERROR    | result | ОШИБКА: Файл C:\Selenium\Order_statements\uploads_CSV\2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv не отправлен — ошибка при заполнении полей документа (попытка 4/5) — NameError: name '_react_select_display_text' is not defined
+[2026-06-24 14:17:30] ERROR    | documents | ошибка при заполнении полей документа (попытка 4/5)
+Тип: NameError
+Сообщение: name '_react_select_display_text' is not defined
+Traceback:
+Traceback (most recent call last):
+  File "C:\Selenium\Order_statements\script\processor.py", line 194, in run_processing_loop
+    fill_authority_document_fields(driver, stage="documents")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Selenium\Order_statements\script\documents.py", line 134, in fill_authority_document_fields
+    select_authority_document_type(drv, stage=stage)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Selenium\Order_statements\script\documents.py", line 76, in select_authority_document_type
+    if is_authority_document_type_filled(drv):
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Selenium\Order_statements\script\documents.py", line 52, in is_authority_document_type_filled
+    display = _react_select_display_text(drv, "userAuthorityConfirmationDocument.documentType")
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+NameError: name '_react_select_display_text' is not defined
+Ошибки на сайте:
+  • Внимание!
+За исключением новых субъектов Российской Федерации
+  • Внимание!
+За исключением новых субъектов Российской Федерации
+  • Внимание!
+  • Внимание! За предоставление сведений из ЕГРН взимается плата.
+  • Внимание! За предоставление сведений из ЕГРН взимается плата.
+Активных индикаторов загрузки: 6
+Контекст: | url=https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder, title=Личный кабинет, ready_state=complete, window=1936x1056, scroll={'h': 5912, 'x': 0, 'y': 4235}, file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv, will_retry=True
+[2026-06-24 14:17:31] ERROR    | documents | Диагностический пакет: C:\Selenium\Order_statements\logs\diagnostics\20260624_141230_documents_20260624_141730_389233.json
+[2026-06-24 14:23:20] WARNING  | login | Сайт недоступен, повторный переход
+[2026-06-24 14:48:38] WARNING  | login | Сайт недоступен, повторный переход
+[2026-06-24 14:49:57] WARNING  | login | Сайт недоступен, повторный переход
+[2026-06-24 14:53:43] WARNING  | login | Сайт недоступен, повторный переход

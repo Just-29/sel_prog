@@ -1,0 +1,7 @@
+[2026-06-24 14:14:05] ОШИБКА: Файл C:\Selenium\Order_statements\uploads_CSV\2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv не отправлен — ошибка при заполнении полей документа (попытка 1/5) — NameError: name '_react_select_display_text' is not defined
+[2026-06-24 14:15:13] ОШИБКА: Файл C:\Selenium\Order_statements\uploads_CSV\2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv не отправлен — ошибка при заполнении полей документа (попытка 2/5) — NameError: name '_react_select_display_text' is not defined
+[2026-06-24 14:16:21] ОШИБКА: Файл C:\Selenium\Order_statements\uploads_CSV\2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv не отправлен — ошибка при заполнении полей документа (попытка 3/5) — NameError: name '_react_select_display_text' is not defined
+[2026-06-24 14:17:29] ОШИБКА: Файл C:\Selenium\Order_statements\uploads_CSV\2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv не отправлен — ошибка при заполнении полей документа (попытка 4/5) — NameError: name '_react_select_display_text' is not defined
+[2026-06-24 14:28:06] УСПЕХ: Файл C:\Selenium\Order_statements\uploads_CSV\2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv отправлен
+[2026-06-24 14:32:12] УСПЕХ: Файл C:\Selenium\Order_statements\uploads_CSV\2026-06-17 Повторный заказ выписок (старше 2025-11-17)_89.csv отправлен
+[2026-06-24 14:36:42] УСПЕХ: Файл C:\Selenium\Order_statements\uploads_CSV\2026-06-17 Повторный заказ выписок (старше 2025-11-17)_90.csv отправлен

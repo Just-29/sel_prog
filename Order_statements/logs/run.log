@@ -1,0 +1,696 @@
+[2026-06-24 14:12:30] INFO     | init | Сессия диагностики: 20260624_141230
+[2026-06-24 14:12:30] INFO     | init | Завершение процессов Chrome/chromedriver перед запуском
+[2026-06-24 14:12:33] INFO     | init | WebDriver успешно запущен | chrome_path=C:\Users\David\AppData\Local\Chromium\Application\chrome.exe
+[2026-06-24 14:12:34] INFO     | login | Переход на страницу Росреестра | url=https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder
+[2026-06-24 14:12:37] WARNING  | login | Сайт недоступен, повторный переход
+[2026-06-24 14:12:42] INFO     | login | Экран входа: QR-код
+[2026-06-24 14:12:42] INFO     | login | Нажата кнопка электронной подписи
+[2026-06-24 14:12:47] INFO     | login | Нажата кнопка Продолжить
+[2026-06-24 14:12:52] INFO     | login | Выбрано МИНИСТЕРСТВО ЖКХ
+[2026-06-24 14:13:02] INFO     | login | Выбран пользователь (ЭП)
+[2026-06-24 14:13:07] INFO     | main_loop | Начало обработки файла: 2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv (попытка 1/5) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:13:07] INFO     | applicant_category | Переход на страницу поиска по ЕГРН | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:13:18] INFO     | applicant_category | Категория пустая — ввод и выбор из справочника
+[2026-06-24 14:13:18] INFO     | applicant_category | Открыт справочник категории заявителя
+[2026-06-24 14:13:29] INFO     | applicant_category | Текст категории заявителя введён
+[2026-06-24 14:13:40] INFO     | applicant_category | Стрелка вниз отправлена
+[2026-06-24 14:13:41] INFO     | applicant_category | Enter отправлен
+[2026-06-24 14:13:42] INFO     | applicant_category | Проверка выбора категории | single_value=(пусто), input_value=(пусто), org_block=True
+[2026-06-24 14:13:42] INFO     | applicant_category | Категория подтверждена по блоку организации
+[2026-06-24 14:13:42] INFO     | form_fields | Введена дата документа | date=23.12.2024
+[2026-06-24 14:13:43] INFO     | form_fields | Email-поля заполнены | email=eirc_trashbox@inbox.ru
+[2026-06-24 14:13:44] INFO     | applicant_address | Модалка адреса заявителя открыта: //div[contains(@id, 'fullNameDocumentAndAdditionalInformationArray[0]')]//div[contains(@class, 'fias-address-select__btn-filling')]
+[2026-06-24 14:13:45] INFO     | applicant_address | Фокус на контроле адреса: .//div[contains(@class, 'rros-ui-lib-dropdown__control')]
+[2026-06-24 14:13:45] INFO     | applicant_address | Адрес введён в модалке | value=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1
+[2026-06-24 14:13:47] INFO     | applicant_address | Выбрана подсказка ФИАС | option_text=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, method=click
+[2026-06-24 14:13:50] INFO     | applicant_address | Кнопка «Сохранить» нажата в модалке адреса
+[2026-06-24 14:13:50] INFO     | applicant_address | Адрес заявителя сохранён и подтверждён
+[2026-06-24 14:13:50] INFO     | applicant_address | Адрес заявителя уже заполнен, пропуск
+[2026-06-24 14:13:51] INFO     | applicant_category | Проверка выбора категории | single_value=(пусто), input_value=(пусто), org_block=True
+[2026-06-24 14:13:51] INFO     | applicant_category | Категория подтверждена по блоку организации
+[2026-06-24 14:13:51] INFO     | applicant_category | Раздел заявителя заполнен
+[2026-06-24 14:13:52] INFO     | address | Попытка 1/2 заполнения адреса | address=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, address_state={'fill_address_prompt_visible': True, 'address_modal_open': False, 'react-select-3-input': {'value': '', 'enabled': True, 'displayed': False, 'aria_expanded': None}, 'react-select-2-input': {'value': '', 'enabled': False, 'displayed': True, 'aria_expanded': None}, 'dropdown_options_count': 0, 'react_select_options_count': 0, 'selected_values': ['РОССИЯ'], 'save_button': {'found': True, 'displayed': False, 'enabled': True}}
+[2026-06-24 14:13:52] INFO     | address | Ожидание полного открытия модального окна
+[2026-06-24 14:13:55] INFO     | address | Модалка адреса открыта: //div[@id='realEstateItems']//div[contains(@class, 'fias-address-select__btn-filling')]
+[2026-06-24 14:13:57] INFO     | address | Фокус на контроле адреса: .//div[contains(@class, 'rros-ui-lib-dropdown__control')]
+[2026-06-24 14:13:58] INFO     | address | Адрес введён (visible input) | value_after=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1
+[2026-06-24 14:13:58] INFO     | address | Поле адреса после ввода | field_value=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, displayed=True
+[2026-06-24 14:13:58] INFO     | address | Состояние после ввода адреса | value_after=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, dropdown_options=1, react_select_options=1, suggestions_found=True
+[2026-06-24 14:13:58] INFO     | address | Выбрана подсказка ФИАС | option_text=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, method=click
+[2026-06-24 14:14:00] INFO     | address | Состояние после выбора из списка | selected_values=['Квартира']
+[2026-06-24 14:14:03] INFO     | address | Адрес сохранён и подтверждён | address=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, selected_values=['РОССИЯ']
+[2026-06-24 14:14:03] INFO     | address | Адрес успешно выбран | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:14:03] INFO     | address | Форма доступна для взаимодействия
+[2026-06-24 14:14:05] ERROR    | result | ОШИБКА: Файл C:\Selenium\Order_statements\uploads_CSV\2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv не отправлен — ошибка при заполнении полей документа (попытка 1/5) — NameError: name '_react_select_display_text' is not defined
+[2026-06-24 14:14:06] ERROR    | documents | ошибка при заполнении полей документа (попытка 1/5)
+Тип: NameError
+Сообщение: name '_react_select_display_text' is not defined
+Traceback:
+Traceback (most recent call last):
+  File "C:\Selenium\Order_statements\script\processor.py", line 194, in run_processing_loop
+    fill_authority_document_fields(driver, stage="documents")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Selenium\Order_statements\script\documents.py", line 134, in fill_authority_document_fields
+    select_authority_document_type(drv, stage=stage)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Selenium\Order_statements\script\documents.py", line 76, in select_authority_document_type
+    if is_authority_document_type_filled(drv):
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Selenium\Order_statements\script\documents.py", line 52, in is_authority_document_type_filled
+    display = _react_select_display_text(drv, "userAuthorityConfirmationDocument.documentType")
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+NameError: name '_react_select_display_text' is not defined
+Ошибки на сайте:
+  • Внимание!
+За исключением новых субъектов Российской Федерации
+  • Внимание!
+За исключением новых субъектов Российской Федерации
+  • Внимание!
+  • Внимание! За предоставление сведений из ЕГРН взимается плата.
+  • Внимание! За предоставление сведений из ЕГРН взимается плата.
+Активных индикаторов загрузки: 6
+Контекст: | url=https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder, title=Личный кабинет, ready_state=complete, window=1936x1056, scroll={'h': 5912, 'x': 0, 'y': 4235}, file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv, will_retry=True
+[2026-06-24 14:14:07] ERROR    | documents | Диагностический пакет: C:\Selenium\Order_statements\logs\diagnostics\20260624_141230_documents_20260624_141406_766598.json
+[2026-06-24 14:14:07] INFO     | main_loop | Повторная отправка файла 2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv (следующая попытка 2/5) через 5 сек | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:14:12] INFO     | close_modal | Модальное окно закрыто через крестик
+[2026-06-24 14:14:14] INFO     | main_loop | Начало обработки файла: 2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv (попытка 2/5) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:14:15] INFO     | applicant_category | Переход на страницу поиска по ЕГРН | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:14:25] INFO     | applicant_category | Категория пустая — ввод и выбор из справочника
+[2026-06-24 14:14:26] INFO     | applicant_category | Открыт справочник категории заявителя
+[2026-06-24 14:14:36] INFO     | applicant_category | Текст категории заявителя введён
+[2026-06-24 14:14:47] INFO     | applicant_category | Стрелка вниз отправлена
+[2026-06-24 14:14:48] INFO     | applicant_category | Enter отправлен
+[2026-06-24 14:14:49] INFO     | applicant_category | Проверка выбора категории | single_value=(пусто), input_value=(пусто), org_block=True
+[2026-06-24 14:14:49] INFO     | applicant_category | Категория подтверждена по блоку организации
+[2026-06-24 14:14:50] INFO     | form_fields | Введена дата документа | date=23.12.2024
+[2026-06-24 14:14:50] INFO     | form_fields | Email-поля заполнены | email=eirc_trashbox@inbox.ru
+[2026-06-24 14:14:52] INFO     | applicant_address | Модалка адреса заявителя открыта: //div[contains(@id, 'fullNameDocumentAndAdditionalInformationArray[0]')]//div[contains(@class, 'fias-address-select__btn-filling')]
+[2026-06-24 14:14:53] INFO     | applicant_address | Фокус на контроле адреса: .//div[contains(@class, 'rros-ui-lib-dropdown__control')]
+[2026-06-24 14:14:53] INFO     | applicant_address | Адрес введён в модалке | value=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1
+[2026-06-24 14:14:55] INFO     | applicant_address | Выбрана подсказка ФИАС | option_text=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, method=click
+[2026-06-24 14:14:58] INFO     | applicant_address | Кнопка «Сохранить» нажата в модалке адреса
+[2026-06-24 14:14:58] INFO     | applicant_address | Адрес заявителя сохранён и подтверждён
+[2026-06-24 14:14:58] INFO     | applicant_address | Адрес заявителя уже заполнен, пропуск
+[2026-06-24 14:14:59] INFO     | applicant_category | Проверка выбора категории | single_value=(пусто), input_value=(пусто), org_block=True
+[2026-06-24 14:14:59] INFO     | applicant_category | Категория подтверждена по блоку организации
+[2026-06-24 14:14:59] INFO     | applicant_category | Раздел заявителя заполнен
+[2026-06-24 14:15:00] INFO     | address | Попытка 1/2 заполнения адреса | address=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, address_state={'fill_address_prompt_visible': True, 'address_modal_open': False, 'react-select-3-input': {'value': '', 'enabled': True, 'displayed': False, 'aria_expanded': None}, 'react-select-2-input': {'value': '', 'enabled': False, 'displayed': True, 'aria_expanded': None}, 'dropdown_options_count': 0, 'react_select_options_count': 0, 'selected_values': ['РОССИЯ'], 'save_button': {'found': True, 'displayed': False, 'enabled': True}}
+[2026-06-24 14:15:00] INFO     | address | Ожидание полного открытия модального окна
+[2026-06-24 14:15:03] INFO     | address | Модалка адреса открыта: //div[@id='realEstateItems']//div[contains(@class, 'fias-address-select__btn-filling')]
+[2026-06-24 14:15:05] INFO     | address | Фокус на контроле адреса: .//div[contains(@class, 'rros-ui-lib-dropdown__control')]
+[2026-06-24 14:15:07] INFO     | address | Адрес введён (visible input) | value_after=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1
+[2026-06-24 14:15:07] INFO     | address | Поле адреса после ввода | field_value=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, displayed=True
+[2026-06-24 14:15:07] INFO     | address | Состояние после ввода адреса | value_after=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, dropdown_options=1, react_select_options=1, suggestions_found=True
+[2026-06-24 14:15:07] INFO     | address | Выбрана подсказка ФИАС | option_text=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, method=click
+[2026-06-24 14:15:08] INFO     | address | Состояние после выбора из списка | selected_values=['Квартира']
+[2026-06-24 14:15:11] INFO     | address | Адрес сохранён и подтверждён | address=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, selected_values=['РОССИЯ']
+[2026-06-24 14:15:11] INFO     | address | Адрес успешно выбран | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:15:11] INFO     | address | Форма доступна для взаимодействия
+[2026-06-24 14:15:13] ERROR    | result | ОШИБКА: Файл C:\Selenium\Order_statements\uploads_CSV\2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv не отправлен — ошибка при заполнении полей документа (попытка 2/5) — NameError: name '_react_select_display_text' is not defined
+[2026-06-24 14:15:15] ERROR    | documents | ошибка при заполнении полей документа (попытка 2/5)
+Тип: NameError
+Сообщение: name '_react_select_display_text' is not defined
+Traceback:
+Traceback (most recent call last):
+  File "C:\Selenium\Order_statements\script\processor.py", line 194, in run_processing_loop
+    fill_authority_document_fields(driver, stage="documents")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Selenium\Order_statements\script\documents.py", line 134, in fill_authority_document_fields
+    select_authority_document_type(drv, stage=stage)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Selenium\Order_statements\script\documents.py", line 76, in select_authority_document_type
+    if is_authority_document_type_filled(drv):
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Selenium\Order_statements\script\documents.py", line 52, in is_authority_document_type_filled
+    display = _react_select_display_text(drv, "userAuthorityConfirmationDocument.documentType")
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+NameError: name '_react_select_display_text' is not defined
+Ошибки на сайте:
+  • Внимание!
+За исключением новых субъектов Российской Федерации
+  • Внимание!
+За исключением новых субъектов Российской Федерации
+  • Внимание!
+  • Внимание! За предоставление сведений из ЕГРН взимается плата.
+  • Внимание! За предоставление сведений из ЕГРН взимается плата.
+Активных индикаторов загрузки: 6
+Контекст: | url=https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder, title=Личный кабинет, ready_state=complete, window=1936x1056, scroll={'h': 5912, 'x': 0, 'y': 4235}, file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv, will_retry=True
+[2026-06-24 14:15:16] ERROR    | documents | Диагностический пакет: C:\Selenium\Order_statements\logs\diagnostics\20260624_141230_documents_20260624_141515_017551.json
+[2026-06-24 14:15:16] INFO     | main_loop | Повторная отправка файла 2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv (следующая попытка 3/5) через 5 сек | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:15:21] INFO     | close_modal | Модальное окно закрыто через крестик
+[2026-06-24 14:15:23] INFO     | main_loop | Начало обработки файла: 2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv (попытка 3/5) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:15:23] INFO     | applicant_category | Переход на страницу поиска по ЕГРН | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:15:34] INFO     | applicant_category | Категория пустая — ввод и выбор из справочника
+[2026-06-24 14:15:34] INFO     | applicant_category | Открыт справочник категории заявителя
+[2026-06-24 14:15:45] INFO     | applicant_category | Текст категории заявителя введён
+[2026-06-24 14:15:56] INFO     | applicant_category | Стрелка вниз отправлена
+[2026-06-24 14:15:57] INFO     | applicant_category | Enter отправлен
+[2026-06-24 14:15:58] INFO     | applicant_category | Проверка выбора категории | single_value=(пусто), input_value=(пусто), org_block=True
+[2026-06-24 14:15:58] INFO     | applicant_category | Категория подтверждена по блоку организации
+[2026-06-24 14:15:58] INFO     | form_fields | Введена дата документа | date=23.12.2024
+[2026-06-24 14:15:58] INFO     | form_fields | Email-поля заполнены | email=eirc_trashbox@inbox.ru
+[2026-06-24 14:16:00] INFO     | applicant_address | Модалка адреса заявителя открыта: //div[contains(@id, 'fullNameDocumentAndAdditionalInformationArray[0]')]//div[contains(@class, 'fias-address-select__btn-filling')]
+[2026-06-24 14:16:01] INFO     | applicant_address | Фокус на контроле адреса: .//div[contains(@class, 'rros-ui-lib-dropdown__control')]
+[2026-06-24 14:16:01] INFO     | applicant_address | Адрес введён в модалке | value=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1
+[2026-06-24 14:16:03] INFO     | applicant_address | Выбрана подсказка ФИАС | option_text=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, method=click
+[2026-06-24 14:16:06] INFO     | applicant_address | Кнопка «Сохранить» нажата в модалке адреса
+[2026-06-24 14:16:06] INFO     | applicant_address | Адрес заявителя сохранён и подтверждён
+[2026-06-24 14:16:06] INFO     | applicant_address | Адрес заявителя уже заполнен, пропуск
+[2026-06-24 14:16:07] INFO     | applicant_category | Проверка выбора категории | single_value=(пусто), input_value=(пусто), org_block=True
+[2026-06-24 14:16:07] INFO     | applicant_category | Категория подтверждена по блоку организации
+[2026-06-24 14:16:07] INFO     | applicant_category | Раздел заявителя заполнен
+[2026-06-24 14:16:08] INFO     | address | Попытка 1/2 заполнения адреса | address=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, address_state={'fill_address_prompt_visible': True, 'address_modal_open': False, 'react-select-3-input': {'value': '', 'enabled': True, 'displayed': False, 'aria_expanded': None}, 'react-select-2-input': {'value': '', 'enabled': False, 'displayed': True, 'aria_expanded': None}, 'dropdown_options_count': 0, 'react_select_options_count': 0, 'selected_values': ['РОССИЯ'], 'save_button': {'found': True, 'displayed': False, 'enabled': True}}
+[2026-06-24 14:16:08] INFO     | address | Ожидание полного открытия модального окна
+[2026-06-24 14:16:10] INFO     | address | Модалка адреса открыта: //div[@id='realEstateItems']//div[contains(@class, 'fias-address-select__btn-filling')]
+[2026-06-24 14:16:12] INFO     | address | Фокус на контроле адреса: .//div[contains(@class, 'rros-ui-lib-dropdown__control')]
+[2026-06-24 14:16:14] INFO     | address | Адрес введён (visible input) | value_after=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1
+[2026-06-24 14:16:14] INFO     | address | Поле адреса после ввода | field_value=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, displayed=True
+[2026-06-24 14:16:14] INFO     | address | Состояние после ввода адреса | value_after=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, dropdown_options=1, react_select_options=1, suggestions_found=True
+[2026-06-24 14:16:14] INFO     | address | Выбрана подсказка ФИАС | option_text=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, method=click
+[2026-06-24 14:16:16] INFO     | address | Состояние после выбора из списка | selected_values=['Квартира']
+[2026-06-24 14:16:19] INFO     | address | Адрес сохранён и подтверждён | address=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, selected_values=['РОССИЯ']
+[2026-06-24 14:16:19] INFO     | address | Адрес успешно выбран | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:16:19] INFO     | address | Форма доступна для взаимодействия
+[2026-06-24 14:16:21] ERROR    | result | ОШИБКА: Файл C:\Selenium\Order_statements\uploads_CSV\2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv не отправлен — ошибка при заполнении полей документа (попытка 3/5) — NameError: name '_react_select_display_text' is not defined
+[2026-06-24 14:16:22] ERROR    | documents | ошибка при заполнении полей документа (попытка 3/5)
+Тип: NameError
+Сообщение: name '_react_select_display_text' is not defined
+Traceback:
+Traceback (most recent call last):
+  File "C:\Selenium\Order_statements\script\processor.py", line 194, in run_processing_loop
+    fill_authority_document_fields(driver, stage="documents")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Selenium\Order_statements\script\documents.py", line 134, in fill_authority_document_fields
+    select_authority_document_type(drv, stage=stage)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Selenium\Order_statements\script\documents.py", line 76, in select_authority_document_type
+    if is_authority_document_type_filled(drv):
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Selenium\Order_statements\script\documents.py", line 52, in is_authority_document_type_filled
+    display = _react_select_display_text(drv, "userAuthorityConfirmationDocument.documentType")
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+NameError: name '_react_select_display_text' is not defined
+Ошибки на сайте:
+  • Внимание!
+За исключением новых субъектов Российской Федерации
+  • Внимание!
+За исключением новых субъектов Российской Федерации
+  • Внимание!
+  • Внимание! За предоставление сведений из ЕГРН взимается плата.
+  • Внимание! За предоставление сведений из ЕГРН взимается плата.
+Активных индикаторов загрузки: 6
+Контекст: | url=https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder, title=Личный кабинет, ready_state=complete, window=1936x1056, scroll={'h': 5912, 'x': 0, 'y': 4235}, file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv, will_retry=True
+[2026-06-24 14:16:23] ERROR    | documents | Диагностический пакет: C:\Selenium\Order_statements\logs\diagnostics\20260624_141230_documents_20260624_141622_651783.json
+[2026-06-24 14:16:23] INFO     | main_loop | Повторная отправка файла 2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv (следующая попытка 4/5) через 5 сек | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:16:28] INFO     | close_modal | Модальное окно закрыто через крестик
+[2026-06-24 14:16:30] INFO     | main_loop | Начало обработки файла: 2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv (попытка 4/5) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:16:31] INFO     | applicant_category | Переход на страницу поиска по ЕГРН | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:16:41] INFO     | applicant_category | Категория пустая — ввод и выбор из справочника
+[2026-06-24 14:16:42] INFO     | applicant_category | Открыт справочник категории заявителя
+[2026-06-24 14:16:52] INFO     | applicant_category | Текст категории заявителя введён
+[2026-06-24 14:17:03] INFO     | applicant_category | Стрелка вниз отправлена
+[2026-06-24 14:17:04] INFO     | applicant_category | Enter отправлен
+[2026-06-24 14:17:05] INFO     | applicant_category | Проверка выбора категории | single_value=(пусто), input_value=(пусто), org_block=True
+[2026-06-24 14:17:05] INFO     | applicant_category | Категория подтверждена по блоку организации
+[2026-06-24 14:17:06] INFO     | form_fields | Введена дата документа | date=23.12.2024
+[2026-06-24 14:17:06] INFO     | form_fields | Email-поля заполнены | email=eirc_trashbox@inbox.ru
+[2026-06-24 14:17:08] INFO     | applicant_address | Модалка адреса заявителя открыта: //div[contains(@id, 'fullNameDocumentAndAdditionalInformationArray[0]')]//div[contains(@class, 'fias-address-select__btn-filling')]
+[2026-06-24 14:17:09] INFO     | applicant_address | Фокус на контроле адреса: .//div[contains(@class, 'rros-ui-lib-dropdown__control')]
+[2026-06-24 14:17:09] INFO     | applicant_address | Адрес введён в модалке | value=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1
+[2026-06-24 14:17:10] INFO     | applicant_address | Выбрана подсказка ФИАС | option_text=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, method=click
+[2026-06-24 14:17:14] INFO     | applicant_address | Кнопка «Сохранить» нажата в модалке адреса
+[2026-06-24 14:17:14] INFO     | applicant_address | Адрес заявителя сохранён и подтверждён
+[2026-06-24 14:17:14] INFO     | applicant_address | Адрес заявителя уже заполнен, пропуск
+[2026-06-24 14:17:14] INFO     | applicant_category | Проверка выбора категории | single_value=(пусто), input_value=(пусто), org_block=True
+[2026-06-24 14:17:14] INFO     | applicant_category | Категория подтверждена по блоку организации
+[2026-06-24 14:17:14] INFO     | applicant_category | Раздел заявителя заполнен
+[2026-06-24 14:17:15] INFO     | address | Попытка 1/2 заполнения адреса | address=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, address_state={'fill_address_prompt_visible': True, 'address_modal_open': False, 'react-select-3-input': {'value': '', 'enabled': True, 'displayed': True, 'aria_expanded': None}, 'react-select-2-input': {'value': '', 'enabled': True, 'displayed': True, 'aria_expanded': None}, 'dropdown_options_count': 0, 'react_select_options_count': 0, 'selected_values': ['РОССИЯ'], 'save_button': {'found': True, 'displayed': False, 'enabled': False}}
+[2026-06-24 14:17:15] INFO     | address | Ожидание полного открытия модального окна
+[2026-06-24 14:17:18] INFO     | address | Модалка адреса открыта: //div[@id='realEstateItems']//div[contains(@class, 'fias-address-select__btn-filling')]
+[2026-06-24 14:17:20] INFO     | address | Фокус на контроле адреса: .//div[contains(@class, 'rros-ui-lib-dropdown__control')]
+[2026-06-24 14:17:22] INFO     | address | Адрес введён (visible input) | value_after=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1
+[2026-06-24 14:17:22] INFO     | address | Поле адреса после ввода | field_value=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, displayed=True
+[2026-06-24 14:17:22] INFO     | address | Состояние после ввода адреса | value_after=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, dropdown_options=1, react_select_options=1, suggestions_found=True
+[2026-06-24 14:17:22] INFO     | address | Выбрана подсказка ФИАС | option_text=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, method=click
+[2026-06-24 14:17:23] INFO     | address | Состояние после выбора из списка | selected_values=['Квартира']
+[2026-06-24 14:17:27] INFO     | address | Адрес сохранён и подтверждён | address=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, selected_values=['РОССИЯ']
+[2026-06-24 14:17:27] INFO     | address | Адрес успешно выбран | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:17:27] INFO     | address | Форма доступна для взаимодействия
+[2026-06-24 14:17:29] ERROR    | result | ОШИБКА: Файл C:\Selenium\Order_statements\uploads_CSV\2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv не отправлен — ошибка при заполнении полей документа (попытка 4/5) — NameError: name '_react_select_display_text' is not defined
+[2026-06-24 14:17:30] ERROR    | documents | ошибка при заполнении полей документа (попытка 4/5)
+Тип: NameError
+Сообщение: name '_react_select_display_text' is not defined
+Traceback:
+Traceback (most recent call last):
+  File "C:\Selenium\Order_statements\script\processor.py", line 194, in run_processing_loop
+    fill_authority_document_fields(driver, stage="documents")
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Selenium\Order_statements\script\documents.py", line 134, in fill_authority_document_fields
+    select_authority_document_type(drv, stage=stage)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Selenium\Order_statements\script\documents.py", line 76, in select_authority_document_type
+    if is_authority_document_type_filled(drv):
+       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Selenium\Order_statements\script\documents.py", line 52, in is_authority_document_type_filled
+    display = _react_select_display_text(drv, "userAuthorityConfirmationDocument.documentType")
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+NameError: name '_react_select_display_text' is not defined
+Ошибки на сайте:
+  • Внимание!
+За исключением новых субъектов Российской Федерации
+  • Внимание!
+За исключением новых субъектов Российской Федерации
+  • Внимание!
+  • Внимание! За предоставление сведений из ЕГРН взимается плата.
+  • Внимание! За предоставление сведений из ЕГРН взимается плата.
+Активных индикаторов загрузки: 6
+Контекст: | url=https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder, title=Личный кабинет, ready_state=complete, window=1936x1056, scroll={'h': 5912, 'x': 0, 'y': 4235}, file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv, will_retry=True
+[2026-06-24 14:17:31] ERROR    | documents | Диагностический пакет: C:\Selenium\Order_statements\logs\diagnostics\20260624_141230_documents_20260624_141730_389233.json
+[2026-06-24 14:17:31] INFO     | main_loop | Повторная отправка файла 2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv (следующая попытка 5/5) через 5 сек | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:17:36] INFO     | close_modal | Модальное окно закрыто через крестик
+[2026-06-24 14:17:38] INFO     | main_loop | Начало обработки файла: 2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv (попытка 5/5) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:17:39] INFO     | applicant_category | Переход на страницу поиска по ЕГРН | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:17:49] INFO     | applicant_category | Категория пустая — ввод и выбор из справочника
+[2026-06-24 14:17:50] INFO     | applicant_category | Открыт справочник категории заявителя
+[2026-06-24 14:17:52] INFO     | shutdown | Скрипт завершён
+[2026-06-24 14:17:52] INFO     | shutdown | Итоговый отчёт сессии: C:\Selenium\Order_statements\logs\session_20260624_141230.md | events=4
+[2026-06-24 14:23:13] INFO     | init | Сессия диагностики: 20260624_142313
+[2026-06-24 14:23:13] INFO     | init | Завершение процессов Chrome/chromedriver перед запуском
+[2026-06-24 14:23:16] INFO     | init | WebDriver успешно запущен | chrome_path=C:\Users\David\AppData\Local\Chromium\Application\chrome.exe
+[2026-06-24 14:23:17] INFO     | login | Переход на страницу Росреестра | url=https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder
+[2026-06-24 14:23:20] WARNING  | login | Сайт недоступен, повторный переход
+[2026-06-24 14:23:27] INFO     | login | Экран восстановления/QR не найден
+[2026-06-24 14:23:27] INFO     | login | Выбран пользователь (без ЭП)
+[2026-06-24 14:23:32] INFO     | main_loop | Начало обработки файла: 2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv (попытка 1/5) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:23:33] INFO     | applicant_category | Переход на страницу поиска по ЕГРН | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:23:43] INFO     | applicant_category | Категория пустая — ввод и выбор из справочника
+[2026-06-24 14:23:44] INFO     | applicant_category | Открыт справочник категории заявителя
+[2026-06-24 14:23:54] INFO     | applicant_category | Текст категории заявителя введён
+[2026-06-24 14:24:05] INFO     | applicant_category | Стрелка вниз отправлена
+[2026-06-24 14:24:06] INFO     | applicant_category | Enter отправлен
+[2026-06-24 14:24:07] INFO     | applicant_category | Проверка выбора категории | single_value=(пусто), input_value=(пусто), org_block=True
+[2026-06-24 14:24:07] INFO     | applicant_category | Категория подтверждена по блоку организации
+[2026-06-24 14:24:08] INFO     | form_fields | Введена дата документа | date=23.12.2024
+[2026-06-24 14:24:08] INFO     | form_fields | Email-поля заполнены | email=eirc_trashbox@inbox.ru
+[2026-06-24 14:24:10] INFO     | applicant_address | Модалка адреса заявителя открыта: //div[contains(@id, 'fullNameDocumentAndAdditionalInformationArray[0]')]//div[contains(@class, 'fias-address-select__btn-filling')]
+[2026-06-24 14:24:11] INFO     | applicant_address | Фокус на контроле адреса: .//div[contains(@class, 'rros-ui-lib-dropdown__control')]
+[2026-06-24 14:24:11] INFO     | applicant_address | Адрес введён в модалке | value=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1
+[2026-06-24 14:24:12] INFO     | applicant_address | Выбрана подсказка ФИАС | option_text=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, method=click
+[2026-06-24 14:24:16] INFO     | applicant_address | Кнопка «Сохранить» нажата в модалке адреса
+[2026-06-24 14:24:16] INFO     | applicant_address | Адрес заявителя сохранён и подтверждён
+[2026-06-24 14:24:16] INFO     | applicant_address | Адрес заявителя уже заполнен, пропуск
+[2026-06-24 14:24:17] INFO     | applicant_category | Проверка выбора категории | single_value=(пусто), input_value=(пусто), org_block=True
+[2026-06-24 14:24:17] INFO     | applicant_category | Категория подтверждена по блоку организации
+[2026-06-24 14:24:17] INFO     | applicant_category | Раздел заявителя заполнен
+[2026-06-24 14:24:18] INFO     | address | Попытка 1/2 заполнения адреса | address=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, address_state={'fill_address_prompt_visible': True, 'address_modal_open': False, 'react-select-3-input': {'value': '', 'enabled': True, 'displayed': False, 'aria_expanded': None}, 'react-select-2-input': {'value': '', 'enabled': False, 'displayed': True, 'aria_expanded': None}, 'dropdown_options_count': 0, 'react_select_options_count': 0, 'selected_values': ['РОССИЯ'], 'save_button': {'found': True, 'displayed': False, 'enabled': True}}
+[2026-06-24 14:24:18] INFO     | address | Ожидание полного открытия модального окна
+[2026-06-24 14:24:21] INFO     | address | Модалка адреса открыта: //div[@id='realEstateItems']//div[contains(@class, 'fias-address-select__btn-filling')]
+[2026-06-24 14:24:23] INFO     | address | Фокус на контроле адреса: .//div[contains(@class, 'rros-ui-lib-dropdown__control')]
+[2026-06-24 14:24:24] INFO     | address | Адрес введён (visible input) | value_after=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1
+[2026-06-24 14:24:24] INFO     | address | Поле адреса после ввода | field_value=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, displayed=True
+[2026-06-24 14:24:25] INFO     | address | Состояние после ввода адреса | value_after=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, dropdown_options=1, react_select_options=1, suggestions_found=True
+[2026-06-24 14:24:25] INFO     | address | Выбрана подсказка ФИАС | option_text=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, method=click
+[2026-06-24 14:24:26] INFO     | address | Состояние после выбора из списка | selected_values=['Квартира']
+[2026-06-24 14:24:29] INFO     | address | Адрес сохранён и подтверждён | address=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, selected_values=['РОССИЯ']
+[2026-06-24 14:24:29] INFO     | address | Адрес успешно выбран | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:24:29] INFO     | address | Форма доступна для взаимодействия
+[2026-06-24 14:24:40] INFO     | documents | Тип документа выбран ARROW_DOWN+ENTER
+[2026-06-24 14:24:40] INFO     | documents | Поле заполнено | field=userAuthorityConfirmationDocument.documentNumber, value=583-p
+[2026-06-24 14:24:41] INFO     | documents | Поле заполнено | field=userAuthorityConfirmationDocument.documentIssueDate, value=23.12.2024
+[2026-06-24 14:24:41] INFO     | documents | Поле заполнено | field=userAuthorityConfirmationDocument.issuingAuthority, value=Правительство Республики Северная Осетия - Алания
+[2026-06-24 14:24:42] INFO     | documents | Основание предоставления заполнено
+[2026-06-24 14:24:42] INFO     | documents | Поля документа о полномочиях обработаны
+[2026-06-24 14:24:44] INFO     | vipiska | Тип выписки введён
+[2026-06-24 14:24:45] INFO     | vipiska | Тип выписки выбран кликом
+[2026-06-24 14:24:51] INFO     | file_upload | Загружен PDF: Хадиков.pdf
+[2026-06-24 14:24:57] INFO     | file_upload | Загружена подпись: Хадиков.pdf.sig
+[2026-06-24 14:24:57] INFO     | csv_upload | Попытка загрузки CSV 1/5 | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:24:57] INFO     | csv_upload | Кнопка «Загрузить из CSV» нажата
+[2026-06-24 14:24:58] INFO     | csv_upload | Файл отправлен в input: 2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv, csv_state={'csv_warning': None, 'csv_status_messages': [], 'file_in_upload_list': True, 'modal_title': None, 'modal_max_count': None, 'apply_button': {'found': False}, 'objects_added_on_form': None, 'delete_button_visible': False, 'upload_list_count': 2, 'upload_error': None, 'csv_modal_open': True}
+[2026-06-24 14:24:58] INFO     | csv_upload | Состояние CSV после появления файла в интерфейсе | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv, csv_status_messages=[], file_in_upload_list=True, apply_button={'found': False}, delete_button_visible=False, upload_list_count=2, csv_modal_open=True
+[2026-06-24 14:25:00] INFO     | csv_upload | Ожидание модального окна и кнопки «Применить» | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:25:00] INFO     | csv_upload | Ожидание кнопки «Применить» (0/300 сек) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv, modal_title=None, modal_max_count=None, apply_button={'found': False}, csv_modal_open=True
+[2026-06-24 14:25:10] INFO     | csv_upload | Ожидание кнопки «Применить» (10/300 сек) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv, modal_title=None, modal_max_count=None, apply_button={'found': False}, csv_modal_open=True
+[2026-06-24 14:25:21] INFO     | csv_upload | Ожидание кнопки «Применить» (21/300 сек) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv, modal_title=None, modal_max_count=None, apply_button={'found': False}, csv_modal_open=True
+[2026-06-24 14:25:32] INFO     | csv_upload | Ожидание кнопки «Применить» (32/300 сек) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv, modal_title=None, modal_max_count=None, apply_button={'found': False}, csv_modal_open=True
+[2026-06-24 14:25:43] INFO     | csv_upload | Ожидание кнопки «Применить» (42/300 сек) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv, modal_title=None, modal_max_count=None, apply_button={'found': False}, csv_modal_open=True
+[2026-06-24 14:25:53] INFO     | csv_upload | Ожидание кнопки «Применить» (53/300 сек) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv, modal_title=None, modal_max_count=None, apply_button={'found': False}, csv_modal_open=True
+[2026-06-24 14:26:04] INFO     | csv_upload | Кнопка «Применить» найдена и кликабельна | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:26:04] INFO     | csv_upload | Кнопка «Применить» нажата | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:26:04] INFO     | csv_upload | Ожидание закрытия модального окна
+[2026-06-24 14:26:04] INFO     | csv_upload | Модальное окно CSV закрыто | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:26:04] INFO     | csv_upload | CSV-файл подтверждён на странице | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:26:06] INFO     | form_fields | Email-поля заполнены | email=eirc_trashbox@inbox.ru
+[2026-06-24 14:26:06] INFO     | applicant_address | Адрес заявителя уже заполнен, пропуск
+[2026-06-24 14:26:07] INFO     | submit | Кнопка 'Далее' нажата (шаг 1)
+[2026-06-24 14:26:12] INFO     | submit | Кнопка 'Далее' нажата (шаг 2)
+[2026-06-24 14:26:15] INFO     | submit | Сервер обрабатывает отправку документов (0/1500 сек)
+[2026-06-24 14:26:25] INFO     | submit | Сервер обрабатывает отправку документов (10/1500 сек)
+[2026-06-24 14:26:35] INFO     | submit | Сервер обрабатывает отправку документов (20/1500 сек)
+[2026-06-24 14:26:45] INFO     | submit | Сервер обрабатывает отправку документов (30/1500 сек)
+[2026-06-24 14:26:56] INFO     | submit | Сервер обрабатывает отправку документов (40/1500 сек)
+[2026-06-24 14:27:06] INFO     | submit | Сервер обрабатывает отправку документов (51/1500 сек)
+[2026-06-24 14:27:16] INFO     | submit | Сервер обрабатывает отправку документов (61/1500 сек)
+[2026-06-24 14:27:26] INFO     | submit | Сервер обрабатывает отправку документов (71/1500 сек)
+[2026-06-24 14:27:28] INFO     | submit | Сертификат выбран
+[2026-06-24 14:27:29] INFO     | submit | Кнопка 'Выбрать' нажата, заявка отправляется
+[2026-06-24 14:27:30] INFO     | submit | Сервер обрабатывает отправку заявки (0/1500 сек)
+[2026-06-24 14:27:40] INFO     | submit | Сервер обрабатывает отправку заявки (10/1500 сек)
+[2026-06-24 14:27:50] INFO     | submit | Сервер обрабатывает отправку заявки (20/1500 сек)
+[2026-06-24 14:28:00] INFO     | submit | Сервер обрабатывает отправку заявки (30/1500 сек)
+[2026-06-24 14:28:06] INFO     | result | УСПЕХ: Файл C:\Selenium\Order_statements\uploads_CSV\2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv отправлен
+[2026-06-24 14:28:06] INFO     | result | Заявка успешно отправлена: 2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:28:06] INFO     | result | Локальный CSV удалён: 2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_88.csv
+[2026-06-24 14:28:16] INFO     | main_loop | Начало обработки файла: 2026-06-17 Повторный заказ выписок (старше 2025-11-17)_89.csv (попытка 1/5) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_89.csv
+[2026-06-24 14:28:17] INFO     | applicant_category | Переход на страницу поиска по ЕГРН | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_89.csv
+[2026-06-24 14:28:27] INFO     | applicant_category | Категория пустая — ввод и выбор из справочника
+[2026-06-24 14:28:27] INFO     | applicant_category | Открыт справочник категории заявителя
+[2026-06-24 14:28:38] INFO     | applicant_category | Текст категории заявителя введён
+[2026-06-24 14:28:49] INFO     | applicant_category | Стрелка вниз отправлена
+[2026-06-24 14:28:50] INFO     | applicant_category | Enter отправлен
+[2026-06-24 14:28:51] INFO     | applicant_category | Проверка выбора категории | single_value=(пусто), input_value=(пусто), org_block=True
+[2026-06-24 14:28:51] INFO     | applicant_category | Категория подтверждена по блоку организации
+[2026-06-24 14:28:51] INFO     | form_fields | Введена дата документа | date=23.12.2024
+[2026-06-24 14:28:52] INFO     | form_fields | Email-поля заполнены | email=eirc_trashbox@inbox.ru
+[2026-06-24 14:28:54] INFO     | applicant_address | Модалка адреса заявителя открыта: //div[contains(@id, 'fullNameDocumentAndAdditionalInformationArray[0]')]//div[contains(@class, 'fias-address-select__btn-filling')]
+[2026-06-24 14:28:55] INFO     | applicant_address | Фокус на контроле адреса: .//div[contains(@class, 'rros-ui-lib-dropdown__control')]
+[2026-06-24 14:28:55] INFO     | applicant_address | Адрес введён в модалке | value=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1
+[2026-06-24 14:28:56] INFO     | applicant_address | Выбрана подсказка ФИАС | option_text=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, method=click
+[2026-06-24 14:29:00] INFO     | applicant_address | Кнопка «Сохранить» нажата в модалке адреса
+[2026-06-24 14:29:00] INFO     | applicant_address | Адрес заявителя сохранён и подтверждён
+[2026-06-24 14:29:00] INFO     | applicant_address | Адрес заявителя уже заполнен, пропуск
+[2026-06-24 14:29:01] INFO     | applicant_category | Проверка выбора категории | single_value=(пусто), input_value=(пусто), org_block=True
+[2026-06-24 14:29:01] INFO     | applicant_category | Категория подтверждена по блоку организации
+[2026-06-24 14:29:01] INFO     | applicant_category | Раздел заявителя заполнен
+[2026-06-24 14:29:02] INFO     | address | Попытка 1/2 заполнения адреса | address=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, address_state={'fill_address_prompt_visible': True, 'address_modal_open': False, 'react-select-3-input': {'value': '', 'enabled': True, 'displayed': False, 'aria_expanded': None}, 'react-select-2-input': {'value': '', 'enabled': False, 'displayed': True, 'aria_expanded': None}, 'dropdown_options_count': 0, 'react_select_options_count': 0, 'selected_values': ['РОССИЯ'], 'save_button': {'found': True, 'displayed': False, 'enabled': True}}
+[2026-06-24 14:29:02] INFO     | address | Ожидание полного открытия модального окна
+[2026-06-24 14:29:05] INFO     | address | Модалка адреса открыта: //div[@id='realEstateItems']//div[contains(@class, 'fias-address-select__btn-filling')]
+[2026-06-24 14:29:06] INFO     | address | Фокус на контроле адреса: .//div[contains(@class, 'rros-ui-lib-dropdown__control')]
+[2026-06-24 14:29:08] INFO     | address | Адрес введён (visible input) | value_after=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1
+[2026-06-24 14:29:08] INFO     | address | Поле адреса после ввода | field_value=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, displayed=True
+[2026-06-24 14:29:08] INFO     | address | Состояние после ввода адреса | value_after=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, dropdown_options=1, react_select_options=1, suggestions_found=True
+[2026-06-24 14:29:08] INFO     | address | Выбрана подсказка ФИАС | option_text=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, method=click
+[2026-06-24 14:29:10] INFO     | address | Состояние после выбора из списка | selected_values=['Квартира']
+[2026-06-24 14:29:13] INFO     | address | Адрес сохранён и подтверждён | address=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, selected_values=['РОССИЯ']
+[2026-06-24 14:29:13] INFO     | address | Адрес успешно выбран | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_89.csv
+[2026-06-24 14:29:13] INFO     | address | Форма доступна для взаимодействия
+[2026-06-24 14:29:24] INFO     | documents | Тип документа выбран ARROW_DOWN+ENTER
+[2026-06-24 14:29:24] INFO     | documents | Поле заполнено | field=userAuthorityConfirmationDocument.documentNumber, value=583-p
+[2026-06-24 14:29:25] INFO     | documents | Поле заполнено | field=userAuthorityConfirmationDocument.documentIssueDate, value=23.12.2024
+[2026-06-24 14:29:25] INFO     | documents | Поле заполнено | field=userAuthorityConfirmationDocument.issuingAuthority, value=Правительство Республики Северная Осетия - Алания
+[2026-06-24 14:29:26] INFO     | documents | Основание предоставления заполнено
+[2026-06-24 14:29:26] INFO     | documents | Поля документа о полномочиях обработаны
+[2026-06-24 14:29:27] INFO     | vipiska | Тип выписки введён
+[2026-06-24 14:29:28] INFO     | vipiska | Тип выписки выбран кликом
+[2026-06-24 14:29:35] INFO     | file_upload | Загружен PDF: Хадиков.pdf
+[2026-06-24 14:29:41] INFO     | file_upload | Загружена подпись: Хадиков.pdf.sig
+[2026-06-24 14:29:41] INFO     | csv_upload | Попытка загрузки CSV 1/5 | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_89.csv
+[2026-06-24 14:29:41] INFO     | csv_upload | Кнопка «Загрузить из CSV» нажата
+[2026-06-24 14:29:41] INFO     | csv_upload | Файл отправлен в input: 2026-06-17 Повторный заказ выписок (старше 2025-11-17)_89.csv | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_89.csv, csv_state={'csv_warning': None, 'csv_status_messages': [], 'file_in_upload_list': True, 'modal_title': None, 'modal_max_count': None, 'apply_button': {'found': False}, 'objects_added_on_form': None, 'delete_button_visible': False, 'upload_list_count': 2, 'upload_error': None, 'csv_modal_open': True}
+[2026-06-24 14:29:41] INFO     | csv_upload | Состояние CSV после появления файла в интерфейсе | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_89.csv, csv_status_messages=[], file_in_upload_list=True, apply_button={'found': False}, delete_button_visible=False, upload_list_count=2, csv_modal_open=True
+[2026-06-24 14:29:43] INFO     | csv_upload | Ожидание модального окна и кнопки «Применить» | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_89.csv
+[2026-06-24 14:29:44] INFO     | csv_upload | Ожидание кнопки «Применить» (0/300 сек) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_89.csv, modal_title=None, modal_max_count=None, apply_button={'found': False}, csv_modal_open=True
+[2026-06-24 14:29:54] INFO     | csv_upload | Ожидание кнопки «Применить» (10/300 сек) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_89.csv, modal_title=None, modal_max_count=None, apply_button={'found': False}, csv_modal_open=True
+[2026-06-24 14:30:05] INFO     | csv_upload | Ожидание кнопки «Применить» (21/300 сек) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_89.csv, modal_title=None, modal_max_count=None, apply_button={'found': False}, csv_modal_open=True
+[2026-06-24 14:30:14] INFO     | csv_upload | Кнопка «Применить» найдена и кликабельна | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_89.csv
+[2026-06-24 14:30:14] INFO     | csv_upload | Кнопка «Применить» нажата | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_89.csv
+[2026-06-24 14:30:14] INFO     | csv_upload | Ожидание закрытия модального окна
+[2026-06-24 14:30:14] INFO     | csv_upload | Модальное окно CSV закрыто | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_89.csv
+[2026-06-24 14:30:14] INFO     | csv_upload | CSV-файл подтверждён на странице | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_89.csv
+[2026-06-24 14:30:16] INFO     | form_fields | Email-поля заполнены | email=eirc_trashbox@inbox.ru
+[2026-06-24 14:30:16] INFO     | applicant_address | Адрес заявителя уже заполнен, пропуск
+[2026-06-24 14:30:16] INFO     | submit | Кнопка 'Далее' нажата (шаг 1)
+[2026-06-24 14:30:21] INFO     | submit | Кнопка 'Далее' нажата (шаг 2)
+[2026-06-24 14:30:25] INFO     | submit | Сервер обрабатывает отправку документов (0/1500 сек)
+[2026-06-24 14:30:35] INFO     | submit | Сервер обрабатывает отправку документов (10/1500 сек)
+[2026-06-24 14:30:45] INFO     | submit | Сервер обрабатывает отправку документов (20/1500 сек)
+[2026-06-24 14:30:55] INFO     | submit | Сервер обрабатывает отправку документов (30/1500 сек)
+[2026-06-24 14:31:06] INFO     | submit | Сервер обрабатывает отправку документов (40/1500 сек)
+[2026-06-24 14:31:16] INFO     | submit | Сервер обрабатывает отправку документов (51/1500 сек)
+[2026-06-24 14:31:26] INFO     | submit | Сервер обрабатывает отправку документов (61/1500 сек)
+[2026-06-24 14:31:34] INFO     | submit | Сертификат выбран
+[2026-06-24 14:31:35] INFO     | submit | Кнопка 'Выбрать' нажата, заявка отправляется
+[2026-06-24 14:31:35] INFO     | submit | Сервер обрабатывает отправку заявки (0/1500 сек)
+[2026-06-24 14:31:45] INFO     | submit | Сервер обрабатывает отправку заявки (10/1500 сек)
+[2026-06-24 14:31:56] INFO     | submit | Сервер обрабатывает отправку заявки (20/1500 сек)
+[2026-06-24 14:32:06] INFO     | submit | Сервер обрабатывает отправку заявки (30/1500 сек)
+[2026-06-24 14:32:12] INFO     | result | УСПЕХ: Файл C:\Selenium\Order_statements\uploads_CSV\2026-06-17 Повторный заказ выписок (старше 2025-11-17)_89.csv отправлен
+[2026-06-24 14:32:12] INFO     | result | Заявка успешно отправлена: 2026-06-17 Повторный заказ выписок (старше 2025-11-17)_89.csv | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_89.csv
+[2026-06-24 14:32:12] INFO     | result | Локальный CSV удалён: 2026-06-17 Повторный заказ выписок (старше 2025-11-17)_89.csv | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_89.csv
+[2026-06-24 14:32:22] INFO     | main_loop | Начало обработки файла: 2026-06-17 Повторный заказ выписок (старше 2025-11-17)_90.csv (попытка 1/5) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_90.csv
+[2026-06-24 14:32:23] INFO     | applicant_category | Переход на страницу поиска по ЕГРН | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_90.csv
+[2026-06-24 14:32:33] INFO     | applicant_category | Категория пустая — ввод и выбор из справочника
+[2026-06-24 14:32:33] INFO     | applicant_category | Открыт справочник категории заявителя
+[2026-06-24 14:32:44] INFO     | applicant_category | Текст категории заявителя введён
+[2026-06-24 14:32:55] INFO     | applicant_category | Стрелка вниз отправлена
+[2026-06-24 14:32:56] INFO     | applicant_category | Enter отправлен
+[2026-06-24 14:32:57] INFO     | applicant_category | Проверка выбора категории | single_value=(пусто), input_value=(пусто), org_block=True
+[2026-06-24 14:32:57] INFO     | applicant_category | Категория подтверждена по блоку организации
+[2026-06-24 14:32:57] INFO     | form_fields | Введена дата документа | date=23.12.2024
+[2026-06-24 14:32:58] INFO     | form_fields | Email-поля заполнены | email=eirc_trashbox@inbox.ru
+[2026-06-24 14:32:59] INFO     | applicant_address | Модалка адреса заявителя открыта: //div[contains(@id, 'fullNameDocumentAndAdditionalInformationArray[0]')]//div[contains(@class, 'fias-address-select__btn-filling')]
+[2026-06-24 14:33:00] INFO     | applicant_address | Фокус на контроле адреса: .//div[contains(@class, 'rros-ui-lib-dropdown__control')]
+[2026-06-24 14:33:00] INFO     | applicant_address | Адрес введён в модалке | value=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1
+[2026-06-24 14:33:02] INFO     | applicant_address | Выбрана подсказка ФИАС | option_text=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, method=click
+[2026-06-24 14:33:05] INFO     | applicant_address | Кнопка «Сохранить» нажата в модалке адреса
+[2026-06-24 14:33:05] INFO     | applicant_address | Адрес заявителя сохранён и подтверждён
+[2026-06-24 14:33:05] INFO     | applicant_address | Адрес заявителя уже заполнен, пропуск
+[2026-06-24 14:33:06] INFO     | applicant_category | Проверка выбора категории | single_value=(пусто), input_value=(пусто), org_block=True
+[2026-06-24 14:33:06] INFO     | applicant_category | Категория подтверждена по блоку организации
+[2026-06-24 14:33:06] INFO     | applicant_category | Раздел заявителя заполнен
+[2026-06-24 14:33:07] INFO     | address | Попытка 1/2 заполнения адреса | address=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, address_state={'fill_address_prompt_visible': True, 'address_modal_open': False, 'react-select-3-input': {'value': '', 'enabled': True, 'displayed': False, 'aria_expanded': None}, 'react-select-2-input': {'value': '', 'enabled': False, 'displayed': True, 'aria_expanded': None}, 'dropdown_options_count': 0, 'react_select_options_count': 0, 'selected_values': ['РОССИЯ'], 'save_button': {'found': True, 'displayed': False, 'enabled': True}}
+[2026-06-24 14:33:07] INFO     | address | Ожидание полного открытия модального окна
+[2026-06-24 14:33:10] INFO     | address | Модалка адреса открыта: //div[@id='realEstateItems']//div[contains(@class, 'fias-address-select__btn-filling')]
+[2026-06-24 14:33:12] INFO     | address | Фокус на контроле адреса: .//div[contains(@class, 'rros-ui-lib-dropdown__control')]
+[2026-06-24 14:33:13] INFO     | address | Адрес введён (visible input) | value_after=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1
+[2026-06-24 14:33:13] INFO     | address | Поле адреса после ввода | field_value=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, displayed=True
+[2026-06-24 14:33:14] INFO     | address | Состояние после ввода адреса | value_after=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, dropdown_options=1, react_select_options=1, suggestions_found=True
+[2026-06-24 14:33:14] INFO     | address | Выбрана подсказка ФИАС | option_text=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, method=click
+[2026-06-24 14:33:15] INFO     | address | Состояние после выбора из списка | selected_values=['Квартира']
+[2026-06-24 14:33:18] INFO     | address | Адрес сохранён и подтверждён | address=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, selected_values=['РОССИЯ']
+[2026-06-24 14:33:18] INFO     | address | Адрес успешно выбран | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_90.csv
+[2026-06-24 14:33:18] INFO     | address | Форма доступна для взаимодействия
+[2026-06-24 14:33:29] INFO     | documents | Тип документа выбран ARROW_DOWN+ENTER
+[2026-06-24 14:33:29] INFO     | documents | Поле заполнено | field=userAuthorityConfirmationDocument.documentNumber, value=583-p
+[2026-06-24 14:33:30] INFO     | documents | Поле заполнено | field=userAuthorityConfirmationDocument.documentIssueDate, value=23.12.2024
+[2026-06-24 14:33:30] INFO     | documents | Поле заполнено | field=userAuthorityConfirmationDocument.issuingAuthority, value=Правительство Республики Северная Осетия - Алания
+[2026-06-24 14:33:31] INFO     | documents | Основание предоставления заполнено
+[2026-06-24 14:33:31] INFO     | documents | Поля документа о полномочиях обработаны
+[2026-06-24 14:33:33] INFO     | vipiska | Тип выписки введён
+[2026-06-24 14:33:34] INFO     | vipiska | Тип выписки выбран кликом
+[2026-06-24 14:33:40] INFO     | file_upload | Загружен PDF: Хадиков.pdf
+[2026-06-24 14:33:46] INFO     | file_upload | Загружена подпись: Хадиков.pdf.sig
+[2026-06-24 14:33:46] INFO     | csv_upload | Попытка загрузки CSV 1/5 | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_90.csv
+[2026-06-24 14:33:46] INFO     | csv_upload | Кнопка «Загрузить из CSV» нажата
+[2026-06-24 14:33:47] INFO     | csv_upload | Файл отправлен в input: 2026-06-17 Повторный заказ выписок (старше 2025-11-17)_90.csv | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_90.csv, csv_state={'csv_warning': None, 'csv_status_messages': [], 'file_in_upload_list': True, 'modal_title': None, 'modal_max_count': None, 'apply_button': {'found': False}, 'objects_added_on_form': None, 'delete_button_visible': False, 'upload_list_count': 2, 'upload_error': None, 'csv_modal_open': True}
+[2026-06-24 14:33:47] INFO     | csv_upload | Состояние CSV после появления файла в интерфейсе | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_90.csv, csv_status_messages=[], file_in_upload_list=True, apply_button={'found': False}, delete_button_visible=False, upload_list_count=2, csv_modal_open=True
+[2026-06-24 14:33:49] INFO     | csv_upload | Ожидание модального окна и кнопки «Применить» | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_90.csv
+[2026-06-24 14:33:49] INFO     | csv_upload | Ожидание кнопки «Применить» (0/300 сек) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_90.csv, modal_title=None, modal_max_count=None, apply_button={'found': False}, csv_modal_open=True
+[2026-06-24 14:34:00] INFO     | csv_upload | Ожидание кнопки «Применить» (10/300 сек) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_90.csv, modal_title=None, modal_max_count=None, apply_button={'found': False}, csv_modal_open=True
+[2026-06-24 14:34:10] INFO     | csv_upload | Ожидание кнопки «Применить» (21/300 сек) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_90.csv, modal_title=None, modal_max_count=None, apply_button={'found': False}, csv_modal_open=True
+[2026-06-24 14:34:21] INFO     | csv_upload | Ожидание кнопки «Применить» (32/300 сек) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_90.csv, modal_title=None, modal_max_count=None, apply_button={'found': False}, csv_modal_open=True
+[2026-06-24 14:34:32] INFO     | csv_upload | Ожидание кнопки «Применить» (43/300 сек) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_90.csv, modal_title=None, modal_max_count=None, apply_button={'found': False}, csv_modal_open=True
+[2026-06-24 14:34:34] INFO     | csv_upload | Кнопка «Применить» найдена и кликабельна | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_90.csv
+[2026-06-24 14:34:34] INFO     | csv_upload | Кнопка «Применить» нажата | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_90.csv
+[2026-06-24 14:34:34] INFO     | csv_upload | Ожидание закрытия модального окна
+[2026-06-24 14:34:34] INFO     | csv_upload | Модальное окно CSV закрыто | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_90.csv
+[2026-06-24 14:34:34] INFO     | csv_upload | CSV-файл подтверждён на странице | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_90.csv
+[2026-06-24 14:34:36] INFO     | form_fields | Email-поля заполнены | email=eirc_trashbox@inbox.ru
+[2026-06-24 14:34:36] INFO     | applicant_address | Адрес заявителя уже заполнен, пропуск
+[2026-06-24 14:34:36] INFO     | submit | Кнопка 'Далее' нажата (шаг 1)
+[2026-06-24 14:34:41] INFO     | submit | Кнопка 'Далее' нажата (шаг 2)
+[2026-06-24 14:34:45] INFO     | submit | Сервер обрабатывает отправку документов (0/1500 сек)
+[2026-06-24 14:34:55] INFO     | submit | Сервер обрабатывает отправку документов (10/1500 сек)
+[2026-06-24 14:35:05] INFO     | submit | Сервер обрабатывает отправку документов (20/1500 сек)
+[2026-06-24 14:35:15] INFO     | submit | Сервер обрабатывает отправку документов (30/1500 сек)
+[2026-06-24 14:35:26] INFO     | submit | Сервер обрабатывает отправку документов (40/1500 сек)
+[2026-06-24 14:35:36] INFO     | submit | Сервер обрабатывает отправку документов (51/1500 сек)
+[2026-06-24 14:35:46] INFO     | submit | Сервер обрабатывает отправку документов (61/1500 сек)
+[2026-06-24 14:35:56] INFO     | submit | Сертификат выбран
+[2026-06-24 14:35:57] INFO     | submit | Кнопка 'Выбрать' нажата, заявка отправляется
+[2026-06-24 14:35:57] INFO     | submit | Сервер обрабатывает отправку заявки (0/1500 сек)
+[2026-06-24 14:36:07] INFO     | submit | Сервер обрабатывает отправку заявки (10/1500 сек)
+[2026-06-24 14:36:18] INFO     | submit | Сервер обрабатывает отправку заявки (20/1500 сек)
+[2026-06-24 14:36:28] INFO     | submit | Сервер обрабатывает отправку заявки (30/1500 сек)
+[2026-06-24 14:36:38] INFO     | submit | Сервер обрабатывает отправку заявки (40/1500 сек)
+[2026-06-24 14:36:42] INFO     | result | УСПЕХ: Файл C:\Selenium\Order_statements\uploads_CSV\2026-06-17 Повторный заказ выписок (старше 2025-11-17)_90.csv отправлен
+[2026-06-24 14:36:42] INFO     | result | Заявка успешно отправлена: 2026-06-17 Повторный заказ выписок (старше 2025-11-17)_90.csv | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_90.csv
+[2026-06-24 14:36:42] INFO     | result | Локальный CSV удалён: 2026-06-17 Повторный заказ выписок (старше 2025-11-17)_90.csv | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_90.csv
+[2026-06-24 14:36:52] INFO     | shutdown | Скрипт завершён
+[2026-06-24 14:36:52] INFO     | shutdown | Итоговый отчёт сессии: C:\Selenium\Order_statements\logs\session_20260624_142313.md | events=0
+[2026-06-24 14:38:48] INFO     | init | Сессия диагностики: 20260624_143848
+[2026-06-24 14:38:48] INFO     | init | Завершение процессов Chrome/chromedriver перед запуском
+[2026-06-24 14:38:51] INFO     | init | WebDriver успешно запущен | chrome_path=C:\Users\David\AppData\Local\Chromium\Application\chrome.exe
+[2026-06-24 14:38:52] INFO     | native_dialog | Слежение за нативными окнами (180 сек, опрос 0.4 сек) | patterns=госплагин|gosplugin|криптопро|cryptopro|электронн
+[2026-06-24 14:38:53] INFO     | login | Переход на страницу Росреестра | url=https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder
+[2026-06-24 14:38:56] INFO     | login | Форма уже загружена, авторизация не требуется
+[2026-06-24 14:38:56] INFO     | main_loop | Начало обработки файла: 2026-06-17 Повторный заказ выписок (старше 2025-11-17)_100.csv (попытка 1/5) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_100.csv
+[2026-06-24 14:38:57] INFO     | applicant_category | Переход на страницу поиска по ЕГРН | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_100.csv
+[2026-06-24 14:39:07] INFO     | applicant_category | Категория пустая — ввод и выбор из справочника
+[2026-06-24 14:39:07] INFO     | applicant_category | Открыт справочник категории заявителя
+[2026-06-24 14:39:18] INFO     | applicant_category | Текст категории заявителя введён
+[2026-06-24 14:39:29] INFO     | applicant_category | Стрелка вниз отправлена
+[2026-06-24 14:39:30] INFO     | applicant_category | Enter отправлен
+[2026-06-24 14:39:31] INFO     | applicant_category | Проверка выбора категории | single_value=(пусто), input_value=(пусто), org_block=True
+[2026-06-24 14:39:31] INFO     | applicant_category | Категория подтверждена по блоку организации
+[2026-06-24 14:39:31] INFO     | form_fields | Введена дата документа | date=23.12.2024
+[2026-06-24 14:39:32] INFO     | form_fields | Email-поля заполнены | email=eirc_trashbox@inbox.ru
+[2026-06-24 14:39:33] INFO     | applicant_address | Модалка адреса заявителя открыта: //div[contains(@id, 'fullNameDocumentAndAdditionalInformationArray[0]')]//div[contains(@class, 'fias-address-select__btn-filling')]
+[2026-06-24 14:39:34] INFO     | applicant_address | Фокус на контроле адреса: .//div[contains(@class, 'rros-ui-lib-dropdown__control')]
+[2026-06-24 14:39:34] INFO     | applicant_address | Адрес введён в модалке | value=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1
+[2026-06-24 14:39:36] INFO     | applicant_address | Выбрана подсказка ФИАС | option_text=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, method=click
+[2026-06-24 14:39:39] INFO     | applicant_address | Кнопка «Сохранить» нажата в модалке адреса
+[2026-06-24 14:39:39] INFO     | applicant_address | Адрес заявителя сохранён и подтверждён
+[2026-06-24 14:39:39] INFO     | applicant_address | Адрес заявителя уже заполнен, пропуск
+[2026-06-24 14:39:40] INFO     | applicant_category | Проверка выбора категории | single_value=(пусто), input_value=(пусто), org_block=True
+[2026-06-24 14:39:40] INFO     | applicant_category | Категория подтверждена по блоку организации
+[2026-06-24 14:39:40] INFO     | applicant_category | Раздел заявителя заполнен
+[2026-06-24 14:39:41] INFO     | address | Попытка 1/2 заполнения адреса | address=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, address_state={'fill_address_prompt_visible': True, 'address_modal_open': False, 'react-select-3-input': {'value': '', 'enabled': True, 'displayed': False, 'aria_expanded': None}, 'react-select-2-input': {'value': '', 'enabled': False, 'displayed': True, 'aria_expanded': None}, 'dropdown_options_count': 0, 'react_select_options_count': 0, 'selected_values': ['РОССИЯ'], 'save_button': {'found': True, 'displayed': False, 'enabled': True}}
+[2026-06-24 14:39:41] INFO     | address | Ожидание полного открытия модального окна
+[2026-06-24 14:39:44] INFO     | address | Модалка адреса открыта: //div[@id='realEstateItems']//div[contains(@class, 'fias-address-select__btn-filling')]
+[2026-06-24 14:39:45] INFO     | address | Фокус на контроле адреса: .//div[contains(@class, 'rros-ui-lib-dropdown__control')]
+[2026-06-24 14:39:47] INFO     | address | Адрес введён (visible input) | value_after=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1
+[2026-06-24 14:39:47] INFO     | address | Поле адреса после ввода | field_value=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, displayed=True
+[2026-06-24 14:39:47] INFO     | address | Состояние после ввода адреса | value_after=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, dropdown_options=1, react_select_options=1, suggestions_found=True
+[2026-06-24 14:39:47] INFO     | address | Выбрана подсказка ФИАС | option_text=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, method=click
+[2026-06-24 14:39:49] INFO     | address | Состояние после выбора из списка | selected_values=['Квартира']
+[2026-06-24 14:39:52] INFO     | address | Адрес сохранён и подтверждён | address=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, selected_values=['РОССИЯ']
+[2026-06-24 14:39:52] INFO     | address | Адрес успешно выбран | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_100.csv
+[2026-06-24 14:39:52] INFO     | address | Форма доступна для взаимодействия
+[2026-06-24 14:40:03] INFO     | documents | Тип документа выбран ARROW_DOWN+ENTER
+[2026-06-24 14:40:03] INFO     | documents | Поле заполнено | field=userAuthorityConfirmationDocument.documentNumber, value=583-p
+[2026-06-24 14:40:04] INFO     | documents | Поле заполнено | field=userAuthorityConfirmationDocument.documentIssueDate, value=23.12.2024
+[2026-06-24 14:40:04] INFO     | documents | Поле заполнено | field=userAuthorityConfirmationDocument.issuingAuthority, value=Правительство Республики Северная Осетия - Алания
+[2026-06-24 14:40:05] INFO     | documents | Основание предоставления заполнено
+[2026-06-24 14:40:05] INFO     | documents | Поля документа о полномочиях обработаны
+[2026-06-24 14:40:07] INFO     | vipiska | Тип выписки введён
+[2026-06-24 14:40:08] INFO     | vipiska | Тип выписки выбран кликом
+[2026-06-24 14:40:14] INFO     | file_upload | Загружен PDF: Хадиков.pdf
+[2026-06-24 14:40:17] INFO     | shutdown | Скрипт завершён
+[2026-06-24 14:40:17] INFO     | shutdown | Итоговый отчёт сессии: C:\Selenium\Order_statements\logs\session_20260624_143848.md | events=0
+[2026-06-24 14:48:30] INFO     | init | Сессия диагностики: 20260624_144830
+[2026-06-24 14:48:30] INFO     | init | Завершение процессов Chrome/chromedriver перед запуском
+[2026-06-24 14:48:34] INFO     | init | WebDriver успешно запущен | chrome_path=C:\Users\David\AppData\Local\Chromium\Application\chrome.exe
+[2026-06-24 14:48:34] INFO     | native_dialog | Слежение за нативными окнами (180 сек, опрос 0.35 сек) | cryptopro=Подтверждение доступа
+[2026-06-24 14:48:35] INFO     | login | Переход на страницу Росреестра | url=https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder
+[2026-06-24 14:48:38] WARNING  | login | Сайт недоступен, повторный переход
+[2026-06-24 14:48:43] INFO     | native_dialog | КриптоПро: нажата «Да» в «native_dialogs.py - Selenium - Cursor» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:48:45] INFO     | login | Экран восстановления/QR не найден
+[2026-06-24 14:48:45] INFO     | login | Выбран пользователь (без ЭП)
+[2026-06-24 14:48:50] INFO     | main_loop | Начало обработки файла: 2026-06-17 Повторный заказ выписок (старше 2025-11-17)_100.csv (попытка 1/5) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_100.csv
+[2026-06-24 14:48:51] INFO     | applicant_category | Переход на страницу поиска по ЕГРН | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_100.csv
+[2026-06-24 14:48:51] INFO     | native_dialog | КриптоПро: нажата «Да» в «Подтверждение доступа» | backend=win32, dialog=cryptopro_access
+[2026-06-24 14:48:52] INFO     | native_dialog | КриптоПро: нажата «Да» в «Подтверждение доступа» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:48:53] INFO     | native_dialog | КриптоПро: нажата «Да» в «Панель задач» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:48:54] INFO     | native_dialog | КриптоПро: нажата «Да» в «native_dialogs.py - Selenium - Cursor» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:49:01] INFO     | applicant_category | Категория пустая — ввод и выбор из справочника
+[2026-06-24 14:49:02] INFO     | applicant_category | Открыт справочник категории заявителя
+[2026-06-24 14:49:03] INFO     | native_dialog | КриптоПро: нажата «Да» в «Подтверждение доступа» | backend=win32, dialog=cryptopro_access
+[2026-06-24 14:49:04] INFO     | native_dialog | КриптоПро: нажата «Да» в «Подтверждение доступа» | backend=win32, dialog=cryptopro_access
+[2026-06-24 14:49:05] INFO     | native_dialog | КриптоПро: нажата «Да» в «Подтверждение доступа» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:49:05] INFO     | native_dialog | КриптоПро: нажата «Да» в «Подтверждение доступа» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:49:06] INFO     | native_dialog | КриптоПро: нажата «Да» в «Панель задач» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:49:07] INFO     | native_dialog | КриптоПро: нажата «Да» в «native_dialogs.py - Selenium - Cursor» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:49:12] INFO     | applicant_category | Текст категории заявителя введён
+[2026-06-24 14:49:17] INFO     | native_dialog | КриптоПро: нажата «Да» в «Подтверждение доступа» | backend=win32, dialog=cryptopro_access
+[2026-06-24 14:49:18] INFO     | native_dialog | КриптоПро: нажата «Да» в «Подтверждение доступа» | backend=win32, dialog=cryptopro_access
+[2026-06-24 14:49:18] INFO     | native_dialog | КриптоПро: нажата «Да» в «Подтверждение доступа» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:49:19] INFO     | native_dialog | КриптоПро: нажата «Да» в «Подтверждение доступа» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:49:20] INFO     | native_dialog | КриптоПро: нажата «Да» в «Панель задач» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:49:21] INFO     | native_dialog | КриптоПро: нажата «Да» в «native_dialogs.py - Selenium - Cursor» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:49:23] INFO     | applicant_category | Стрелка вниз отправлена
+[2026-06-24 14:49:24] INFO     | applicant_category | Enter отправлен
+[2026-06-24 14:49:25] INFO     | applicant_category | Проверка выбора категории | single_value=(пусто), input_value=(пусто), org_block=True
+[2026-06-24 14:49:25] INFO     | applicant_category | Категория подтверждена по блоку организации
+[2026-06-24 14:49:26] INFO     | form_fields | Введена дата документа | date=23.12.2024
+[2026-06-24 14:49:27] INFO     | form_fields | Email-поля заполнены | email=eirc_trashbox@inbox.ru
+[2026-06-24 14:49:29] INFO     | applicant_address | Модалка адреса заявителя открыта: //div[contains(@id, 'fullNameDocumentAndAdditionalInformationArray[0]')]//div[contains(@class, 'fias-address-select__btn-filling')]
+[2026-06-24 14:49:30] INFO     | shutdown | Скрипт завершён
+[2026-06-24 14:49:30] INFO     | shutdown | Итоговый отчёт сессии: C:\Selenium\Order_statements\logs\session_20260624_144830.md | events=0
+[2026-06-24 14:49:49] INFO     | init | Сессия диагностики: 20260624_144949
+[2026-06-24 14:49:49] INFO     | init | Завершение процессов Chrome/chromedriver перед запуском
+[2026-06-24 14:49:53] INFO     | init | WebDriver успешно запущен | chrome_path=C:\Users\David\AppData\Local\Chromium\Application\chrome.exe
+[2026-06-24 14:49:53] INFO     | native_dialog | Слежение за нативными окнами (180 сек, опрос 0.35 сек) | cryptopro=Подтверждение доступа
+[2026-06-24 14:49:54] INFO     | login | Переход на страницу Росреестра | url=https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder
+[2026-06-24 14:49:54] INFO     | native_dialog | КриптоПро: нажата «Да» в «native_dialogs.py - Selenium - Cursor» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:49:57] WARNING  | login | Сайт недоступен, повторный переход
+[2026-06-24 14:50:02] INFO     | native_dialog | КриптоПро: нажата «Да» в «native_dialogs.py - Selenium - Cursor» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:50:04] INFO     | login | Экран восстановления/QR не найден
+[2026-06-24 14:50:04] INFO     | login | Выбран пользователь (без ЭП)
+[2026-06-24 14:50:09] INFO     | main_loop | Начало обработки файла: 2026-06-17 Повторный заказ выписок (старше 2025-11-17)_100.csv (попытка 1/5) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_100.csv
+[2026-06-24 14:50:10] INFO     | applicant_category | Переход на страницу поиска по ЕГРН | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_100.csv
+[2026-06-24 14:50:11] INFO     | native_dialog | КриптоПро: нажата «Да» в «Подтверждение доступа» | backend=win32, dialog=cryptopro_access
+[2026-06-24 14:50:11] INFO     | native_dialog | КриптоПро: нажата «Да» в «Подтверждение доступа» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:50:12] INFO     | native_dialog | КриптоПро: нажата «Да» в «Подтверждение доступа» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:50:13] INFO     | native_dialog | КриптоПро: нажата «Да» в «Панель задач» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:50:14] INFO     | native_dialog | КриптоПро: нажата «Да» в «native_dialogs.py - Selenium - Cursor» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:50:20] INFO     | applicant_category | Категория пустая — ввод и выбор из справочника
+[2026-06-24 14:50:20] INFO     | applicant_category | Открыт справочник категории заявителя
+[2026-06-24 14:50:22] INFO     | native_dialog | КриптоПро: нажата «Да» в «Подтверждение доступа» | backend=win32, dialog=cryptopro_access
+[2026-06-24 14:50:23] INFO     | native_dialog | КриптоПро: нажата «Да» в «Подтверждение доступа» | backend=win32, dialog=cryptopro_access
+[2026-06-24 14:50:24] INFO     | native_dialog | КриптоПро: нажата «Да» в «Подтверждение доступа» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:50:24] INFO     | native_dialog | КриптоПро: нажата «Да» в «Подтверждение доступа» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:50:25] INFO     | native_dialog | КриптоПро: нажата «Да» в «Панель задач» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:50:26] INFO     | native_dialog | КриптоПро: нажата «Да» в «native_dialogs.py - Selenium - Cursor» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:50:31] INFO     | applicant_category | Текст категории заявителя введён
+[2026-06-24 14:50:36] INFO     | native_dialog | КриптоПро: нажата «Да» в «Подтверждение доступа» | backend=win32, dialog=cryptopro_access
+[2026-06-24 14:50:36] INFO     | native_dialog | КриптоПро: нажата «Да» в «Подтверждение доступа» | backend=win32, dialog=cryptopro_access
+[2026-06-24 14:50:37] INFO     | native_dialog | КриптоПро: нажата «Да» в «Подтверждение доступа» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:50:38] INFO     | native_dialog | КриптоПро: нажата «Да» в «Подтверждение доступа» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:50:39] INFO     | native_dialog | КриптоПро: нажата «Да» в «Панель задач» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:50:40] INFO     | native_dialog | КриптоПро: нажата «Да» в «native_dialogs.py - Selenium - Cursor» | backend=uia, dialog=cryptopro_access
+[2026-06-24 14:50:42] INFO     | applicant_category | Стрелка вниз отправлена
+[2026-06-24 14:50:43] INFO     | applicant_category | Enter отправлен
+[2026-06-24 14:50:44] INFO     | applicant_category | Проверка выбора категории | single_value=(пусто), input_value=(пусто), org_block=True
+[2026-06-24 14:50:44] INFO     | applicant_category | Категория подтверждена по блоку организации
+[2026-06-24 14:50:44] INFO     | form_fields | Введена дата документа | date=23.12.2024
+[2026-06-24 14:50:45] INFO     | form_fields | Email-поля заполнены | email=eirc_trashbox@inbox.ru
+[2026-06-24 14:50:45] INFO     | shutdown | Скрипт завершён
+[2026-06-24 14:50:45] INFO     | shutdown | Итоговый отчёт сессии: C:\Selenium\Order_statements\logs\session_20260624_144949.md | events=0
+[2026-06-24 14:53:36] INFO     | init | Сессия диагностики: 20260624_145336
+[2026-06-24 14:53:36] INFO     | init | Завершение процессов Chrome/chromedriver перед запуском
+[2026-06-24 14:53:39] INFO     | init | WebDriver успешно запущен | chrome_path=C:\Users\David\AppData\Local\Chromium\Application\chrome.exe
+[2026-06-24 14:53:39] INFO     | native_dialog | Слежение за окнами КриптоПро (180 сек, шаг 0.2 сек) | method=win32_sendmessage
+[2026-06-24 14:53:40] INFO     | login | Переход на страницу Росреестра | url=https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder
+[2026-06-24 14:53:43] WARNING  | login | Сайт недоступен, повторный переход
+[2026-06-24 14:53:50] INFO     | login | Экран восстановления/QR не найден
+[2026-06-24 14:53:50] INFO     | login | Выбран пользователь (без ЭП)
+[2026-06-24 14:53:52] INFO     | native_dialog | КриптоПро: BM_CLICK «Да» в «Подтверждение доступа» (hwnd=5047500) | dialog=cryptopro_access, method=win32_sendmessage
+[2026-06-24 14:53:55] INFO     | main_loop | Начало обработки файла: 2026-06-17 Повторный заказ выписок (старше 2025-11-17)_100.csv (попытка 1/5) | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_100.csv
+[2026-06-24 14:53:56] INFO     | applicant_category | Переход на страницу поиска по ЕГРН | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_100.csv
+[2026-06-24 14:54:06] INFO     | applicant_category | Категория пустая — ввод и выбор из справочника
+[2026-06-24 14:54:06] INFO     | applicant_category | Открыт справочник категории заявителя
+[2026-06-24 14:54:17] INFO     | applicant_category | Текст категории заявителя введён
+[2026-06-24 14:54:28] INFO     | applicant_category | Стрелка вниз отправлена
+[2026-06-24 14:54:29] INFO     | applicant_category | Enter отправлен
+[2026-06-24 14:54:30] INFO     | applicant_category | Проверка выбора категории | single_value=(пусто), input_value=(пусто), org_block=True
+[2026-06-24 14:54:30] INFO     | applicant_category | Категория подтверждена по блоку организации
+[2026-06-24 14:54:30] INFO     | form_fields | Введена дата документа | date=23.12.2024
+[2026-06-24 14:54:31] INFO     | form_fields | Email-поля заполнены | email=eirc_trashbox@inbox.ru
+[2026-06-24 14:54:33] INFO     | applicant_address | Модалка адреса заявителя открыта: //div[contains(@id, 'fullNameDocumentAndAdditionalInformationArray[0]')]//div[contains(@class, 'fias-address-select__btn-filling')]
+[2026-06-24 14:54:33] INFO     | applicant_address | Фокус на контроле адреса: .//div[contains(@class, 'rros-ui-lib-dropdown__control')]
+[2026-06-24 14:54:34] INFO     | applicant_address | Адрес введён в модалке | value=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1
+[2026-06-24 14:54:35] INFO     | applicant_address | Выбрана подсказка ФИАС | option_text=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, method=click
+[2026-06-24 14:54:38] INFO     | applicant_address | Кнопка «Сохранить» нажата в модалке адреса
+[2026-06-24 14:54:38] INFO     | applicant_address | Адрес заявителя сохранён и подтверждён
+[2026-06-24 14:54:38] INFO     | applicant_address | Адрес заявителя уже заполнен, пропуск
+[2026-06-24 14:54:39] INFO     | applicant_category | Проверка выбора категории | single_value=(пусто), input_value=(пусто), org_block=True
+[2026-06-24 14:54:39] INFO     | applicant_category | Категория подтверждена по блоку организации
+[2026-06-24 14:54:39] INFO     | applicant_category | Раздел заявителя заполнен
+[2026-06-24 14:54:40] INFO     | address | Попытка 1/2 заполнения адреса | address=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, address_state={'fill_address_prompt_visible': True, 'address_modal_open': False, 'react-select-3-input': {'value': '', 'enabled': True, 'displayed': False, 'aria_expanded': None}, 'react-select-2-input': {'value': '', 'enabled': False, 'displayed': True, 'aria_expanded': None}, 'dropdown_options_count': 0, 'react_select_options_count': 0, 'selected_values': ['РОССИЯ'], 'save_button': {'found': True, 'displayed': False, 'enabled': True}}
+[2026-06-24 14:54:40] INFO     | address | Ожидание полного открытия модального окна
+[2026-06-24 14:54:43] INFO     | address | Модалка адреса открыта: //div[@id='realEstateItems']//div[contains(@class, 'fias-address-select__btn-filling')]
+[2026-06-24 14:54:45] INFO     | address | Фокус на контроле адреса: .//div[contains(@class, 'rros-ui-lib-dropdown__control')]
+[2026-06-24 14:54:46] INFO     | address | Адрес введён (visible input) | value_after=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1
+[2026-06-24 14:54:46] INFO     | address | Поле адреса после ввода | field_value=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, displayed=True
+[2026-06-24 14:54:47] INFO     | address | Состояние после ввода адреса | value_after=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, dropdown_options=1, react_select_options=1, suggestions_found=True
+[2026-06-24 14:54:47] INFO     | address | Выбрана подсказка ФИАС | option_text=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, method=click
+[2026-06-24 14:54:48] INFO     | address | Состояние после выбора из списка | selected_values=['Квартира']
+[2026-06-24 14:54:51] INFO     | address | Адрес сохранён и подтверждён | address=Респ. Северная Осетия - Алания, г. Владикавказ, ул. Армянская, д.30 корп.1, selected_values=['РОССИЯ']
+[2026-06-24 14:54:51] INFO     | address | Адрес успешно выбран | file=2026-06-17 Повторный заказ выписок (старше 2025-11-17)_100.csv
+[2026-06-24 14:54:51] INFO     | address | Форма доступна для взаимодействия
+[2026-06-24 14:55:02] INFO     | documents | Тип документа выбран ARROW_DOWN+ENTER
+[2026-06-24 14:55:02] INFO     | documents | Поле заполнено | field=userAuthorityConfirmationDocument.documentNumber, value=583-p
+[2026-06-24 14:55:03] INFO     | documents | Поле заполнено | field=userAuthorityConfirmationDocument.documentIssueDate, value=23.12.2024
+[2026-06-24 14:55:03] INFO     | shutdown | Скрипт завершён
+[2026-06-24 14:55:03] INFO     | shutdown | Итоговый отчёт сессии: C:\Selenium\Order_statements\logs\session_20260624_145336.md | events=0
