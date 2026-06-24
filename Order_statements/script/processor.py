@@ -45,11 +45,12 @@ from .submit import (
     finalize_application_with_certificate,
     restart_form_with_same_csv,
 )
+from .upload_queue import list_csv_files
 
 def run_processing_loop(driver, wait):
     pdf_path = UPLOADS_DIR / PDF_FILE_NAME
     signature_path = UPLOADS_DIR / SIGNATURE_FILE_NAME
-    for upload_file in UPLOADS_CSV_DIR.iterdir():
+    for upload_file in list_csv_files(UPLOADS_CSV_DIR):
         flag_download_CSV_file = False
         file_ctx = {"page_loaded": False}
         file_attempt = 0

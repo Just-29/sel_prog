@@ -11,13 +11,15 @@ load_dotenv(PROJECT_ROOT / ".env")
 load_dotenv(PROJECT_ROOT.parent / "files" / ".env")
 
 UPLOADS_CSV_DIR = PROJECT_ROOT / "uploads_CSV"
+FUTURE_UPLOADS_DIR = PROJECT_ROOT / "future_uploads"
 UPLOADS_DIR = PROJECT_ROOT / "uploads"
 LOG_DIR = PROJECT_ROOT / "logs"
 SCREENSHOTS_DIR = LOG_DIR / "screenshots"
 DIAGNOSTICS_DIR = LOG_DIR / "diagnostics"
 RESULTS_LOG = PROJECT_ROOT / "results.log"
+SCHEDULE_INI = PROJECT_ROOT / "schedule.ini"
 
-for _d in (UPLOADS_CSV_DIR, UPLOADS_DIR, LOG_DIR, SCREENSHOTS_DIR, DIAGNOSTICS_DIR):
+for _d in (UPLOADS_CSV_DIR, FUTURE_UPLOADS_DIR, UPLOADS_DIR, LOG_DIR, SCREENSHOTS_DIR, DIAGNOSTICS_DIR):
     _d.mkdir(parents=True, exist_ok=True)
 
 DRIVER_PATH = os.getenv("DRIVER_PATH")

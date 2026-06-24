@@ -19,11 +19,14 @@ from script.logging_utils import (
 from script.login import login_funct
 from script.native_dialogs import stop_native_dialog_watcher
 from script.processor import run_processing_loop
+from script.upload_queue import stage_files_from_future_uploads
 
 
 def main():
     log_info(f"Сессия диагностики: {SESSION_ID}", stage="init")
     atexit.register(write_session_report)
+
+    stage_files_from_future_uploads()
 
     kill_chrome_processes()
     driver = None
