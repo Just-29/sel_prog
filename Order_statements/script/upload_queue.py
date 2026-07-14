@@ -117,6 +117,7 @@ def _staging_limit() -> int | None:
 def stage_files_from_future_uploads() -> list[Path]:
     """
     Копирует CSV из future_uploads в uploads_CSV, если uploads_CSV пуста.
+    После успешного копирования исходник удаляется из future_uploads.
     Возвращает список скопированных файлов.
     """
     FUTURE_UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
@@ -162,11 +163,20 @@ def stage_files_from_future_uploads() -> list[Path]:
             continue
         shutil.copy2(source, destination)
         staged.append(destination)
-        log_info(
-            f"Скопирован из future_uploads: {source.name}",
-            stage="upload_queue",
-            file=source.name,
-        )
+        try:
+            source.unlink()
+            log_info(
+                f"Скопирован из future_uploads и удалён источник: {source.name}",
+                stage="upload_queue",
+                file=source.name,
+            )
+        except Exception as e:
+            log_warning(
+                f"Скопирован в uploads_CSV, но не удалось удалить из future_uploads: {source.name}",
+                stage="upload_queue",
+                file=source.name,
+                exc=e,
+            )
 
     if staged:
         log_info(

@@ -1,0 +1,775 @@
+{
+  "session_id": "20260713_090001",
+  "timestamp": "2026-07-13 12:08:09",
+  "stage": "applicant_category",
+  "message": "Не удалось подготовить страницу формы за 5 попыток",
+  "context": {
+    "url": "https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder",
+    "title": "Личный кабинет",
+    "ready_state": "complete",
+    "window": "1920x1080",
+    "scroll": {
+      "h": 982,
+      "x": 0,
+      "y": 0
+    },
+    "scenario": "form_page_not_ready"
+  },
+  "files": {
+    "html": "C:\\Selenium\\Order_statements\\logs\\diagnostics\\20260713_090001_applicant_category_20260713_120809_298614.html",
+    "screenshot": "C:\\Selenium\\Order_statements\\logs\\screenshots\\20260713_090001_applicant_category_20260713_120809_298614.png"
+  },
+  "page": {
+    "collected_at": "2026-07-13 12:08:09",
+    "browser": {
+      "url": "https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder",
+      "title": "Личный кабинет",
+      "ready_state": "complete",
+      "window": "1920x1080",
+      "scroll": {
+        "h": 5650,
+        "x": 0,
+        "y": 0
+      }
+    },
+    "ui_errors": [
+      {
+        "xpath": "//*[contains(@class, 'alert')]",
+        "text": "Внимание!\nЗа исключением новых субъектов Российской Федерации"
+      },
+      {
+        "xpath": "//*[contains(@class, 'alert')]",
+        "text": "Внимание!\nЗа исключением новых субъектов Российской Федерации"
+      },
+      {
+        "xpath": "//*[contains(@class, 'alert')]",
+        "text": "Внимание!"
+      },
+      {
+        "xpath": "//*[contains(@class, 'alert')]",
+        "text": "Внимание! За предоставление сведений из ЕГРН взимается плата."
+      },
+      {
+        "xpath": "//*[contains(@class, 'alert')]",
+        "text": "Внимание! За предоставление сведений из ЕГРН взимается плата."
+      },
+      {
+        "xpath": "//*[contains(@class, 'alert')]",
+        "text": "Выбрать услугу → Заполнить сведения о заявителе → Указать запрашиваемые сведения → Прикрепить документы → Проверить запрос → Подписать и отправить запрос\n\nПри указании в форме нескольких объектов, будет сформировано равное им количество запросов."
+      },
+      {
+        "xpath": "//*[contains(@class, 'alert')]",
+        "text": "Выбрать услугу → Заполнить сведения о заявителе → Указать запрашиваемые сведения → Прикрепить документы → Проверить запрос → Подписать и отправить запрос\n\nПри указании в форме нескольких объектов, будет сформировано равное им количество запросов."
+      }
+    ],
+    "modals": [],
+    "loading_indicators": [
+      {
+        "xpath": "//div[contains(@class, 'loading')]",
+        "text": ".st0{fill:#4C4D4B;} .st1{fill-rule:evenodd;clip-rule:evenodd;fill:#0089FF;} .st2{fill:#FFFFFF;} .st3{fill-rule:evenodd;clip-rule:evenodd;fill:#949392;} .st4{fill-rule:evenodd;clip-rule:evenodd;fill:#4"
+      },
+      {
+        "xpath": "//div[contains(@class, 'loading')]",
+        "text": "Выбранная услуга\nПредоставление сведений об объектах недвижимости и (или) их правообладателях\nИзменить\nДобавить в Избранное\nВыбрать услугу → Заполнить сведения о заявителе → Указать запрашиваемые свед"
+      },
+      {
+        "xpath": "//div[contains(@class, 'loading')]",
+        "text": "Добавить в Избранное\nВыбрать услугу → Заполнить сведения о заявителе → Указать запрашиваемые сведения → Прикрепить документы → Проверить запрос → Подписать и отправить запрос\n\nПри указании в форме нес"
+      },
+      {
+        "xpath": "//div[contains(@class, 'rros-ui-lib-loading')]",
+        "text": ".st0{fill:#4C4D4B;} .st1{fill-rule:evenodd;clip-rule:evenodd;fill:#0089FF;} .st2{fill:#FFFFFF;} .st3{fill-rule:evenodd;clip-rule:evenodd;fill:#949392;} .st4{fill-rule:evenodd;clip-rule:evenodd;fill:#4"
+      },
+      {
+        "xpath": "//div[contains(@class, 'rros-ui-lib-loading')]",
+        "text": "Выбранная услуга\nПредоставление сведений об объектах недвижимости и (или) их правообладателях\nИзменить\nДобавить в Избранное\nВыбрать услугу → Заполнить сведения о заявителе → Указать запрашиваемые свед"
+      },
+      {
+        "xpath": "//div[contains(@class, 'rros-ui-lib-loading')]",
+        "text": "Добавить в Избранное\nВыбрать услугу → Заполнить сведения о заявителе → Указать запрашиваемые сведения → Прикрепить документы → Проверить запрос → Подписать и отправить запрос\n\nПри указании в форме нес"
+      }
+    ],
+    "form_fields": [
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": "applicantCategory",
+        "name": null,
+        "placeholder": null,
+        "readOnly": true,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": true,
+        "id": "rorganizationOrGovernmentArray[0].fullname",
+        "name": "rorganizationOrGovernmentArray[0].fullname",
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "МИНИСТЕРСТВО ЖИЛИЩНО-КОММУНАЛЬНОГО ХОЗЯЙСТВА, ТОПЛИВА И ЭНЕРГЕТИКИ РЕСПУБЛИКИ СЕВЕРНАЯ ОСЕТИЯ-АЛАНИЯ",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": true,
+        "id": "rorganizationOrGovernmentArray[0].ogrn",
+        "name": "rorganizationOrGovernmentArray[0].ogrn",
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "1161513050027",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": true,
+        "id": "rorganizationOrGovernmentArray[0].inn",
+        "name": "rorganizationOrGovernmentArray[0].inn",
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "1513057692",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": "rorganizationOrGovernmentArray[0].kpp",
+        "name": "rorganizationOrGovernmentArray[0].kpp",
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "151301001",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": "rorganizationOrGovernmentArray[0].regDate",
+        "name": "rorganizationOrGovernmentArray[0].regDate",
+        "placeholder": "Дата регистрации",
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": "rorganizationOrGovernmentArray[0].phone",
+        "name": "rorganizationOrGovernmentArray[0].phone",
+        "placeholder": "+71234567890",
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "+7 (867) 240-57-25",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": "rorganizationOrGovernmentArray[0].email",
+        "name": "rorganizationOrGovernmentArray[0].email",
+        "placeholder": "name@example.ru",
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "info@mingkh.alania.gov.ru",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": true,
+        "id": "fullNameDocumentAndAdditionalInformationArray[0].surname",
+        "name": "fullNameDocumentAndAdditionalInformationArray[0].surname",
+        "placeholder": "Иванов",
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "ХАДИКОВ",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": true,
+        "id": "fullNameDocumentAndAdditionalInformationArray[0].name",
+        "name": "fullNameDocumentAndAdditionalInformationArray[0].name",
+        "placeholder": "Иван",
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "АЛАН",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": true,
+        "id": "fullNameDocumentAndAdditionalInformationArray[0].patronymic",
+        "name": "fullNameDocumentAndAdditionalInformationArray[0].patronymic",
+        "placeholder": "Иванович",
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "ЮРЬЕВИЧ",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": true,
+        "id": "react-select-2-input",
+        "name": null,
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": true,
+        "id": "fullNameDocumentAndAdditionalInformationArray[0].statelessPerson",
+        "name": "fullNameDocumentAndAdditionalInformationArray[0].statelessPerson",
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "checkbox",
+        "value": "on",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": true,
+        "id": "fullNameDocumentAndAdditionalInformationArray[0].documentType",
+        "name": null,
+        "placeholder": null,
+        "readOnly": true,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": true,
+        "id": "fullNameDocumentAndAdditionalInformationArray[0].documentSeries",
+        "name": "fullNameDocumentAndAdditionalInformationArray[0].documentSeries",
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "90 08",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": true,
+        "id": "fullNameDocumentAndAdditionalInformationArray[0].documentNumber",
+        "name": "fullNameDocumentAndAdditionalInformationArray[0].documentNumber",
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "884164",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": true,
+        "id": "fullNameDocumentAndAdditionalInformationArray[0].documentIssueDate",
+        "name": "fullNameDocumentAndAdditionalInformationArray[0].documentIssueDate",
+        "placeholder": "Дата выдачи",
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "15.12.2008",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": true,
+        "id": "fullNameDocumentAndAdditionalInformationArray[0].issuingAuthority",
+        "name": "fullNameDocumentAndAdditionalInformationArray[0].issuingAuthority",
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "ОТДЕЛОМ УФМС РОССИИ ПО РЕСП. СЕВЕРНАЯ ОСЕТИЯ-АЛАНИЯ В СЕВЕРО-ЗАПАДНОМ МО ГОР. ВЛАДИКАВКАЗА",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": true,
+        "id": "fullNameDocumentAndAdditionalInformationArray[0].snils",
+        "name": "fullNameDocumentAndAdditionalInformationArray[0].snils",
+        "placeholder": "___-___-___ __",
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "061-605-688 52",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": "fullNameDocumentAndAdditionalInformationArray[0].phone",
+        "name": "fullNameDocumentAndAdditionalInformationArray[0].phone",
+        "placeholder": "+71234567890",
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "+7 (903) 483-41-22",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": "fullNameDocumentAndAdditionalInformationArray[0].email",
+        "name": "fullNameDocumentAndAdditionalInformationArray[0].email",
+        "placeholder": "name@example.ru",
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "alankhadik@gmail.com",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": "fullNameDocumentAndAdditionalInformationArray[0].residenceAddress",
+        "name": "fullNameDocumentAndAdditionalInformationArray[0].residenceAddress",
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "checkbox",
+        "value": "on",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": "userAuthorityConfirmationDocument.documentType",
+        "name": null,
+        "placeholder": null,
+        "readOnly": true,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": "userAuthorityConfirmationDocument.documentSeries",
+        "name": "userAuthorityConfirmationDocument.documentSeries",
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": "userAuthorityConfirmationDocument.documentNumber",
+        "name": "userAuthorityConfirmationDocument.documentNumber",
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": "userAuthorityConfirmationDocument.documentIssueDate",
+        "name": "userAuthorityConfirmationDocument.documentIssueDate",
+        "placeholder": "Дата выдачи",
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": "userAuthorityConfirmationDocument.issuingAuthority",
+        "name": "userAuthorityConfirmationDocument.issuingAuthority",
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": "userAuthorityConfirmationDocument.file",
+        "name": "userAuthorityConfirmationDocument.file",
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "file",
+        "value": "",
+        "visible": false
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": "userAuthorityConfirmationDocument.signature",
+        "name": "userAuthorityConfirmationDocument.signature",
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "file",
+        "value": "",
+        "visible": false
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": null,
+        "name": "requestServiceMode",
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "radio",
+        "value": "on",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": null,
+        "name": "requestServiceMode",
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "radio",
+        "value": "on",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": "csvFiles",
+        "name": "csvFiles",
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "file",
+        "value": "",
+        "visible": false
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": "react-select-4-input",
+        "name": null,
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": "react-select-5-input",
+        "name": null,
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": null,
+        "name": "realEstateItems[0].realEstateItemType",
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "hidden",
+        "value": "",
+        "visible": false
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": "realEstateItems[0].area",
+        "name": "realEstateItems[0].area",
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": "react-select-6-input",
+        "name": null,
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": null,
+        "name": "requestAboutObject.extractDescription.extractDataRequestType1",
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "hidden",
+        "value": "",
+        "visible": false
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": "requestAboutObject.deliveryActionEmail",
+        "name": "requestAboutObject.deliveryActionEmail",
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": "comment",
+        "name": "comment",
+        "placeholder": "Введите текст",
+        "readOnly": false,
+        "tag": "TEXTAREA",
+        "type": "textarea",
+        "value": "",
+        "visible": true
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": null,
+        "name": null,
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "checkbox",
+        "value": "on",
+        "visible": false
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": "react-select-3-input",
+        "name": null,
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "",
+        "visible": false
+      },
+      {
+        "ariaInvalid": null,
+        "disabled": false,
+        "id": "react-select-7-input",
+        "name": null,
+        "placeholder": null,
+        "readOnly": false,
+        "tag": "INPUT",
+        "type": "text",
+        "value": "",
+        "visible": false
+      }
+    ],
+    "react_selects": [
+      {
+        "ariaExpanded": null,
+        "id": "react-select-2-input",
+        "value": "",
+        "visible": true
+      },
+      {
+        "ariaExpanded": null,
+        "id": "react-select-4-input",
+        "value": "",
+        "visible": true
+      },
+      {
+        "ariaExpanded": null,
+        "id": "react-select-5-input",
+        "value": "",
+        "visible": true
+      },
+      {
+        "ariaExpanded": null,
+        "id": "react-select-6-input",
+        "value": "",
+        "visible": true
+      },
+      {
+        "ariaExpanded": null,
+        "id": "react-select-3-input",
+        "value": "",
+        "visible": false
+      },
+      {
+        "ariaExpanded": null,
+        "id": "react-select-7-input",
+        "value": "",
+        "visible": false
+      }
+    ],
+    "buttons": [
+      {
+        "class": "epkr-button rros-ui-lib-button rros-ui-lib-button--primary",
+        "disabled": false,
+        "text": "Электронная платформа\nкадастровых работ"
+      },
+      {
+        "class": "sidebar__btn-appointment px-2 rros-ui-lib-button rros-ui-lib-button--primary rros-ui-lib-button--full-width",
+        "disabled": false,
+        "text": "ЗАПИСЬ НА ПРИЕМ"
+      },
+      {
+        "class": "sidebar__btn-result px-2 rros-ui-lib-button rros-ui-lib-button--secondary rros-ui-lib-button--full-width",
+        "disabled": false,
+        "text": "ЗАПРОС РЕЗУЛЬТАТОВ КАДАСТРОВЫХ РАБОТ"
+      },
+      {
+        "class": "sidebar__btn-e-signature rros-ui-lib-button rros-ui-lib-button--linkSmall",
+        "disabled": false,
+        "text": "Получить электронную подпись"
+      },
+      {
+        "class": "general-information__change-button rros-ui-lib-button rros-ui-lib-button--linkSmall rros-ui-lib-button--reverse",
+        "disabled": false,
+        "text": "Изменить"
+      },
+      {
+        "class": "favorite-button favorite-button__enabled rros-ui-lib-button rros-ui-lib-button--linkSmall rros-ui-lib-button--reverse",
+        "disabled": false,
+        "text": "Добавить в Избранное"
+      },
+      {
+        "class": "real-estate-selector-base__btn rros-ui-lib-button rros-ui-lib-button--linkSmall rros-ui-lib-button--reverse rros-ui-lib-",
+        "disabled": false,
+        "text": "Выбрать из Моих объектов"
+      },
+      {
+        "class": "widget__add-btn widget__add-btn_default rros-ui-lib-button rros-ui-lib-button--linkSmall rros-ui-lib-button--reverse",
+        "disabled": false,
+        "text": "Добавить объект недвижимости"
+      },
+      {
+        "class": "widget__add-btn widget__add-btn_default rros-ui-lib-button rros-ui-lib-button--linkSmall rros-ui-lib-button--reverse",
+        "disabled": false,
+        "text": "Добавить документ"
+      },
+      {
+        "class": "switch-step-buttons__next rros-ui-lib-button rros-ui-lib-button--primary",
+        "disabled": false,
+        "text": "ДАЛЕЕ"
+      },
+      {
+        "class": "ls-chat-container__main-button",
+        "disabled": false,
+        "text": ""
+      }
+    ],
+    "uploaded_files": [],
+    "csv_status": [
+      "Загрузить из CSV"
+    ],
+    "console_logs": [],
+    "dom_hints": {
+      "address_menu": true,
+      "applicantCategory": {
+        "disabled": false,
+        "value": "",
+        "visible": true
+      },
+      "react-select-3-input": {
+        "disabled": false,
+        "value": "",
+        "visible": false
+      },
+      "react-select-6-input": {
+        "disabled": false,
+        "value": "",
+        "visible": true
+      },
+      "submit_button": true,
+      "userAuthorityConfirmationDocument.documentType": {
+        "disabled": false,
+        "value": "",
+        "visible": true
+      }
+    },
+    "csv_upload": {
+      "csv_warning": null,
+      "csv_status_messages": [],
+      "modal_title": "",
+      "modal_max_count": null,
+      "apply_button": {
+        "found": false
+      },
+      "objects_added_on_form": null,
+      "delete_button_visible": false,
+      "upload_list_count": 0,
+      "upload_error": null,
+      "csv_modal_open": false
+    },
+    "address": {
+      "fill_address_prompt_visible": true,
+      "address_modal_open": false,
+      "react-select-3-input": {
+        "value": "",
+        "enabled": true,
+        "displayed": false,
+        "aria_expanded": null
+      },
+      "react-select-2-input": {
+        "value": "",
+        "enabled": false,
+        "displayed": true,
+        "aria_expanded": null
+      },
+      "dropdown_options_count": 0,
+      "react_select_options_count": 0,
+      "selected_values": [
+        "РОССИЯ"
+      ],
+      "save_button": {
+        "found": true,
+        "displayed": false,
+        "enabled": false
+      }
+    }
+  }
+}

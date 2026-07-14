@@ -27,7 +27,7 @@ from .address import (
     ensure_applicant_residence_address,
 )
 from .logging_utils import log_info, log_warning
-from .native_dialogs import pulse_cryptopro_access, pulse_native_dialogs
+from .native_dialogs import pulse_cryptopro_access, pulse_gosplugin_dialogs, pulse_native_dialogs
 from .csv_upload import remove_csv_from_interface
 from .session import close_modal_window
 
@@ -298,6 +298,7 @@ def _select_certificate(drv, stage="submit", timeout=15):
     )
     drv.execute_script("arguments[0].scrollIntoView({block: 'center'}); arguments[0].click();", opt)
     log_info("Сертификат выбран", stage=stage)
+    pulse_gosplugin_dialogs()
     pulse_cryptopro_access()
     pulse_native_dialogs()
     time.sleep(1)
@@ -309,6 +310,7 @@ def _click_vybrat_button(drv, stage="submit", timeout=15):
     )
     drv.execute_script("arguments[0].scrollIntoView({block: 'center'}); arguments[0].click();", btn)
     log_info("Кнопка 'Выбрать' нажата, заявка отправляется", stage=stage)
+    pulse_gosplugin_dialogs(30)
     pulse_cryptopro_access(30)
     pulse_native_dialogs(15)
 

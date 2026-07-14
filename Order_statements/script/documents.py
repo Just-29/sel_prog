@@ -19,7 +19,7 @@ from .applicant import (
 )
 from .address import is_address_filled_on_form
 from .config import CORRECTION, DOCUMENT_DATE, DOCUMENT_NUMBER, ISSUING_AUTHORITY
-from .constants import AUTHORITY_DOCUMENT_TYPE, VIPISKA_MARKER, VIPISKA_TEXT
+from .constants import AUTHORITY_DOCUMENT_TYPE, VIPISKA_MARKER, VIPISKA_TEXT, VIPISKA_TEXT_2
 from .logging_utils import log_info, log_warning
 
 def _input_already_has_value(current, expected):
@@ -167,8 +167,20 @@ def fill_authority_document_fields(drv, stage="documents"):
     return True
 
 
+_VIPISKA_DROPDOWN_ID = "requestAboutObject.extractDescription.extractDataRequestType1"
+_VIPISKA_FALLBACK_INPUT_IDS = (
+    "react-select-4-input",
+    "react-select-5-input",
+    "react-select-6-input",
+    "react-select-7-input",
+)
+
+
 def is_vipiska_filled(drv):
-    for input_id in ("react-select-6-input", "react-select-5-input", "react-select-4-input"):
+    display = _react_select_display_text(drv, _VIPISKA_DROPDOWN_ID)
+    if VIPISKA_MARKER in display:
+        return True
+    for input_id in _VIPISKA_FALLBACK_INPUT_IDS:
         display = _react_select_display_text(drv, input_id)
         if VIPISKA_MARKER in display:
             return True
@@ -176,17 +188,78 @@ def is_vipiska_filled(drv):
 
 
 def _find_vipiska_input(drv, timeout=10):
-    for input_id in ("react-select-6-input", "react-select-5-input", "react-select-4-input"):
+    """Ищет живой input «Вид выписки» рядом с extractDataRequestType1, не disabled."""
+
+    def _resolve(d):
         try:
-            el = WebDriverWait(drv, 2).until(
-                EC.presence_of_element_located(("xpath", f"//input[@id='{input_id}']"))
+            el = d.execute_script(
+                """
+                const rootId = arguments[0];
+                const root = document.getElementById(rootId)
+                    || document.querySelector(`[id="${rootId}"]`);
+                const containers = [];
+                if (root) {
+                    containers.push(
+                        root.closest('.rros-ui-lib-dropdown-wrapper')
+                        || root.closest('.rros-ui-lib-input-wrapper')
+                        || root
+                    );
+                }
+                // Подпись «Вид выписки» — запасной якорь, если id контейнера сменился.
+                for (const label of document.querySelectorAll('.rros-ui-lib-input-label')) {
+                    const text = (label.textContent || '').replace(/\\s+/g, ' ').trim();
+                    if (text === 'Вид выписки') {
+                        const wrap = label.closest('.rros-ui-lib-dropdown-wrapper')
+                            || label.closest('.rros-ui-lib-input-wrapper')
+                            || label.parentElement;
+                        if (wrap) containers.push(wrap);
+                    }
+                }
+                for (const container of containers) {
+                    if (!container) continue;
+                    const candidates = Array.from(
+                        container.querySelectorAll("input[id^='react-select-'][id$='-input']")
+                    );
+                    for (const inp of candidates) {
+                        if (inp.disabled) continue;
+                        const style = window.getComputedStyle(inp);
+                        const visible =
+                            style.visibility !== 'hidden'
+                            && style.display !== 'none'
+                            && (inp.offsetWidth || inp.offsetHeight || inp.getClientRects().length);
+                        if (visible) return inp;
+                    }
+                }
+                // Последний фолбэк: любой enabled/visible react-select на странице
+                // с placeholder «Выберите значение из справочника» рядом с «Вид выписки».
+                return null;
+                """,
+                _VIPISKA_DROPDOWN_ID,
             )
-            return el
-        except TimeoutException:
-            continue
-    return WebDriverWait(drv, timeout).until(
-        EC.presence_of_element_located(("xpath", "//input[@id='react-select-6-input']"))
-    )
+            return el if el else False
+        except Exception:
+            return False
+
+    try:
+        return WebDriverWait(drv, timeout).until(_resolve)
+    except TimeoutException:
+        pass
+
+    for input_id in _VIPISKA_FALLBACK_INPUT_IDS:
+        for el in drv.find_elements("xpath", f"//input[@id='{input_id}']"):
+            try:
+                if el.is_displayed() and el.is_enabled():
+                    return el
+            except Exception:
+                continue
+    raise TimeoutException("Поле «Вид выписки» (react-select) не найдено или disabled")
+
+
+def _send_keys_to_vipiska(drv, vipiska_input, keys):
+    try:
+        vipiska_input.send_keys(keys)
+    except ElementNotInteractableException:
+        ActionChains(drv).send_keys(keys).perform()
 
 
 def fill_vipiska_if_needed(drv, stage="vipiska"):
@@ -195,9 +268,17 @@ def fill_vipiska_if_needed(drv, stage="vipiska"):
         return True
 
     vipiska_input = _find_vipiska_input(drv)
-    drv.execute_script("arguments[0].scrollIntoView({block: 'center'}); arguments[0].click();", vipiska_input)
+    log_info(
+        "Найдено поле «Вид выписки»",
+        stage=stage,
+        input_id=vipiska_input.get_attribute("id"),
+    )
+    drv.execute_script(
+        "arguments[0].scrollIntoView({block: 'center'}); arguments[0].click();",
+        vipiska_input,
+    )
     time.sleep(0.5)
-    vipiska_input.send_keys(VIPISKA_TEXT)
+    _send_keys_to_vipiska(drv, vipiska_input, VIPISKA_TEXT) 
     log_info("Тип выписки введён", stage=stage)
     time.sleep(1)
 
@@ -213,9 +294,9 @@ def fill_vipiska_if_needed(drv, stage="vipiska"):
     except TimeoutException:
         pass
 
-    vipiska_input.send_keys(Keys.ARROW_DOWN)
+    _send_keys_to_vipiska(drv, vipiska_input, Keys.ARROW_DOWN)
     time.sleep(0.5)
-    vipiska_input.send_keys(Keys.ENTER)
+    _send_keys_to_vipiska(drv, vipiska_input, Keys.ENTER)
     time.sleep(1)
     log_info("Тип выписки выбран ARROW_DOWN+ENTER", stage=stage)
     if is_vipiska_filled(drv):

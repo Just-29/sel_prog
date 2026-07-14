@@ -31,12 +31,12 @@ from .documents import (
     is_form_ready_for_submit,
     is_vipiska_filled,
 )
-from .logging_utils import log_error, log_exception, log_info, log_warning, save_selenium_note
+from .logging_utils import log_error, log_info, log_warning, save_selenium_note
 from .login import login_funct
 from .session import (
     close_modal_window,
     delete_local_csv_file,
-    is_page_loaded,
+    ensure_form_page_ready,
     record_file_send_failure,
     recover_session_if_expired,
 )
@@ -89,30 +89,9 @@ def run_processing_loop(driver, wait):
                     file_ctx["page_loaded"] = False
                     continue
 
-                form_ready = False
-
-                if not file_ctx["page_loaded"]:
-                    if not is_page_loaded(driver):
-                        log_warning("Страница не загружена полностью, ожидание readyState", stage=stage, driver=driver)
-                        try:
-                            wait.until(lambda d: d.execute_script("return document.readyState") == "complete")
-                        except Exception as e:
-                            log_exception(stage, e, driver=driver, message="Таймаут ожидания загрузки страницы")
-
-                    try:
-                        driver.get("https://lk.rosreestr.ru/eservices/request-info-from-egrn/real-estate-object-or-its-rightholder")
-                        log_info("Переход на страницу поиска по ЕГРН", stage="applicant_category", file=upload_file.name)
-                        time.sleep(10)
-                        file_ctx["page_loaded"] = True
-                    except Exception as e:
-                        on_file_failure("не удалось открыть страницу формы", exc=e)
-                        continue
-                else:
-                    log_info(
-                        "Страница уже открыта, повторная загрузка не требуется",
-                        stage=stage, file=upload_file.name,
-                    )
-                    close_address_modals(driver, stage="address")
+                if not ensure_form_page_ready(driver, stage="applicant_category", file_ctx=file_ctx):
+                    on_file_failure("страница формы не готова к заполнению", failure_stage="applicant_category")
+                    continue
 
                 form_ready = is_form_ready_for_submit(driver)
                 if form_ready:
